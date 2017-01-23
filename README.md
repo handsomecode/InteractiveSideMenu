@@ -16,7 +16,7 @@ It supports following customization:
 ##CocoaPods
 To install it through [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 ```
-pod 'InteractiveSideMenu'
+pod 'InteractiveSideMenu', :git => 'https://github.com/handsomecode/InteractiveSideMenu.git'
 ```
 
 ##Carthage
