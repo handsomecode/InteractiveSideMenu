@@ -92,7 +92,7 @@ menuContainerViewController.hideMenu()
 }
   ```
 
- See [Sample](.Sample/) for more details.
+ See [Sample](./Sample) for more details.
 
 # Requirements
 - iOS 8.0+
