@@ -40,7 +40,7 @@ To setup your side menu you shoud do 3 things:
 ```swift
 import InteractiveSideMenu
 
-class MainContainerViewController: MenuContainerViewController {
+class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
