@@ -1,8 +1,12 @@
 #Interactive Side Menu
+
+[![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
+[![Support Dependecy Manager](https://img.shields.io/badge/support-CocoaPods | Carthage-green.svg?style=flat)](https://img.shields.io/badge/support-CocoaPods | Carthage-green.svg?style=flat)
+[![License](https://img.shields.io/hexpm/l/plug.svg)](./LICENSE)
+
 iOS Interactive Side Menu written in Swift. 
 
-![sample1](Screenshots/InteractiveSideMenu1.gif)
-![sample2](Screenshots/InteractiveSideMenu2.gif)
+![sample](Screenshots/InteractiveSideMenu.gif)
 
 It supports following customization:
 - Animation duration
@@ -16,7 +20,7 @@ It supports following customization:
 ##CocoaPods
 To install it through [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 ```
-pod 'InteractiveSideMenu', :git => 'https://github.com/handsomecode/InteractiveSideMenu.git'
+pod 'InteractiveSideMenu'
 ```
 
 ##Carthage
