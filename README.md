@@ -1,4 +1,4 @@
-#Interactive Side Menu
+# Interactive Side Menu
 
 [![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -15,22 +15,22 @@ It supports following customization:
 - Using spring animation with params customization
 - Animation options like animation curve
 
-#Installation
+# Installation
 
-##CocoaPods
+## CocoaPods
 To install it through [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 ```
 pod 'InteractiveSideMenu'
 ```
 
-##Carthage
+## Carthage
 To install it through [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
 ```
 github "handsomecode/InteractiveSideMenu"
 ```
 
 
-#Usage
+# Usage
 You should use 3 basic ViewControllers for creating subclasses for implementing your side menu.
 - ```MenuContainerViewController``` is a host for menu and content views
 - ```MenuViewController``` is a container for menu view
