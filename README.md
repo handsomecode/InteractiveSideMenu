@@ -1,7 +1,7 @@
 #Interactive Side Menu
 
 [![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
-[![Support Dependecy Manager](https://img.shields.io/badge/support-CocoaPods | Carthage-green.svg?style=flat)](https://img.shields.io/badge/support-CocoaPods | Carthage-green.svg?style=flat)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](./LICENSE)
 
 iOS Interactive Side Menu written in Swift. 
