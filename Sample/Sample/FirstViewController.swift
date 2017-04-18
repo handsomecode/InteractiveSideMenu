@@ -22,6 +22,6 @@ import InteractiveSideMenu
 class FirstViewController: MenuItemContentViewController {
     
     @IBAction func didOpenMenu(_ sender: UIButton) {
-        showMenu()
+        showSideMenu()
     }
 }

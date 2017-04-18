@@ -24,7 +24,7 @@ open class MenuItemContentViewController: UIViewController {
         return self.parent as! MenuContainerViewController
     }
     
-    public func showMenu() {
-        menuContainerViewController.showMenu()
+    public func showSideMenu() {
+        menuContainerViewController.showSideMenu()
     }
 }

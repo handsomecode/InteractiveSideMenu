@@ -56,11 +56,11 @@ open class MenuContainerViewController: UIViewController {
         self.view.addGestureRecognizer(screenEdgePanRecognizer)
     }
     
-    public func showMenu() {
+    public func showSideMenu() {
         presentNavigationMenu()
     }
     
-    public func hideMenu() {
+    public func hideSideMenu() {
         self.dismiss(animated: true, completion: nil)
     }
     

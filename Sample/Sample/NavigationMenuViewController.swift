@@ -57,7 +57,7 @@ extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSour
         DispatchQueue.main.async {
             guard let menuContainerViewController = self.menuContainerViewController else { return }
             menuContainerViewController.selectContentViewController(menuContainerViewController.contentViewControllers[indexPath.row])
-            menuContainerViewController.hideMenu()
+            menuContainerViewController.hideSideMenu()
         }
     }
 }

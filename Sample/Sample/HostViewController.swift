@@ -37,8 +37,8 @@ class HostViewController: MenuContainerViewController {
     
     override func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
         return TransitionOptionsBuilder() { builder in
-            builder.duration = 0.5
-            builder.contentScale = 1
+            builder.duration = 0.6
+            builder.contentScale = 0.9
         }
     }
     

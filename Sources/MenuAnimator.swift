@@ -97,6 +97,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     typealias Action = () -> ()
     
     //MARK: - Properties
+    //
     var present: Bool = false
     var interactionInProgress: Bool = false
     
@@ -104,7 +105,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     private var scaleDiff: CGFloat!
     private var visibleContentWidth: CGFloat!
     private var useFinishingSpringOption: Bool!
-    private var useCancelingSpringOption: Bool!
+    private var useCancellingSpringOption: Bool!
     private var finishingSpringOption: SpringOption!
     private var cancelingSpringOption: SpringOption!
     private var animationOptions: UIViewAnimationOptions!
@@ -132,13 +133,14 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         self.scaleDiff = 1 - options.contentScale
         self.visibleContentWidth = options.visibleContentWidth
         self.useFinishingSpringOption = options.useFinishingSpringOption
-        self.useCancelingSpringOption = options.useCancelingSpringOption
+        self.useCancellingSpringOption = options.useCancelingSpringOption
         self.finishingSpringOption = options.finishingSpringOption
         self.cancelingSpringOption = options.cancelingSpringOption
         self.animationOptions = options.animationOptions
     }
     
     //MARK: - Delegate methods
+    //
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         startTransition(transitionContext: transitionContext)
     }
@@ -165,6 +167,8 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         handlePan(recognizer: recognizer)
     }
 
+    //MARK: - Private methods
+    //
     private func createSnapshotView(from: UIView) -> UIView {
         let snapshotView = from.snapshotView(afterScreenUpdates: true)!
         snapshotView.frame = from.frame
@@ -330,11 +334,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             }
         }
         
-        guard let useCancelingSpringOption = self.useCancelingSpringOption else {
+        guard let useCancellingSpringOption = self.useCancellingSpringOption else {
             return
         }
         
-        if useCancelingSpringOption {
+        if useCancellingSpringOption {
             UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
                            delay: 0,
                            usingSpringWithDamping: present ? cancelingSpringOption.presentSpringParams.dampingRatio : cancelingSpringOption.dismissSpringParams.dampingRatio,
@@ -406,6 +410,6 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         
             default:
                 break
-            }
         }
+    }
 }

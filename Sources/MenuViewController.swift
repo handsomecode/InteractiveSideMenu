@@ -24,7 +24,7 @@ open class MenuViewController: UIViewController {
     var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
         
     func handleTap(recognizer: UIGestureRecognizer){
-        menuContainerViewController?.hideMenu()
+        menuContainerViewController?.hideSideMenu()
     }
 }
 
