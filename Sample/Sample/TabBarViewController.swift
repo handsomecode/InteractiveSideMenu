@@ -1,5 +1,5 @@
 //
-// FirstViewController.swift
+// SecondViewController.swift
 //
 // Copyright 2017 Handsome LLC
 //
@@ -19,9 +19,27 @@
 import UIKit
 import InteractiveSideMenu
 
-class FirstViewController: MenuItemContentViewController {
-    
+class TabBarViewController: UITabBarController, SideMenuItemContent {
+
+}
+
+class FirstViewController: UIViewController {
+
     @IBAction func didOpenMenu(_ sender: UIButton) {
-        showSideMenu()
+        if let menuItemViewController = self.tabBarController as? SideMenuItemContent {
+            menuItemViewController.showSideMenu()
+        }
     }
 }
+
+class SecondViewController: UIViewController {
+
+    @IBAction func didOpenMenu(_ sender: UIButton) {
+        if let menuItemViewController = self.tabBarController as? SideMenuItemContent {
+            menuItemViewController.showSideMenu()
+        }
+    }
+}
+
+
+

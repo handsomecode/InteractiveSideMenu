@@ -11,10 +11,10 @@
 		881EF0AD1E3102E30035DEB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881EF0AB1E3102E30035DEB4 /* Main.storyboard */; };
 		881EF0AF1E3102E30035DEB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 881EF0AE1E3102E30035DEB4 /* Assets.xcassets */; };
 		881EF0B21E3102E30035DEB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881EF0B01E3102E30035DEB4 /* LaunchScreen.storyboard */; };
-		881EF0BD1E31037D0035DEB4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0B91E31037D0035DEB4 /* FirstViewController.swift */; };
+		881EF0BD1E31037D0035DEB4 /* KittyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0B91E31037D0035DEB4 /* KittyViewController.swift */; };
 		881EF0BE1E31037D0035DEB4 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BA1E31037D0035DEB4 /* HostViewController.swift */; };
 		881EF0BF1E31037D0035DEB4 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */; };
-		881EF0C01E31037D0035DEB4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BC1E31037D0035DEB4 /* SecondViewController.swift */; };
+		9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,11 +41,11 @@
 		881EF0AE1E3102E30035DEB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		881EF0B11E3102E30035DEB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		881EF0B31E3102E30035DEB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		881EF0B91E31037D0035DEB4 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		881EF0B91E31037D0035DEB4 /* KittyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KittyViewController.swift; sourceTree = "<group>"; };
 		881EF0BA1E31037D0035DEB4 /* HostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HostViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
-		881EF0BC1E31037D0035DEB4 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		881EF0C21E31049C0035DEB4 /* InteractiveSideMenu.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InteractiveSideMenu.xcodeproj; path = ../InteractiveSideMenu.xcodeproj; sourceTree = "<group>"; };
+		9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +94,8 @@
 		881EF0C11E3103A80035DEB4 /* MenuContentScreens */ = {
 			isa = PBXGroup;
 			children = (
-				881EF0B91E31037D0035DEB4 /* FirstViewController.swift */,
-				881EF0BC1E31037D0035DEB4 /* SecondViewController.swift */,
+				881EF0B91E31037D0035DEB4 /* KittyViewController.swift */,
+				9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */,
 			);
 			name = MenuContentScreens;
 			sourceTree = "<group>";
@@ -197,10 +197,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				881EF0C01E31037D0035DEB4 /* SecondViewController.swift in Sources */,
-				881EF0BD1E31037D0035DEB4 /* FirstViewController.swift in Sources */,
+				881EF0BD1E31037D0035DEB4 /* KittyViewController.swift in Sources */,
 				881EF0BE1E31037D0035DEB4 /* HostViewController.swift in Sources */,
 				881EF0BF1E31037D0035DEB4 /* NavigationMenuViewController.swift in Sources */,
+				9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */,
 				881EF0A81E3102E30035DEB4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,7 +31,7 @@ class HostViewController: MenuContainerViewController {
         menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
         
         contentViewControllers = contentControllers()
-        
+
         selectContentViewController(contentViewControllers.first!)
     }
     
@@ -42,10 +42,14 @@ class HostViewController: MenuContainerViewController {
         }
     }
     
-    private func contentControllers() -> [MenuItemContentViewController] {
-        var contentList = [MenuItemContentViewController]()
-        contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "First") as! MenuItemContentViewController)
-        contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "Second") as! MenuItemContentViewController)
+    private func contentControllers() -> [UIViewController] {
+        let controllersIdentifiers = ["Kitty", "TabBar"]
+        var contentList = [UIViewController]()
+        for identifier in controllersIdentifiers {
+            if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
+                contentList.append(viewController)
+            }
+        }
         return contentList
     }
 }

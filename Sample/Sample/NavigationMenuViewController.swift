@@ -23,7 +23,7 @@ class NavigationMenuViewController: MenuViewController {
 
     let kItemsCount = 2
     let kCellReuseIdentifier = "UITableViewCell"
-    let cats = ["Smiling Cat", "Surprised Cat"]
+    let cats = ["Kitty", "TabBar cats"]
 
     @IBOutlet weak var tableView: UITableView!
     
