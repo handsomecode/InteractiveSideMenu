@@ -28,9 +28,9 @@ open class MenuContainerViewController: UIViewController {
         }
     }
     
-    public var contentViewControllers: [MenuItemContentViewController]!
+    public var contentViewControllers: [UIViewController]!
     
-    private weak var currentContentViewController: MenuItemContentViewController?
+    private weak var currentContentViewController: UIViewController?
     private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
     
     open func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
@@ -56,7 +56,7 @@ open class MenuContainerViewController: UIViewController {
         self.view.addGestureRecognizer(screenEdgePanRecognizer)
     }
     
-    public func showSideMenu() {
+    public func showMenu() {
         presentNavigationMenu()
     }
     
@@ -64,7 +64,7 @@ open class MenuContainerViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    public func selectContentViewController(_ selectedContentVC: MenuItemContentViewController) {
+    public func selectContentViewController(_ selectedContentVC: UIViewController) {
         if let currentContentVC = self.currentContentViewController {
             if currentContentVC != selectedContentVC {
                 currentContentVC.view.removeFromSuperview()

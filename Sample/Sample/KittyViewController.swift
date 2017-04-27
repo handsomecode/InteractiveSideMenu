@@ -1,5 +1,5 @@
 //
-// SecondViewController.swift
+// FirstViewController.swift
 //
 // Copyright 2017 Handsome LLC
 //
@@ -19,7 +19,7 @@
 import UIKit
 import InteractiveSideMenu
 
-class SecondViewController: MenuItemContentViewController {
+class KittyViewController: UIViewController, SideMenuItemContent {
     
     @IBAction func didOpenMenu(_ sender: UIButton) {
         showSideMenu()

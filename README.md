@@ -31,10 +31,12 @@ github "handsomecode/InteractiveSideMenu"
 
 
 # Usage
-You should use 3 basic ViewControllers for creating subclasses for implementing your side menu.
+You should use basic ViewControllers for creating subclasses for implementing your side menu.
 - ```MenuContainerViewController``` is a host for menu and content views
 - ```MenuViewController``` is a container for menu view
-- ```MenuItemContentControlller``` is a container for content that corresponds menu item
+
+Also you should ensure that every menu item ViewController adopts relevant protocol. 
+- ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
 
 To setup your side menu you shoud do 3 things:
 - Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
@@ -48,11 +50,8 @@ class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
-
-		contentViewControllers = contentControllers()
-
+	contentViewControllers = contentControllers()
         selectContentViewController(contentViewControllers.first!)
     }
 
@@ -61,18 +60,18 @@ class HostViewController: MenuContainerViewController {
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "First") as! MenuItemContentViewController)
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "Second") as! MenuItemContentViewController)
     	return contentList
-	}
+    }
 }
 ```
 
-To show menu you should call ```showMenu()``` method that is available in MenuItemContentViewController class.
+To show menu you should call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
 ```swift
 import InteractiveSideMenu
 
-class FirstViewController: MenuItemContentViewController {
+class KittyViewController: UIViewController, SideMenuItemContent {
     
     @IBAction func didOpenMenu(_ sender: UIButton) {
-        showMenu()
+        showSideMenu()
     }
 }
 ``` 

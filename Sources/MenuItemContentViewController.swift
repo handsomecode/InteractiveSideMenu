@@ -18,13 +18,16 @@
 
 import UIKit
 
-open class MenuItemContentViewController: UIViewController {
-    
-    private var menuContainerViewController: MenuContainerViewController {
-        return self.parent as! MenuContainerViewController
-    }
-    
+public protocol SideMenuItemContent {
+
+    func showSideMenu()
+}
+
+extension SideMenuItemContent where Self: UIViewController {
+
     public func showSideMenu() {
-        menuContainerViewController.showSideMenu()
+        if let menuContainerViewController = self.parent as? MenuContainerViewController {
+            menuContainerViewController.showMenu()
+        }
     }
 }
