@@ -1,21 +1,21 @@
 # Change Log
-All notable changes to this library will be documented in this file.
+All notable changes to the library will be documented in this file.
 
 ## [Unreleased]
 ### Added
-- Added UITabBarController and UINavigationController menu items support
-- Rotation support
-- Right SideMenu support
+- UITabBarController and UINavigationController menu items support
+- Rotation support (plan)
+- Right SideMenu support (plan)
 - CHANGELOG file
 
 ### Changed
-- Renamed `showMenu()` method to `showSideMenu()`
+- Renamed `showMenu()`/`hideMenu()` methods to `showSideMenu()`/`hideSideMenu()`
 
 ### Fixed
-- Fixed displayng horizontal images in Sample
+- Displaying horizontal images in [Sample](./Sample)
 
-*Migration note:* To mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance.
-To show menu you should call `showSideMenu()` method from `SideMenuItemContent` protocol.
+**Migration note:** to mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance.
+To show menu you should call `showSideMenu()` method from this protocol.
 ```swift
 import InteractiveSideMenu
 
@@ -29,8 +29,8 @@ class KittyViewController: UIViewController, SideMenuItemContent {
 
 ## 1.0 - 2017-01-23
 ### Added
-- LeftSideMenu with possibility to customize menu animation and content size
+- LeftSideMenu with possibility to customize menu animation and content    
 - Sample demonstrating using SideMenu library
 - README file
 
-[2.0]: https://github.com/handsomecode/InteractiveSideMenu/compare/master...feature/nav_and_tab_controllers_support
+[Unreleased]: https://github.com/handsomecode/InteractiveSideMenu/compare/master...feature/nav_and_tab_controllers_support
