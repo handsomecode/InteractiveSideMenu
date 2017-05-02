@@ -56,7 +56,7 @@ open class MenuContainerViewController: UIViewController {
         self.view.addGestureRecognizer(screenEdgePanRecognizer)
     }
     
-    public func showMenu() {
+    public func showSideMenu() {
         presentNavigationMenu()
     }
     
@@ -71,7 +71,6 @@ open class MenuContainerViewController: UIViewController {
                 currentContentVC.removeFromParentViewController()
                 
                 self.currentContentViewController = selectedContentVC
-                
                 setCurrentView()
             }
         } else {

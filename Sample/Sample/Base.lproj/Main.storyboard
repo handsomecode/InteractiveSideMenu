@@ -124,9 +124,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="surprised cat" translatesAutoresizingMaskIntoConstraints="NO" id="Bnb-ow-Hxx">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="surprised cat" translatesAutoresizingMaskIntoConstraints="NO" id="Bnb-ow-Hxx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERA-XQ-g0N">
                                 <rect key="frame" x="6" y="20" width="44" height="44"/>
@@ -142,7 +141,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Bnb-ow-Hxx" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" id="Tby-NP-ybX"/>
                             <constraint firstItem="ERA-XQ-g0N" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" constant="6" id="ZVL-kv-kNf"/>
+                            <constraint firstAttribute="trailing" secondItem="Bnb-ow-Hxx" secondAttribute="trailing" id="dmN-Fb-ZHD"/>
+                            <constraint firstAttribute="bottom" secondItem="Bnb-ow-Hxx" secondAttribute="bottom" id="loX-cs-71k"/>
+                            <constraint firstItem="Bnb-ow-Hxx" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="sEV-X9-tvK"/>
                             <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="8Tr-i3-2u6" secondAttribute="bottom" id="zGx-Xo-G3z"/>
                         </constraints>
                     </view>
@@ -164,9 +167,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="smiling cat" translatesAutoresizingMaskIntoConstraints="NO" id="YaS-Hu-v7i">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smiling cat" translatesAutoresizingMaskIntoConstraints="NO" id="YaS-Hu-v7i">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I55-bD-oRY">
                                 <rect key="frame" x="6" y="20" width="44" height="44"/>
@@ -182,7 +184,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YaS-Hu-v7i" firstAttribute="top" secondItem="j8y-r6-qLd" secondAttribute="top" id="7oR-ES-nep"/>
+                            <constraint firstItem="YaS-Hu-v7i" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" id="CXm-j9-YtU"/>
+                            <constraint firstAttribute="trailing" secondItem="YaS-Hu-v7i" secondAttribute="trailing" id="EvG-Dg-g4R"/>
                             <constraint firstItem="I55-bD-oRY" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" constant="6" id="haG-Lj-wf2"/>
+                            <constraint firstAttribute="bottom" secondItem="YaS-Hu-v7i" secondAttribute="bottom" id="ue3-0f-oZM"/>
                             <constraint firstItem="I55-bD-oRY" firstAttribute="top" secondItem="keO-eE-tO7" secondAttribute="bottom" id="wGq-iT-MD9"/>
                         </constraints>
                     </view>
