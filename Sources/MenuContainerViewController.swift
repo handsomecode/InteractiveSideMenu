@@ -55,6 +55,21 @@ open class MenuContainerViewController: UIViewController {
         screenEdgePanRecognizer.edges = .left
         self.view.addGestureRecognizer(screenEdgePanRecognizer)
     }
+
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        print("MenuContainerViewController::viewWillTransition to: \(size)")
+        coordinator.animate(alongsideTransition: { _ in
+            self.hideSideMenu()
+        }, completion: { _ in
+            let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
+            let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
+            self.menuViewController.view.bounds = viewBounds
+            self.menuViewController.view.center = viewCenter
+            self.view.bounds = viewBounds
+            self.view.center = viewCenter
+        })
+    }
     
     public func showSideMenu() {
         presentNavigationMenu()
