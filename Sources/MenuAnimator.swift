@@ -118,31 +118,32 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     var present: Bool = false
     var interactionInProgress: Bool = false
 
-    private var transitionDurationPortrait: TimeInterval!
-    private var transitionDurationLandscape: TimeInterval!
-    private var transitionDuration: TimeInterval! {
+    private let transitionDurationPortrait: TimeInterval
+    private let transitionDurationLandscape: TimeInterval
+    private var transitionDuration: TimeInterval {
         return UIDevice.current.orientation.isPortrait ? transitionDurationPortrait : transitionDurationLandscape
     }
 
-    private var visibleContentWidthPortrait: CGFloat!
-    private var visibleContentWidthLandscape: CGFloat!
-    private var visibleContentWidth: CGFloat! {
+    private let visibleContentWidthPortrait: CGFloat
+    private let visibleContentWidthLandscape: CGFloat
+    private var visibleContentWidth: CGFloat {
         return UIDevice.current.orientation.isPortrait ? visibleContentWidthPortrait : visibleContentWidthLandscape
     }
 
-    private var contentScalePortrait: CGFloat!
-    private var contentScaleLandscape: CGFloat!
-    private var scaleDiff: CGFloat! {
+    private let contentScalePortrait: CGFloat
+    private let contentScaleLandscape: CGFloat
+    private var scaleDiff: CGFloat {
         return 1 - (UIDevice.current.orientation.isPortrait ? contentScalePortrait : contentScaleLandscape)
     }
-    private var useFinishingSpringOption: Bool!
-    private var useCancellingSpringOption: Bool!
-    private var finishingSpringOption: SpringOption!
-    private var cancelingSpringOption: SpringOption!
-    private var animationOptions: UIViewAnimationOptions!
+
+    private let useFinishingSpringOption: Bool
+    private let useCancellingSpringOption: Bool
+    private let finishingSpringOption: SpringOption
+    private let cancelingSpringOption: SpringOption
+    private let animationOptions: UIViewAnimationOptions
     
-    private var presentAction: Action!
-    private var dismissAction: Action!
+    private let presentAction: Action
+    private let dismissAction: Action
     
     private var transitionShouldStarted = false
     private var transitionStarted = false
@@ -153,8 +154,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     private var panRecognizer: UIPanGestureRecognizer!
     
     required init(presentAction: @escaping Action, dismissAction: @escaping Action, transitionOptionsBuilder: TransitionOptionsBuilder? = nil) {
-        super.init()
-  
+
         self.presentAction = presentAction
         self.dismissAction = dismissAction
         
@@ -171,6 +171,9 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         self.finishingSpringOption = options.finishingSpringOption
         self.cancelingSpringOption = options.cancelingSpringOption
         self.animationOptions = options.animationOptions
+
+        super.init()
+
     }
     
     //MARK: - Delegate methods
@@ -235,11 +238,14 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         if present {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
 
-            self.tapRecognizer = UITapGestureRecognizer(target: toViewController as! MenuViewController,
+            if self.tapRecognizer == nil {
+
+                self.tapRecognizer = UITapGestureRecognizer(target: toViewController as! MenuViewController,
                                                         action: #selector(MenuViewController.handleTap(recognizer:)))
-            
-            self.panRecognizer = UIPanGestureRecognizer(target: self,
+
+                self.panRecognizer = UIPanGestureRecognizer(target: self,
                                                         action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
+            }
 
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
             containerView.addSubview(contentSnapshotView)
@@ -323,10 +329,6 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             }
         }
         
-        guard let useFinishingSpringOption = self.useFinishingSpringOption else {
-            return
-        }
-        
         if useFinishingSpringOption {
             UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
                            delay: 0,
@@ -366,10 +368,6 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 
                 transition.transitionContext.completeTransition(false)
             }
-        }
-        
-        guard let useCancellingSpringOption = self.useCancellingSpringOption else {
-            return
         }
         
         if useCancellingSpringOption {
