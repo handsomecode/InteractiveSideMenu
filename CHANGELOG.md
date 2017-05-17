@@ -4,7 +4,7 @@ All notable changes to the library will be documented in this file.
 ## [Unreleased]
 ### Added
 - UITabBarController and UINavigationController menu items support
-- Rotation support (plan)
+- Rotation support
 - Right SideMenu support (plan)
 - CHANGELOG file
 
