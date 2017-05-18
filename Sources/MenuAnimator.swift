@@ -28,14 +28,6 @@ public class TransitionOptionsBuilder {
         }
     }
 
-    public var durationLandscape: TimeInterval = 0.8 {
-        willSet(newDuration) {
-            if(newDuration < 0) {
-                fatalError("Invalid duration value (\(newDuration)). It must be non negative")
-            }
-        }
-    }
-    
     public var contentScale: CGFloat = 0.88 {
         willSet(newContentScale) {
             if(newContentScale < 0) {
@@ -44,16 +36,7 @@ public class TransitionOptionsBuilder {
         }
     }
 
-    public var contentScaleLandscape: CGFloat = 0.92 {
-        willSet(newContentScale) {
-            if(newContentScale < 0) {
-                fatalError("Invalid contentScale value (\(newContentScale)). It must be non negative")
-            }
-        }
-    }
-    
     public var visibleContentWidth: CGFloat = 56.0
-    public var visibleContentWidthLandscape: CGFloat = 80.0
     public var useFinishingSpringOption = true
     public var useCancelingSpringOption = true
     public var finishingSpringOption = SpringOption(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
@@ -118,24 +101,9 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     var present: Bool = false
     var interactionInProgress: Bool = false
 
-    private let transitionDurationPortrait: TimeInterval
-    private let transitionDurationLandscape: TimeInterval
-    private var transitionDuration: TimeInterval {
-        return UIDevice.current.orientation.isPortrait ? transitionDurationPortrait : transitionDurationLandscape
-    }
-
-    private let visibleContentWidthPortrait: CGFloat
-    private let visibleContentWidthLandscape: CGFloat
-    private var visibleContentWidth: CGFloat {
-        return UIDevice.current.orientation.isPortrait ? visibleContentWidthPortrait : visibleContentWidthLandscape
-    }
-
-    private let contentScalePortrait: CGFloat
-    private let contentScaleLandscape: CGFloat
-    private var scaleDiff: CGFloat {
-        return 1 - (UIDevice.current.orientation.isPortrait ? contentScalePortrait : contentScaleLandscape)
-    }
-
+    private let transitionDuration: TimeInterval
+    private let visibleContentWidth: CGFloat
+    private var scaleDiff: CGFloat
     private let useFinishingSpringOption: Bool
     private let useCancellingSpringOption: Bool
     private let finishingSpringOption: SpringOption
@@ -160,20 +128,16 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         
         let options = transitionOptionsBuilder ?? TransitionOptionsBuilder.defaultOptionsBuilder()
         
-        self.transitionDurationPortrait = options.duration
-        self.transitionDurationLandscape = options.durationLandscape
-        self.contentScalePortrait = options.contentScale
-        self.contentScaleLandscape = options.contentScaleLandscape
-        self.visibleContentWidthPortrait = options.visibleContentWidth
-        self.visibleContentWidthLandscape = options.visibleContentWidthLandscape
+        self.transitionDuration = options.duration
+        self.scaleDiff = 1 - options.contentScale
+        self.visibleContentWidth = options.visibleContentWidth
         self.useFinishingSpringOption = options.useFinishingSpringOption
         self.useCancellingSpringOption = options.useCancelingSpringOption
         self.finishingSpringOption = options.finishingSpringOption
         self.cancelingSpringOption = options.cancelingSpringOption
         self.animationOptions = options.animationOptions
-
+        
         super.init()
-
     }
     
     //MARK: - Delegate methods
@@ -240,9 +204,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
 
             if self.tapRecognizer == nil {
 
-                self.tapRecognizer = UITapGestureRecognizer(target: toViewController as! MenuViewController,
-                                                        action: #selector(MenuViewController.handleTap(recognizer:)))
-
+                guard toViewController is MenuViewController else {
+                    preconditionFailure("Invalid 'toViewController' type. It must be MenuViewController.")
+                }
+                self.tapRecognizer = UITapGestureRecognizer(target: toViewController,
+                                                            action: #selector(MenuViewController.handleTap(recognizer:)))
                 self.panRecognizer = UIPanGestureRecognizer(target: self,
                                                         action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
             }

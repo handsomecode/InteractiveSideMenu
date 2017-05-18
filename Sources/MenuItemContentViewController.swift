@@ -19,7 +19,6 @@
 import UIKit
 
 public protocol SideMenuItemContent {
-
     func showSideMenu()
 }
 
