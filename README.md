@@ -78,22 +78,22 @@ class KittyViewController: UIViewController, SideMenuItemContent {
 
 To change content view you should choose desired content controller and hide menu.
 ```swift
-let index = 2 // second menu item
-guard let menuContainerViewController = self.menuContainerViewController else { return }
-let contentController = menuContainerViewController.contentViewControllers[index]
-menuContainerViewController.selectContentViewController(contentController)
-menuContainerViewController.hideMenu()
+    let index = 2 // second menu item
+    guard let menuContainerViewController = self.menuContainerViewController else { return }
+    let contentController = menuContainerViewController.contentViewControllers[index]
+    menuContainerViewController.selectContentViewController(contentController)
+    menuContainerViewController.hideMenu()
  ```
 
- To customize animation for menu opening or closing you should override ```menuTransitionOptionsBuilder()``` method that is available in ```MenuContainerViewColtroller``` class.
+To customize animation for menu opening or closing you should override ```menuTransitionOptions()``` method that is available in ```MenuContainerViewColtroller``` class.
  ```swift
- override func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
-    return TransitionOptionsBuilder() { builder in
-        builder.duration = 0.5
-        builder.contentScale = 1
-    }
+override func menuTransitionOptions() -> TransitionOptions? {
+    var options = TransitionOptions(duration: 0.4, contentScale: 0.9)
+    options.useFinishingSpringOption = false
+    options.useCancelingSpringOption = false
+    return options
 }
-  ```
+```
 
  See [Sample](./Sample) for more details.
 

@@ -35,11 +35,11 @@ class HostViewController: MenuContainerViewController {
         selectContentViewController(contentViewControllers.first!)
     }
     
-    override func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
-        return TransitionOptionsBuilder() { builder in
-            builder.duration = 0.6
-            builder.contentScale = 0.9
-        }
+    override func menuTransitionOptions() -> TransitionOptions? {
+        var options = TransitionOptions(duration: 0.4, contentScale: 0.9)
+        options.useFinishingSpringOption = false
+        options.useCancelingSpringOption = false
+        return options
     }
     
     private func contentControllers() -> [UIViewController] {

@@ -14,7 +14,9 @@ All notable changes to the library will be documented in this file.
 ### Fixed
 - Displaying horizontal images in [Sample](./Sample)
 
-**Migration note:** to mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance.
+**Migration notes**
+
+- To mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance.
 To show menu you should call `showSideMenu()` method from this protocol.
 ```swift
 import InteractiveSideMenu
@@ -24,6 +26,15 @@ class KittyViewController: UIViewController, SideMenuItemContent {
     @IBAction func didOpenMenu(_ sender: UIButton) {
         showSideMenu()
     }
+}
+```
+- To set custom animation options you should now override ```menuTransitionOptions()``` method from ```MenuContainerViewColtroller``` class.
+```swift
+override func menuTransitionOptions() -> TransitionOptions? {
+    var options = TransitionOptions(duration: 0.4, contentScale: 0.9)
+    options.useFinishingSpringOption = false
+    options.useCancelingSpringOption = false
+    return options
 }
 ```
 

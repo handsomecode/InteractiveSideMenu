@@ -33,10 +33,10 @@ open class MenuContainerViewController: UIViewController {
     private weak var currentContentViewController: UIViewController?
     private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
     
-    open func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
+    open func menuTransitionOptions() -> TransitionOptions? {
         return nil
     }
-    
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +44,7 @@ open class MenuContainerViewController: UIViewController {
         navigationMenuTransitionDelegate.interactiveTransition = MenuInteractiveTransition(
             presentAction: { [weak self] in self?.presentNavigationMenu() },
             dismissAction: { [weak self] in self?.dismiss(animated: true, completion: nil) },
-            transitionOptionsBuilder: menuTransitionOptionsBuilder()
+            transitionOptions: menuTransitionOptions()
         )
         
         let screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(

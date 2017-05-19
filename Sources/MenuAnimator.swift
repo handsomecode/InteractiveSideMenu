@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class TransitionOptionsBuilder {
+public struct TransitionOptions {
     
     public var duration: TimeInterval = 0.5 {
         willSet(newDuration) {
@@ -44,13 +44,41 @@ public class TransitionOptionsBuilder {
     public var cancelingSpringOption = SpringOption(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
                                                     dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
     public var animationOptions: UIViewAnimationOptions = .curveEaseInOut
-    
-    public init(building: (TransitionOptionsBuilder) -> Void) {
-        building(self)
+
+    public init() {
     }
-    
-    class func defaultOptionsBuilder() -> TransitionOptionsBuilder {
-        return TransitionOptionsBuilder(){_ in }
+
+    public init(duration: TimeInterval) {
+        self.duration = duration
+    }
+
+    public init(contentScale: CGFloat) {
+        self.contentScale = contentScale
+    }
+
+    public init(visibleContentWidth: CGFloat) {
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(duration: TimeInterval, contentScale: CGFloat) {
+        self.duration = duration
+        self.contentScale = contentScale
+    }
+
+    public init(duration: TimeInterval, visibleContentWidth: CGFloat) {
+        self.duration = duration
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(contentScale: CGFloat, visibleContentWidth: CGFloat) {
+        self.contentScale = contentScale
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(duration: TimeInterval, contentScale: CGFloat, visibleContentWidth: CGFloat) {
+        self.duration = duration
+        self.contentScale = contentScale
+        self.visibleContentWidth = visibleContentWidth
     }
 }
 
@@ -121,12 +149,12 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     private var tapRecognizer: UITapGestureRecognizer!
     private var panRecognizer: UIPanGestureRecognizer!
     
-    required init(presentAction: @escaping Action, dismissAction: @escaping Action, transitionOptionsBuilder: TransitionOptionsBuilder? = nil) {
+    required init(presentAction: @escaping Action, dismissAction: @escaping Action, transitionOptions: TransitionOptions? = nil) {
 
         self.presentAction = presentAction
         self.dismissAction = dismissAction
         
-        let options = transitionOptionsBuilder ?? TransitionOptionsBuilder.defaultOptionsBuilder()
+        let options = transitionOptions ?? TransitionOptions()
         
         self.transitionDuration = options.duration
         self.scaleDiff = 1 - options.contentScale
