@@ -92,6 +92,10 @@ open class MenuContainerViewController: UIViewController {
             setCurrentView()
         }
     }
+
+    public func updateMenuTransition(options: TransitionOptions) {
+        navigationMenuTransitionDelegate.interactiveTransition.updateTransition(options: options)
+    }
     
     private func setCurrentView() {
         self.addChildViewController(currentContentViewController!)

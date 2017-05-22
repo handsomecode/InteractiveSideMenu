@@ -38,6 +38,17 @@ override func menuTransitionOptions() -> TransitionOptions? {
 }
 ```
 
+- Now you have possibility to update customization settings using ```viewWillTransition(to:with:)``` mehod.
+```swift
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 5
+    updateMenuTransition(options: options)
+}
+```
+
 ## 1.0 - 2017-01-23
 ### Added
 - LeftSideMenu with possibility to customize menu animation and content    

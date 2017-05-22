@@ -95,6 +95,19 @@ override func menuTransitionOptions() -> TransitionOptions? {
 }
 ```
 
+Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and call ```updateMenuTransition(options:)``` with desired parameters.
+```swift
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 5
+    updateMenuTransition(options: options)
+}
+```
+
+Method ```updateMenuTransition(options:)``` could be called for setting different options for Compact and Regular sizes as well. Method ```traitCollectionDidChange(_: )``` should be used in this case.
+
  See [Sample](./Sample) for more details.
 
 # Requirements

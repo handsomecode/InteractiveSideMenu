@@ -36,12 +36,17 @@ class HostViewController: MenuContainerViewController {
     }
     
     override func menuTransitionOptions() -> TransitionOptions? {
-        var options = TransitionOptions(duration: 0.4, contentScale: 0.9)
-        options.useFinishingSpringOption = false
-        options.useCancelingSpringOption = false
-        return options
+        return TransitionOptions(duration: 0.4, contentScale: 0.9)
     }
-    
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        var options = TransitionOptions()
+        options.duration = size.width < size.height ? 0.4 : 0.6
+        options.visibleContentWidth = size.width / 5
+        updateMenuTransition(options: options)
+    }
+
     private func contentControllers() -> [UIViewController] {
         let controllersIdentifiers = ["Kitty", "TabBar"]
         var contentList = [UIViewController]()

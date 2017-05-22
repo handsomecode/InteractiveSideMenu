@@ -129,14 +129,14 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     var present: Bool = false
     var interactionInProgress: Bool = false
 
-    private let transitionDuration: TimeInterval
-    private let visibleContentWidth: CGFloat
+    private var transitionDuration: TimeInterval
+    private var visibleContentWidth: CGFloat
     private var scaleDiff: CGFloat
-    private let useFinishingSpringOption: Bool
-    private let useCancellingSpringOption: Bool
-    private let finishingSpringOption: SpringOption
-    private let cancelingSpringOption: SpringOption
-    private let animationOptions: UIViewAnimationOptions
+    private var useFinishingSpringOption: Bool
+    private var useCancellingSpringOption: Bool
+    private var finishingSpringOption: SpringOption
+    private var cancelingSpringOption: SpringOption
+    private var animationOptions: UIViewAnimationOptions
     
     private let presentAction: Action
     private let dismissAction: Action
@@ -166,6 +166,17 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         self.animationOptions = options.animationOptions
         
         super.init()
+    }
+
+    func updateTransition(options: TransitionOptions) {
+        self.transitionDuration = options.duration
+        self.scaleDiff = 1 - options.contentScale
+        self.visibleContentWidth = options.visibleContentWidth
+        self.useFinishingSpringOption = options.useFinishingSpringOption
+        self.useCancellingSpringOption = options.useCancelingSpringOption
+        self.finishingSpringOption = options.finishingSpringOption
+        self.cancelingSpringOption = options.cancelingSpringOption
+        self.animationOptions = options.animationOptions
     }
     
     //MARK: - Delegate methods
