@@ -19,7 +19,7 @@
 import UIKit
 
 open class MenuContainerViewController: UIViewController {
-    
+
     public var menuViewController: MenuViewController! {
         didSet {
             menuViewController.menuContainerViewController = self
@@ -27,11 +27,15 @@ open class MenuContainerViewController: UIViewController {
             menuViewController.navigationMenuTransitionDelegate = self.navigationMenuTransitionDelegate
         }
     }
-    
+    public var transitionOptions: TransitionOptions {
+        get {
+            return navigationMenuTransitionDelegate?.interactiveTransition?.options ?? TransitionOptions()
+        }
+        set {
+            navigationMenuTransitionDelegate?.interactiveTransition?.options = newValue
+        }
+    }
     public var contentViewControllers: [UIViewController]!
-    
-    private weak var currentContentViewController: UIViewController?
-    private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -88,9 +92,10 @@ open class MenuContainerViewController: UIViewController {
         }
     }
 
-    public func setMenuTransition(options: TransitionOptions) {
-        navigationMenuTransitionDelegate?.interactiveTransition?.setTransition(options: options)
-    }
+    // MARK: - Private
+    //
+    private weak var currentContentViewController: UIViewController?
+    private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
     
     private func setCurrentView() {
         self.addChildViewController(currentContentViewController!)

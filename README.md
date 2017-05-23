@@ -85,29 +85,28 @@ To change content view you should choose desired content controller and hide men
     menuContainerViewController.hideMenu()
  ```
 
-To customize animation for menu opening or closing you should call ```setMenuTransition(options:)``` method that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
+To customize animation for menu opening or closing you should update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
     let screenSize: CGRect = UIScreen.main.bounds
-    let params = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
-    setMenuTransition(options: params)
+    self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
     ...
 }
 ```
 
-Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and call ```setMenuTransition(options:)``` with desired parameters.
+Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
-    var params = TransitionOptions()
-    params.duration = size.width < size.height ? 0.4 : 0.6
-    params.visibleContentWidth = size.width / 6
-    setMenuTransition(options: params)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 6
+    self.transitionOptions = options
 }
 ```
 
-Method ```updateMenuTransition(options:)``` could be called for setting different options for Compact and Regular sizes as well. Method ```traitCollectionDidChange(_: )``` should be used in this case.
+Transition options could be used to set different settings for Compact and Regular sizes as well. To do it you should implement ViewController's ```traitCollectionDidChange(_: )``` callback.
 
  See [Sample](./Sample) for more details.
 

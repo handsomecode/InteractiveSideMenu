@@ -28,13 +28,12 @@ class KittyViewController: UIViewController, SideMenuItemContent {
     }
 }
 ```
--  To customize animation you should now call ```setMenuTransition(options:)``` method from ```MenuContainerViewColtroller``` class.
+-  To customize animation you should now update ```transitionOptions``` property in ```MenuContainerViewColtroller``` class.
 ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
     let screenSize: CGRect = UIScreen.main.bounds
-    let params = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
-    setMenuTransition(options: params)
+    self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
     ...
 }
 ```
@@ -43,10 +42,10 @@ override func viewDidLoad() {
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
-    var params = TransitionOptions()
-    params.duration = size.width < size.height ? 0.4 : 0.6
-    params.visibleContentWidth = size.width / 6
-    setMenuTransition(options: params)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 6
+    self.transitionOptions = options
 }
 ```
 
