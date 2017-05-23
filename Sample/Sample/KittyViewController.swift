@@ -21,7 +21,7 @@ import InteractiveSideMenu
 
 class KittyViewController: UIViewController, SideMenuItemContent {
     
-    @IBAction func didOpenMenu(_ sender: UIButton) {
+    @IBAction func openMenu(_ sender: UIButton) {
         showSideMenu()
     }
 }

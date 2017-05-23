@@ -27,24 +27,21 @@ class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
-        
-        contentViewControllers = contentControllers()
+        let screenSize: CGRect = UIScreen.main.bounds
+        let params = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+        setMenuTransition(options: params)
 
+        menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
+        contentViewControllers = contentControllers()
         selectContentViewController(contentViewControllers.first!)
-    }
-    
-    override func menuTransitionOptions() -> TransitionOptions? {
-        return TransitionOptions(duration: 0.4, contentScale: 0.9)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        var options = TransitionOptions()
-        options.duration = size.width < size.height ? 0.4 : 0.6
-        options.visibleContentWidth = size.width / 5
-        updateMenuTransition(options: options)
+        var params = TransitionOptions()
+        params.duration = size.width < size.height ? 0.4 : 0.6
+        params.visibleContentWidth = size.width / 6
+        setMenuTransition(options: params)
     }
 
     private func contentControllers() -> [UIViewController] {

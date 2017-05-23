@@ -70,7 +70,7 @@ import InteractiveSideMenu
 
 class KittyViewController: UIViewController, SideMenuItemContent {
     
-    @IBAction func didOpenMenu(_ sender: UIButton) {
+    @IBAction func openMenu(_ sender: UIButton) {
         showSideMenu()
     }
 }
@@ -85,24 +85,25 @@ To change content view you should choose desired content controller and hide men
     menuContainerViewController.hideMenu()
  ```
 
-To customize animation for menu opening or closing you should override ```menuTransitionOptions()``` method that is available in ```MenuContainerViewColtroller``` class.
+To customize animation for menu opening or closing you should call ```setMenuTransition(options:)``` method that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
-override func menuTransitionOptions() -> TransitionOptions? {
-    var options = TransitionOptions(duration: 0.4, contentScale: 0.9)
-    options.useFinishingSpringOption = false
-    options.useCancelingSpringOption = false
-    return options
+override func viewDidLoad() {
+    super.viewDidLoad()
+    let screenSize: CGRect = UIScreen.main.bounds
+    let params = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+    setMenuTransition(options: params)
+    ...
 }
 ```
 
-Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and call ```updateMenuTransition(options:)``` with desired parameters.
+Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and call ```setMenuTransition(options:)``` with desired parameters.
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
-    var options = TransitionOptions()
-    options.duration = size.width < size.height ? 0.4 : 0.6
-    options.visibleContentWidth = size.width / 5
-    updateMenuTransition(options: options)
+    var params = TransitionOptions()
+    params.duration = size.width < size.height ? 0.4 : 0.6
+    params.visibleContentWidth = size.width / 6
+    setMenuTransition(options: params)
 }
 ```
 

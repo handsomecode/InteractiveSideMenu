@@ -33,7 +33,7 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                                 <connections>
-                                    <action selector="didOpenMenu:" destination="tUv-mD-YmT" eventType="touchUpInside" id="9uI-qU-ezB"/>
+                                    <action selector="openMenu:" destination="tUv-mD-YmT" eventType="touchUpInside" id="nnJ-yv-yAN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -135,7 +135,7 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                                 <connections>
-                                    <action selector="didOpenMenu:" destination="MXc-SW-tl5" eventType="touchUpInside" id="Gt6-i5-Ob3"/>
+                                    <action selector="openMenu:" destination="MXc-SW-tl5" eventType="touchUpInside" id="Wyz-4e-IBT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -178,7 +178,7 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                                 <connections>
-                                    <action selector="didOpenMenu:" destination="iRc-1w-4bY" eventType="touchUpInside" id="GKB-Pq-W7V"/>
+                                    <action selector="openMenu:" destination="iRc-1w-4bY" eventType="touchUpInside" id="o5c-XP-Qcd"/>
                                 </connections>
                             </button>
                         </subviews>
