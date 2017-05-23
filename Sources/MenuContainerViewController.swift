@@ -19,7 +19,7 @@
 import UIKit
 
 open class MenuContainerViewController: UIViewController {
-    
+
     public var menuViewController: MenuViewController! {
         didSet {
             menuViewController.menuContainerViewController = self
@@ -27,24 +27,23 @@ open class MenuContainerViewController: UIViewController {
             menuViewController.navigationMenuTransitionDelegate = self.navigationMenuTransitionDelegate
         }
     }
-    
-    public var contentViewControllers: [UIViewController]!
-    
-    private weak var currentContentViewController: UIViewController?
-    private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
-    
-    open func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
-        return nil
+    public var transitionOptions: TransitionOptions {
+        get {
+            return navigationMenuTransitionDelegate?.interactiveTransition?.options ?? TransitionOptions()
+        }
+        set {
+            navigationMenuTransitionDelegate?.interactiveTransition?.options = newValue
+        }
     }
-    
+    public var contentViewControllers: [UIViewController]!
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         navigationMenuTransitionDelegate = MenuTransitioningDelegate()
         navigationMenuTransitionDelegate.interactiveTransition = MenuInteractiveTransition(
             presentAction: { [weak self] in self?.presentNavigationMenu() },
-            dismissAction: { [weak self] in self?.dismiss(animated: true, completion: nil) },
-            transitionOptionsBuilder: menuTransitionOptionsBuilder()
+            dismissAction: { [weak self] in self?.dismiss(animated: true, completion: nil) }
         )
         
         let screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(
@@ -54,6 +53,20 @@ open class MenuContainerViewController: UIViewController {
         
         screenEdgePanRecognizer.edges = .left
         self.view.addGestureRecognizer(screenEdgePanRecognizer)
+    }
+
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
+        let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
+        coordinator.animate(alongsideTransition: { _ in
+            self.menuViewController.view.bounds = viewBounds
+            self.menuViewController.view.center = viewCenter
+            self.view.bounds = viewBounds
+            self.view.center = viewCenter
+            self.hideSideMenu()
+        }, completion: nil)
     }
     
     public func showSideMenu() {
@@ -78,10 +91,14 @@ open class MenuContainerViewController: UIViewController {
             setCurrentView()
         }
     }
+
+    // MARK: - Private
+    //
+    private weak var currentContentViewController: UIViewController?
+    private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
     
     private func setCurrentView() {
         self.addChildViewController(currentContentViewController!)
-        self.view.addSubview(currentContentViewController!.view)
         self.view.addSubviewWithFullSizeConstraints(view: currentContentViewController!.view)
     }
     

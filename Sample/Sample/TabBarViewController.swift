@@ -25,7 +25,7 @@ class TabBarViewController: UITabBarController, SideMenuItemContent {
 
 class FirstViewController: UIViewController {
 
-    @IBAction func didOpenMenu(_ sender: UIButton) {
+    @IBAction func openMenu(_ sender: UIButton) {
         if let menuItemViewController = self.tabBarController as? SideMenuItemContent {
             menuItemViewController.showSideMenu()
         }
@@ -34,7 +34,7 @@ class FirstViewController: UIViewController {
 
 class SecondViewController: UIViewController {
 
-    @IBAction func didOpenMenu(_ sender: UIButton) {
+    @IBAction func openMenu(_ sender: UIButton) {
         if let menuItemViewController = self.tabBarController as? SideMenuItemContent {
             menuItemViewController.showSideMenu()
         }

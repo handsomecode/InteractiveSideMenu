@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class TransitionOptionsBuilder {
+public struct TransitionOptions {
     
     public var duration: TimeInterval = 0.5 {
         willSet(newDuration) {
@@ -27,7 +27,7 @@ public class TransitionOptionsBuilder {
             }
         }
     }
-    
+
     public var contentScale: CGFloat = 0.88 {
         willSet(newContentScale) {
             if(newContentScale < 0) {
@@ -35,22 +35,50 @@ public class TransitionOptionsBuilder {
             }
         }
     }
-    
+
     public var visibleContentWidth: CGFloat = 56.0
-    public var useFinishingSpringOption = true
-    public var useCancelingSpringOption = true
-    public var finishingSpringOption = SpringOption(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
+    public var useFinishingSpringSettings = true
+    public var useCancellingSpringSettings = true
+    public var finishingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
                                                     dismissSpringParams: SpringParams(dampingRatio: 0.8, velocity: 0.3))
-    public var cancelingSpringOption = SpringOption(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
+    public var cancellingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
                                                     dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
     public var animationOptions: UIViewAnimationOptions = .curveEaseInOut
-    
-    public init(building: (TransitionOptionsBuilder) -> Void) {
-        building(self)
+
+    public init() {
     }
-    
-    class func defaultOptionsBuilder() -> TransitionOptionsBuilder {
-        return TransitionOptionsBuilder(){_ in }
+
+    public init(duration: TimeInterval) {
+        self.duration = duration
+    }
+
+    public init(contentScale: CGFloat) {
+        self.contentScale = contentScale
+    }
+
+    public init(visibleContentWidth: CGFloat) {
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(duration: TimeInterval, contentScale: CGFloat) {
+        self.duration = duration
+        self.contentScale = contentScale
+    }
+
+    public init(duration: TimeInterval, visibleContentWidth: CGFloat) {
+        self.duration = duration
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(contentScale: CGFloat, visibleContentWidth: CGFloat) {
+        self.contentScale = contentScale
+        self.visibleContentWidth = visibleContentWidth
+    }
+
+    public init(duration: TimeInterval, contentScale: CGFloat, visibleContentWidth: CGFloat) {
+        self.duration = duration
+        self.contentScale = contentScale
+        self.visibleContentWidth = visibleContentWidth
     }
 }
 
@@ -61,7 +89,7 @@ public struct SpringParams {
 }
 
 
-public struct SpringOption {
+public struct SpringSettings {
     let presentSpringParams: SpringParams
     let dismissSpringParams: SpringParams
 }
@@ -100,18 +128,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     //
     var present: Bool = false
     var interactionInProgress: Bool = false
-    
-    private var transitionDuration: TimeInterval!
-    private var scaleDiff: CGFloat!
-    private var visibleContentWidth: CGFloat!
-    private var useFinishingSpringOption: Bool!
-    private var useCancellingSpringOption: Bool!
-    private var finishingSpringOption: SpringOption!
-    private var cancelingSpringOption: SpringOption!
-    private var animationOptions: UIViewAnimationOptions!
-    
-    private var presentAction: Action!
-    private var dismissAction: Action!
+
+    var options = TransitionOptions()
+    private let presentAction: Action
+    private let dismissAction: Action
     
     private var transitionShouldStarted = false
     private var transitionStarted = false
@@ -121,22 +141,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     private var tapRecognizer: UITapGestureRecognizer!
     private var panRecognizer: UIPanGestureRecognizer!
     
-    required init(presentAction: @escaping Action, dismissAction: @escaping Action, transitionOptionsBuilder: TransitionOptionsBuilder? = nil) {
-        super.init()
-  
+    required init(presentAction: @escaping Action, dismissAction: @escaping Action) {
+
         self.presentAction = presentAction
         self.dismissAction = dismissAction
-        
-        let options = transitionOptionsBuilder ?? TransitionOptionsBuilder.defaultOptionsBuilder()
-        
-        self.transitionDuration = options.duration
-        self.scaleDiff = 1 - options.contentScale
-        self.visibleContentWidth = options.visibleContentWidth
-        self.useFinishingSpringOption = options.useFinishingSpringOption
-        self.useCancellingSpringOption = options.useCancelingSpringOption
-        self.finishingSpringOption = options.finishingSpringOption
-        self.cancelingSpringOption = options.cancelingSpringOption
-        self.animationOptions = options.animationOptions
+        super.init()
     }
     
     //MARK: - Delegate methods
@@ -146,7 +155,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return transitionDuration
+        return options.duration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -201,11 +210,16 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         if present {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
 
-            self.tapRecognizer = UITapGestureRecognizer(target: toViewController as! MenuViewController,
-                                                        action: #selector(MenuViewController.handleTap(recognizer:)))
-            
-            self.panRecognizer = UIPanGestureRecognizer(target: self,
+            if self.tapRecognizer == nil {
+
+                guard toViewController is MenuViewController else {
+                    preconditionFailure("Invalid 'toViewController' type. It must be MenuViewController.")
+                }
+                self.tapRecognizer = UITapGestureRecognizer(target: toViewController,
+                                                            action: #selector(MenuViewController.handleTap(recognizer:)))
+                self.panRecognizer = UIPanGestureRecognizer(target: self,
                                                         action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
+            }
 
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
             containerView.addSubview(contentSnapshotView)
@@ -214,10 +228,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         } else {
             containerView.addSubview(toViewController.view)
 
-            toViewController.view.transform = CGAffineTransform(scaleX: 1 - scaleDiff, y: 1 - scaleDiff)
+            toViewController.view.transform = CGAffineTransform(scaleX: options.contentScale, y: options.contentScale)
             addShadow(toView: toViewController.view)
 
-            let newOrigin = CGPoint(x: screenWidth - visibleContentWidth, y: toViewController.view.frame.origin.y)
+            let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
 
             toViewController.view.frame = rect
@@ -231,11 +245,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let containerView = transitionContext.containerView
         let screenWidth = containerView.frame.size.width
         
-        let totalWidth = screenWidth - visibleContentWidth
+        let totalWidth = screenWidth - options.visibleContentWidth
         
         if present {
 
-            let newScale = 1 - (scaleDiff * percentComplete)
+            let newScale = 1 - (1 - options.contentScale) * percentComplete
             let newX = totalWidth * percentComplete
 
             contentSnapshotView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
@@ -250,7 +264,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
             let newX = totalWidth * (1 - percentComplete)
 
-            let newScale = 1 - scaleDiff + (scaleDiff * percentComplete)
+            let newScale = options.contentScale + (1 - options.contentScale) * percentComplete
             toViewController.view.transform = CGAffineTransform(scaleX: newScale, y: newScale)
 
             let newOrigin = CGPoint(x: newX, y: toViewController.view.frame.origin.y)
@@ -289,22 +303,18 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             }
         }
         
-        guard let useFinishingSpringOption = self.useFinishingSpringOption else {
-            return
-        }
-        
-        if useFinishingSpringOption {
-            UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
+        if options.useFinishingSpringSettings {
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
                            delay: 0,
-                           usingSpringWithDamping: present ? finishingSpringOption.presentSpringParams.dampingRatio : finishingSpringOption.dismissSpringParams.dampingRatio,
-                           initialSpringVelocity: present ? finishingSpringOption.presentSpringParams.velocity : finishingSpringOption.dismissSpringParams.velocity,
-                           options: animationOptions,
+                           usingSpringWithDamping: present ? options.finishingSpringSettings.presentSpringParams.dampingRatio : options.finishingSpringSettings.dismissSpringParams.dampingRatio,
+                           initialSpringVelocity: present ? options.finishingSpringSettings.presentSpringParams.velocity : options.finishingSpringSettings.dismissSpringParams.velocity,
+                           options: options.animationOptions,
                            animations: animation,
                            completion: completion)
         } else {
-            UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
                            delay: 0,
-                           options: animationOptions,
+                           options: options.animationOptions,
                            animations: animation,
                            completion: completion)
         }
@@ -334,22 +344,18 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             }
         }
         
-        guard let useCancellingSpringOption = self.useCancellingSpringOption else {
-            return
-        }
-        
-        if useCancellingSpringOption {
-            UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
+        if options.useCancellingSpringSettings {
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
                            delay: 0,
-                           usingSpringWithDamping: present ? cancelingSpringOption.presentSpringParams.dampingRatio : cancelingSpringOption.dismissSpringParams.dampingRatio,
-                           initialSpringVelocity: present ? cancelingSpringOption.presentSpringParams.velocity : cancelingSpringOption.dismissSpringParams.velocity,
-                           options: animationOptions,
+                           usingSpringWithDamping: present ? options.cancellingSpringSettings.presentSpringParams.dampingRatio : options.cancellingSpringSettings.dismissSpringParams.dampingRatio,
+                           initialSpringVelocity: present ? options.cancellingSpringSettings.presentSpringParams.velocity : options.cancellingSpringSettings.dismissSpringParams.velocity,
+                           options: options.animationOptions,
                            animations: animation,
                            completion: completion)
         } else {
-            UIView.animate(withDuration: transitionDuration - transitionDuration * Double(currentPercentComplete),
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
                            delay: 0,
-                           options: animationOptions,
+                           options: options.animationOptions,
                            animations: animation,
                            completion: completion)
         }
