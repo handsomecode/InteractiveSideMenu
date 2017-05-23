@@ -135,11 +135,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     
     private var transitionShouldStarted = false
     private var transitionStarted = false
-    private var transitionContext: UIViewControllerContextTransitioning!
-    private var contentSnapshotView: UIView!
+    private var transitionContext: UIViewControllerContextTransitioning?
+    private var contentSnapshotView: UIView?
 
-    private var tapRecognizer: UITapGestureRecognizer!
-    private var panRecognizer: UIPanGestureRecognizer!
+    private var tapRecognizer: UITapGestureRecognizer?
+    private var panRecognizer: UIPanGestureRecognizer?
     
     required init(presentAction: @escaping Action, dismissAction: @escaping Action) {
 
@@ -179,7 +179,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     //MARK: - Private methods
     //
     private func createSnapshotView(from: UIView) -> UIView {
-        let snapshotView = from.snapshotView(afterScreenUpdates: true)!
+        let snapshotViewOptional = from.snapshotView(afterScreenUpdates: true)
+        guard let snapshotView = snapshotViewOptional else {
+            fatalError("Invalid snapshot view")
+        }
         snapshotView.frame = from.frame
         addShadow(toView: snapshotView)
 
@@ -213,7 +216,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             if self.tapRecognizer == nil {
 
                 guard toViewController is MenuViewController else {
-                    preconditionFailure("Invalid 'toViewController' type. It must be MenuViewController.")
+                    fatalError("Invalid 'toViewController' type. It must be MenuViewController")
                 }
                 self.tapRecognizer = UITapGestureRecognizer(target: toViewController,
                                                             action: #selector(MenuViewController.handleTap(recognizer:)))
@@ -222,6 +225,11 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             }
 
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
+
+            guard let contentSnapshotView = self.contentSnapshotView else {
+                fatalError("Invalid 'contentSnapshotView' value. This property should not be nil")
+            }
+
             containerView.addSubview(contentSnapshotView)
 
             fromViewController.view.isHidden = true
@@ -242,10 +250,17 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     }
 
     private func updateTransition(percentComplete: CGFloat) {
+        guard let transitionContext = self.transitionContext else {
+            fatalError("Invalid 'transitionContext' value. This property should not be nil")
+        }
         let containerView = transitionContext.containerView
         let screenWidth = containerView.frame.size.width
         
         let totalWidth = screenWidth - options.visibleContentWidth
+
+        guard let contentSnapshotView = self.contentSnapshotView else {
+            fatalError("Invalid 'contentSnapshotView' value. This property should not be nil")
+        }
         
         if present {
 
@@ -280,17 +295,27 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let animation : () -> Void = { [weak self] in self?.updateTransition(percentComplete: 1.0) }
         let completion : (Bool) -> Void = { [weak self] _ in
             if let transition = self {
-                let fromViewController = transition.transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-                let toViewController = transition.transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+                guard let transitionContext = transition.transitionContext else {
+                    fatalError("Invalid 'transition.transitionContext' value. This property should not be nil")
+                }
+                guard let contentSnapshotView = transition.contentSnapshotView else {
+                    fatalError("Invalid 'transition.contentSnapshotView' value. This property should not be nil")
+                }
+                let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+                let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
                 
                 if transition.present {
                     fromViewController.view.isHidden = false
-                    
-                    transition.contentSnapshotView.removeFromSuperview()
-                    transition.contentSnapshotView.addGestureRecognizer(transition.panRecognizer)
-                    transition.contentSnapshotView.addGestureRecognizer(transition.tapRecognizer)
-                    
-                    toViewController.view.addSubview(transition.contentSnapshotView)
+                    contentSnapshotView.removeFromSuperview()
+
+                    if let panRecognizer = transition.panRecognizer {
+                        contentSnapshotView.addGestureRecognizer(panRecognizer)
+                    }
+                    if let tapRecognizer = transition.tapRecognizer {
+                        contentSnapshotView.addGestureRecognizer(tapRecognizer)
+                    }
+
+                    toViewController.view.addSubview(contentSnapshotView)
                 } else {
                     toViewController.view.isHidden = false
                     transition.removeShadow(fromView: toViewController.view)
@@ -299,7 +324,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 toViewController.view.isUserInteractionEnabled = true
                 fromViewController.view.isUserInteractionEnabled = true
                 
-                transition.transitionContext.completeTransition(true)
+                transitionContext.completeTransition(true)
             }
         }
         
@@ -326,21 +351,28 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let animation : () -> Void = { [weak self] in self?.updateTransition(percentComplete: 0) }
         let completion : (Bool) -> Void = { [weak self] _ in
             if let transition = self {
-                let fromViewController = transition.transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-                let toViewController = transition.transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+
+                guard let transitionContext = transition.transitionContext else {
+                    fatalError("Invalid 'transition.transitionContext' value. This property should not be nil")
+                }
+                guard let contentSnapshotView = transition.contentSnapshotView else {
+                    fatalError("Invalid 'transition.contentSnapshotView' value. This property should not be nil")
+                }
+                let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+                let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
                 
                 if transition.present {
                     fromViewController.view.isHidden = false
                 } else {
                     toViewController.view.removeFromSuperview()
-                    transition.contentSnapshotView.isHidden = false
+                    contentSnapshotView.isHidden = false
                     fromViewController.view.isUserInteractionEnabled = true
                 }
                 
                 toViewController.view.isUserInteractionEnabled = true
                 fromViewController.view.isUserInteractionEnabled = true
                 
-                transition.transitionContext.completeTransition(false)
+                transitionContext.completeTransition(false)
             }
         }
         
@@ -362,15 +394,21 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     }
     
     private func handlePan(recognizer: UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: recognizer.view!.superview!)
-        let dx = translation.x / recognizer.view!.bounds.width
+        guard let recognizerView = recognizer.view else {
+            fatalError("Invalid recognizer view value")
+        }
+        guard let recognizerSuperview = recognizerView.superview else {
+            fatalError("Invalid recognizer superview value")
+        }
+        let translation = recognizer.translation(in: recognizerSuperview)
+        let dx = translation.x / recognizerView.bounds.width
         let progress: CGFloat = abs(dx)
-        var velocity = recognizer.velocity(in: recognizer.view!.superview!).x
+        var velocity = recognizer.velocity(in: recognizerSuperview).x
         
         if !present {
             velocity = -velocity
         }
-        
+
         switch recognizer.state {
             case .began:
                 interactionInProgress = true
@@ -385,6 +423,9 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 }
                 
             case .changed:
+                guard let transitionContext = transitionContext else {
+                    fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                }
                 if transitionStarted && (present && dx > 0 || !present && dx < 0) {
                     updateTransition(percentComplete: progress)
                     transitionContext.updateInteractiveTransition(progress)
@@ -392,6 +433,9 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             
             case .cancelled, .ended:
                 if transitionStarted {
+                    guard let transitionContext = transitionContext else {
+                        fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                    }
                     if progress > 0.4 && velocity >= 0 || progress > 0.01 && velocity > 100 {
                         finishTransition(currentPercentComplete: progress)
                         transitionContext.finishInteractiveTransition()
@@ -403,9 +447,12 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 } else if transitionShouldStarted && !transitionStarted {
                     if transitionStarted {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            guard let transitionContext = self.transitionContext else {
+                                fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                            }
                             if self.transitionStarted {
                                 self.cancelTransition(currentPercentComplete: progress)
-                                self.transitionContext.cancelInteractiveTransition()
+                                transitionContext.cancelInteractiveTransition()
                             }
                         }
                     }
