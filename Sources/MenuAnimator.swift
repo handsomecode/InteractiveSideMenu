@@ -100,22 +100,34 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     var interactiveTransition: MenuInteractiveTransition!
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if interactiveTransition == nil {
+            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+        }
         interactiveTransition.present = true
         
         return interactiveTransition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if interactiveTransition == nil {
+            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+        }
         interactiveTransition.present = false
         
         return interactiveTransition
     }
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if interactiveTransition == nil {
+            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+        }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if interactiveTransition == nil {
+            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+        }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
 }
@@ -397,13 +409,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         guard let recognizerView = recognizer.view else {
             fatalError("Invalid recognizer view value")
         }
-        guard let recognizerSuperview = recognizerView.superview else {
-            fatalError("Invalid recognizer superview value")
-        }
-        let translation = recognizer.translation(in: recognizerSuperview)
+        let translation = recognizer.translation(in: recognizerView)
         let dx = translation.x / recognizerView.bounds.width
         let progress: CGFloat = abs(dx)
-        var velocity = recognizer.velocity(in: recognizerSuperview).x
+        var velocity = recognizer.velocity(in: recognizerView).x
         
         if !present {
             velocity = -velocity
