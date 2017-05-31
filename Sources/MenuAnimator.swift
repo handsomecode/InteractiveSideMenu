@@ -101,7 +101,7 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+            fatalError("Invalid interactiveTransition value. This property should not be nil")
         }
         interactiveTransition.present = true
         
@@ -110,7 +110,7 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+            fatalError("Invalid interactiveTransition value. This property should not be nil")
         }
         interactiveTransition.present = false
         
@@ -119,14 +119,14 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+            fatalError("Invalid interactiveTransition value. This property should not be nil")
         }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid 'interactiveTransition' value. This property should not be nil")
+            fatalError("Invalid interactiveTransition value. This property should not be nil")
         }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
@@ -191,13 +191,15 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
     //MARK: - Private methods
     //
     private func createSnapshotView(from: UIView) -> UIView {
-        let snapshotViewOptional = from.snapshotView(afterScreenUpdates: true)
-        guard let snapshotView = snapshotViewOptional else {
-            fatalError("Invalid snapshot view")
+        guard let snapshotView = from.snapshotView(afterScreenUpdates: true) else {
+            print("Invalid snapshot view. Default color will be used")
+            let placeholderView = UIView()
+            placeholderView.frame = from.frame
+            placeholderView.backgroundColor = from.backgroundColor
+            addShadow(toView: placeholderView)
+            return placeholderView
         }
-        snapshotView.frame = from.frame
         addShadow(toView: snapshotView)
-
         return snapshotView
     }
 
@@ -216,8 +218,12 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         
         self.transitionContext = transitionContext
         
-        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
+            fatalError("Invalid fromViewController key. Can't start transition")
+        }
+        guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
+            fatalError("Invalid toViewController key. Can't start transition")
+        }
         let containerView = transitionContext.containerView
         
         let screenWidth = containerView.frame.size.width
@@ -228,7 +234,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             if self.tapRecognizer == nil {
 
                 guard toViewController is MenuViewController else {
-                    fatalError("Invalid 'toViewController' type. It must be MenuViewController")
+                    fatalError("Invalid toViewController type. It must be MenuViewController")
                 }
                 self.tapRecognizer = UITapGestureRecognizer(target: toViewController,
                                                             action: #selector(MenuViewController.handleTap(recognizer:)))
@@ -239,7 +245,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
 
             guard let contentSnapshotView = self.contentSnapshotView else {
-                fatalError("Invalid 'contentSnapshotView' value. This property should not be nil")
+                fatalError("Invalid contentSnapshotView value. This property should not be nil")
             }
 
             containerView.addSubview(contentSnapshotView)
@@ -263,7 +269,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
 
     private func updateTransition(percentComplete: CGFloat) {
         guard let transitionContext = self.transitionContext else {
-            fatalError("Invalid 'transitionContext' value. This property should not be nil")
+            fatalError("Invalid transitionContext value. This property should not be nil")
         }
         let containerView = transitionContext.containerView
         let screenWidth = containerView.frame.size.width
@@ -271,7 +277,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let totalWidth = screenWidth - options.visibleContentWidth
 
         guard let contentSnapshotView = self.contentSnapshotView else {
-            fatalError("Invalid 'contentSnapshotView' value. This property should not be nil")
+            fatalError("Invalid contentSnapshotView value. This property should not be nil")
         }
         
         if present {
@@ -288,7 +294,9 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         } else {
             contentSnapshotView.isHidden = true
 
-            let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+            guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
+                fatalError("Invalid toViewController key. Can't update transition")
+            }
             let newX = totalWidth * (1 - percentComplete)
 
             let newScale = options.contentScale + (1 - options.contentScale) * percentComplete
@@ -308,14 +316,18 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let completion : (Bool) -> Void = { [weak self] _ in
             if let transition = self {
                 guard let transitionContext = transition.transitionContext else {
-                    fatalError("Invalid 'transition.transitionContext' value. This property should not be nil")
+                    fatalError("Invalid transition.transitionContext value. This property should not be nil")
                 }
                 guard let contentSnapshotView = transition.contentSnapshotView else {
-                    fatalError("Invalid 'transition.contentSnapshotView' value. This property should not be nil")
+                    fatalError("Invalid transition.contentSnapshotView value. This property should not be nil")
                 }
-                let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-                let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-                
+                guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
+                    fatalError("Invalid fromViewController key. Can't finish transition")
+                }
+                guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
+                    fatalError("Invalid toViewController key. Can't finish transition")
+                }
+
                 if transition.present {
                     fromViewController.view.isHidden = false
                     contentSnapshotView.removeFromSuperview()
@@ -365,13 +377,17 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             if let transition = self {
 
                 guard let transitionContext = transition.transitionContext else {
-                    fatalError("Invalid 'transition.transitionContext' value. This property should not be nil")
+                    fatalError("Invalid transition.transitionContext value. This property should not be nil")
                 }
                 guard let contentSnapshotView = transition.contentSnapshotView else {
-                    fatalError("Invalid 'transition.contentSnapshotView' value. This property should not be nil")
+                    fatalError("Invalid transition.contentSnapshotView value. This property should not be nil")
                 }
-                let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-                let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+                guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
+                    fatalError("Invalid fromViewController key. Can't cancel transition")
+                }
+                guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else {
+                    fatalError("Invalid toViewController key. Can't cancel transition")
+                }
                 
                 if transition.present {
                     fromViewController.view.isHidden = false
@@ -433,7 +449,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 
             case .changed:
                 guard let transitionContext = transitionContext else {
-                    fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                    fatalError("Invalid transitionContext value. This property should not be nil")
                 }
                 if transitionStarted && (present && dx > 0 || !present && dx < 0) {
                     updateTransition(percentComplete: progress)
@@ -443,7 +459,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             case .cancelled, .ended:
                 if transitionStarted {
                     guard let transitionContext = transitionContext else {
-                        fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                        fatalError("Invalid transitionContext value. This property should not be nil")
                     }
                     if progress > 0.4 && velocity >= 0 || progress > 0.01 && velocity > 100 {
                         finishTransition(currentPercentComplete: progress)
@@ -457,7 +473,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                     if transitionStarted {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             guard let transitionContext = self.transitionContext else {
-                                fatalError("Invalid 'transitionContext' value. This property should not be nil")
+                                fatalError("Invalid transitionContext value. This property should not be nil")
                             }
                             if self.transitionStarted {
                                 self.cancelTransition(currentPercentComplete: progress)
