@@ -18,8 +18,14 @@
 
 import UIKit
 
+/**
+ Options of menu transitioning.
+ */
 public struct TransitionOptions {
-    
+
+    /**
+     The duration of showing/hiding menu animation.
+     */
     public var duration: TimeInterval = 0.5 {
         willSet(newDuration) {
             if(newDuration < 0) {
@@ -28,6 +34,9 @@ public struct TransitionOptions {
         }
     }
 
+    /**
+     The scale factor of content menu item when the menu is opened.
+     */
     public var contentScale: CGFloat = 0.88 {
         willSet(newContentScale) {
             if(newContentScale < 0) {
@@ -36,13 +45,24 @@ public struct TransitionOptions {
         }
     }
 
+    /// The width of visible part of content menu item when the menu is shown.
     public var visibleContentWidth: CGFloat = 56.0
+
+    /// Defines if spring animation will be used on menu transition finishing.
     public var useFinishingSpringSettings = true
+
+    /// Defines if spring animation will be used on menu transition cancelling (when user let draggable view to go back to the begining position).
     public var useCancellingSpringSettings = true
+
+    /// Spring animation settings if `useFinishingSpringSettings` is set to true.
     public var finishingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
-                                                    dismissSpringParams: SpringParams(dampingRatio: 0.8, velocity: 0.3))
+                                                    dismissSpringParams: SpringParams(dampingRatio:
+                                                        0.8, velocity: 0.3))
+    /// Spring animation settings if `useCancellingSpringSettings` is set to true.
     public var cancellingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
                                                     dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
+
+    /// Regular view animation options.
     public var animationOptions: UIViewAnimationOptions = .curveEaseInOut
 
     public init() {
@@ -82,19 +102,29 @@ public struct TransitionOptions {
     }
 }
 
-
-public struct SpringParams {
-    let dampingRatio: CGFloat
-    let velocity: CGFloat
-}
-
-
+/**
+ Settings of spring animation for presenting and dismissing actions.
+ */
 public struct SpringSettings {
     let presentSpringParams: SpringParams
     let dismissSpringParams: SpringParams
 }
 
+/**
+ Basic spring params.
+ */
+public struct SpringParams {
 
+    /// The damping ratio from 0 to 1 for the spring animation as it approaches its quiescent state.
+    let dampingRatio: CGFloat
+
+    /// The initial spring velocity. For smooth start to the animation, match this value to the view’s velocity.
+    let velocity: CGFloat
+}
+
+/**
+ Delegate of menu transitioning actions.
+ */
 class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     var interactiveTransition: MenuInteractiveTransition!
@@ -132,6 +162,9 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     }
 }
 
+/**
+ The side menu interactive transitioning implementation.
+ */
 class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransitioning, UIViewControllerAnimatedTransitioning {
     
     typealias Action = () -> ()
