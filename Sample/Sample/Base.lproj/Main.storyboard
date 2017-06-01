@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0Vz-9K-i9E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0Vz-9K-i9E">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -112,7 +112,7 @@
             </objects>
             <point key="canvasLocation" x="983" y="139"/>
         </scene>
-        <!--Surprised cat-->
+        <!--Playful cat-->
         <scene sceneID="ma3-Q7-r5Q">
             <objects>
                 <viewController id="MXc-SW-tl5" customClass="SecondViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
@@ -124,9 +124,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="surprised cat" translatesAutoresizingMaskIntoConstraints="NO" id="Bnb-ow-Hxx">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playful cat" translatesAutoresizingMaskIntoConstraints="NO" id="Bnb-ow-Hxx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4R-sn-aDK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
+                                <color key="backgroundColor" red="0.27659601897689767" green="0.27531419289247383" blue="0.27266927657285167" alpha="0.3859592013888889" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERA-XQ-g0N">
                                 <rect key="frame" x="6" y="20" width="44" height="44"/>
                                 <constraints>
@@ -143,19 +147,23 @@
                         <constraints>
                             <constraint firstItem="Bnb-ow-Hxx" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" id="Tby-NP-ybX"/>
                             <constraint firstItem="ERA-XQ-g0N" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" constant="6" id="ZVL-kv-kNf"/>
+                            <constraint firstAttribute="trailing" secondItem="g4R-sn-aDK" secondAttribute="trailing" id="cD2-hF-Hlh"/>
                             <constraint firstAttribute="trailing" secondItem="Bnb-ow-Hxx" secondAttribute="trailing" id="dmN-Fb-ZHD"/>
+                            <constraint firstItem="g4R-sn-aDK" firstAttribute="baseline" secondItem="ERA-XQ-g0N" secondAttribute="baseline" constant="22" id="epz-Po-KkV"/>
+                            <constraint firstItem="g4R-sn-aDK" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" id="l6N-OA-JNm"/>
                             <constraint firstAttribute="bottom" secondItem="Bnb-ow-Hxx" secondAttribute="bottom" id="loX-cs-71k"/>
                             <constraint firstItem="Bnb-ow-Hxx" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="sEV-X9-tvK"/>
+                            <constraint firstItem="g4R-sn-aDK" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="ujt-ff-Gxd"/>
                             <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="8Tr-i3-2u6" secondAttribute="bottom" id="zGx-Xo-G3z"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Surprised cat" image="ic_tabbar_surprise" id="lIw-Pi-PM9"/>
+                    <tabBarItem key="tabBarItem" title="Playful cat" image="ic_tabbar_playful" id="lIw-Pi-PM9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55C-pW-EdE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2868" y="-315"/>
+            <point key="canvasLocation" x="2868" y="-315.29235382308849"/>
         </scene>
-        <!--Smiling cat-->
+        <!--Serious cat-->
         <scene sceneID="4CY-F8-Hla">
             <objects>
                 <viewController id="iRc-1w-4bY" customClass="FirstViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,9 +175,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smiling cat" translatesAutoresizingMaskIntoConstraints="NO" id="YaS-Hu-v7i">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="serious cat" translatesAutoresizingMaskIntoConstraints="NO" id="YaS-Hu-v7i">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toC-UG-sI2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
+                                <color key="backgroundColor" red="0.27659601897689767" green="0.27531419289247383" blue="0.27266927657285167" alpha="0.55054873511904767" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I55-bD-oRY">
                                 <rect key="frame" x="6" y="20" width="44" height="44"/>
                                 <constraints>
@@ -187,12 +199,16 @@
                             <constraint firstItem="YaS-Hu-v7i" firstAttribute="top" secondItem="j8y-r6-qLd" secondAttribute="top" id="7oR-ES-nep"/>
                             <constraint firstItem="YaS-Hu-v7i" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" id="CXm-j9-YtU"/>
                             <constraint firstAttribute="trailing" secondItem="YaS-Hu-v7i" secondAttribute="trailing" id="EvG-Dg-g4R"/>
+                            <constraint firstItem="toC-UG-sI2" firstAttribute="baseline" secondItem="I55-bD-oRY" secondAttribute="baseline" constant="22" id="OLo-zq-t04"/>
                             <constraint firstItem="I55-bD-oRY" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" constant="6" id="haG-Lj-wf2"/>
+                            <constraint firstItem="toC-UG-sI2" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" id="lvG-AB-XcK"/>
+                            <constraint firstItem="toC-UG-sI2" firstAttribute="top" secondItem="j8y-r6-qLd" secondAttribute="top" id="po0-1I-K7D"/>
                             <constraint firstAttribute="bottom" secondItem="YaS-Hu-v7i" secondAttribute="bottom" id="ue3-0f-oZM"/>
                             <constraint firstItem="I55-bD-oRY" firstAttribute="top" secondItem="keO-eE-tO7" secondAttribute="bottom" id="wGq-iT-MD9"/>
+                            <constraint firstAttribute="trailing" secondItem="toC-UG-sI2" secondAttribute="trailing" id="wUc-KZ-QBN"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Smiling cat" image="ic_tabbar_smile" id="3ke-p4-0Fq"/>
+                    <tabBarItem key="tabBarItem" title="Serious cat" image="ic_tabbar_serious" id="3ke-p4-0Fq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQF-IY-EKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -219,10 +235,10 @@
     </scenes>
     <resources>
         <image name="Menu" width="24" height="17"/>
-        <image name="ic_tabbar_smile" width="16" height="16"/>
-        <image name="ic_tabbar_surprise" width="16" height="16"/>
+        <image name="ic_tabbar_playful" width="16" height="16"/>
+        <image name="ic_tabbar_serious" width="16" height="16"/>
         <image name="kitty" width="1620" height="1080"/>
-        <image name="smiling cat" width="605" height="900"/>
-        <image name="surprised cat" width="1600" height="1067"/>
+        <image name="playful cat" width="500" height="375"/>
+        <image name="serious cat" width="1020" height="452"/>
     </resources>
 </document>
