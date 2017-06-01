@@ -22,6 +22,9 @@ open class MenuContainerViewController: UIViewController {
 
     public var menuViewController: MenuViewController! {
         didSet {
+            if menuViewController == nil {
+                fatalError("Invalid 'menuViewController' value. It should not be nil")
+            }
             menuViewController.menuContainerViewController = self
             menuViewController.transitioningDelegate = self.navigationMenuTransitionDelegate
             menuViewController.navigationMenuTransitionDelegate = self.navigationMenuTransitionDelegate
@@ -61,6 +64,9 @@ open class MenuContainerViewController: UIViewController {
         let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
         let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
         coordinator.animate(alongsideTransition: { _ in
+            if self.menuViewController == nil {
+                fatalError("Invalid 'menuViewController' value. It should not be nil")
+            }
             self.menuViewController.view.bounds = viewBounds
             self.menuViewController.view.center = viewCenter
             self.view.bounds = viewBounds
@@ -82,13 +88,10 @@ open class MenuContainerViewController: UIViewController {
             if currentContentVC != selectedContentVC {
                 currentContentVC.view.removeFromSuperview()
                 currentContentVC.removeFromParentViewController()
-                
-                self.currentContentViewController = selectedContentVC
-                setCurrentView()
+                setCurrentView(selectedContentVC)
             }
         } else {
-            self.currentContentViewController = selectedContentVC
-            setCurrentView()
+            setCurrentView(selectedContentVC)
         }
     }
 
@@ -97,12 +100,16 @@ open class MenuContainerViewController: UIViewController {
     private weak var currentContentViewController: UIViewController?
     private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
     
-    private func setCurrentView() {
-        self.addChildViewController(currentContentViewController!)
-        self.view.addSubviewWithFullSizeConstraints(view: currentContentViewController!.view)
+    private func setCurrentView(_ selectedContentVC: UIViewController) {
+        self.addChildViewController(selectedContentVC)
+        self.view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
+        self.currentContentViewController = selectedContentVC
     }
     
     private func presentNavigationMenu() {
+        if menuViewController == nil {
+            fatalError("Invalid 'menuViewController' value. It should not be nil")
+        }
         self.present(menuViewController, animated: true, completion: nil)
     }
 }

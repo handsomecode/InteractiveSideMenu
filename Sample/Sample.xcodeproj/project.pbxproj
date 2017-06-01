@@ -14,6 +14,8 @@
 		881EF0BD1E31037D0035DEB4 /* KittyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0B91E31037D0035DEB4 /* KittyViewController.swift */; };
 		881EF0BE1E31037D0035DEB4 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BA1E31037D0035DEB4 /* HostViewController.swift */; };
 		881EF0BF1E31037D0035DEB4 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */; };
+		9A15C5481EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881EF0C71E31049C0035DEB4 /* InteractiveSideMenu.framework */; };
+		9A15C5491EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 881EF0C71E31049C0035DEB4 /* InteractiveSideMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +34,28 @@
 			remoteGlobalIDString = 881EF0821E30FFE40035DEB4;
 			remoteInfo = InteractiveSideMenu;
 		};
+		9A15C54A1EDD62BC00C4FD75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 881EF0C21E31049C0035DEB4 /* InteractiveSideMenu.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 881EF0821E30FFE40035DEB4;
+			remoteInfo = InteractiveSideMenu;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9A15C54C1EDD62BC00C4FD75 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9A15C5491EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		881EF0A41E3102E30035DEB4 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A15C5481EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,11 +142,13 @@
 				881EF0A01E3102E30035DEB4 /* Sources */,
 				881EF0A11E3102E30035DEB4 /* Frameworks */,
 				881EF0A21E3102E30035DEB4 /* Resources */,
+				9A15C54C1EDD62BC00C4FD75 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				881EF0C91E3104AD0035DEB4 /* PBXTargetDependency */,
+				9A15C54B1EDD62BC00C4FD75 /* PBXTargetDependency */,
 			);
 			name = Sample;
 			productName = Sample;
@@ -212,6 +238,11 @@
 			isa = PBXTargetDependency;
 			name = InteractiveSideMenu;
 			targetProxy = 881EF0C81E3104AD0035DEB4 /* PBXContainerItemProxy */;
+		};
+		9A15C54B1EDD62BC00C4FD75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = InteractiveSideMenu;
+			targetProxy = 9A15C54A1EDD62BC00C4FD75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -329,6 +360,7 @@
 		881EF0B71E3102E30035DEB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -341,6 +373,7 @@
 		881EF0B81E3102E30035DEB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
