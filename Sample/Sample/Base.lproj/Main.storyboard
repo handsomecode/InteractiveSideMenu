@@ -42,8 +42,8 @@
                             <constraint firstItem="aqd-Lf-kC3" firstAttribute="leading" secondItem="5xf-bK-2Nw" secondAttribute="leading" id="Oc2-Nx-MB3"/>
                             <constraint firstItem="aqd-Lf-kC3" firstAttribute="top" secondItem="5xf-bK-2Nw" secondAttribute="top" id="aaq-MP-Di3"/>
                             <constraint firstAttribute="trailing" secondItem="aqd-Lf-kC3" secondAttribute="trailing" id="dBJ-yN-yM4"/>
-                            <constraint firstItem="39h-ZS-U8I" firstAttribute="top" secondItem="wUd-6t-ygt" secondAttribute="bottom" id="gTa-7o-Xzc"/>
                             <constraint firstItem="39h-ZS-U8I" firstAttribute="leading" secondItem="5xf-bK-2Nw" secondAttribute="leading" constant="6" id="oLS-5P-ITj"/>
+                            <constraint firstItem="39h-ZS-U8I" firstAttribute="top" secondItem="5xf-bK-2Nw" secondAttribute="top" constant="20" id="uxL-ip-Alp"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -152,9 +152,9 @@
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="baseline" secondItem="ERA-XQ-g0N" secondAttribute="baseline" constant="22" id="epz-Po-KkV"/>
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" id="l6N-OA-JNm"/>
                             <constraint firstAttribute="bottom" secondItem="Bnb-ow-Hxx" secondAttribute="bottom" id="loX-cs-71k"/>
+                            <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" constant="20" id="opz-em-ji4"/>
                             <constraint firstItem="Bnb-ow-Hxx" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="sEV-X9-tvK"/>
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="ujt-ff-Gxd"/>
-                            <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="8Tr-i3-2u6" secondAttribute="bottom" id="zGx-Xo-G3z"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Playful cat" image="ic_tabbar_playful" id="lIw-Pi-PM9"/>
@@ -203,8 +203,8 @@
                             <constraint firstItem="I55-bD-oRY" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" constant="6" id="haG-Lj-wf2"/>
                             <constraint firstItem="toC-UG-sI2" firstAttribute="leading" secondItem="j8y-r6-qLd" secondAttribute="leading" id="lvG-AB-XcK"/>
                             <constraint firstItem="toC-UG-sI2" firstAttribute="top" secondItem="j8y-r6-qLd" secondAttribute="top" id="po0-1I-K7D"/>
+                            <constraint firstItem="I55-bD-oRY" firstAttribute="top" secondItem="j8y-r6-qLd" secondAttribute="top" constant="20" id="u7S-mk-jT8"/>
                             <constraint firstAttribute="bottom" secondItem="YaS-Hu-v7i" secondAttribute="bottom" id="ue3-0f-oZM"/>
-                            <constraint firstItem="I55-bD-oRY" firstAttribute="top" secondItem="keO-eE-tO7" secondAttribute="bottom" id="wGq-iT-MD9"/>
                             <constraint firstAttribute="trailing" secondItem="toC-UG-sI2" secondAttribute="trailing" id="wUc-KZ-QBN"/>
                         </constraints>
                     </view>
