@@ -5,11 +5,12 @@ All notable changes to the library will be documented in this file.
 ### Added
 - UITabBarController and UINavigationController menu items support
 - Rotation support
-- Right SideMenu support (plan)
+- Public methods documentation in code
 - CHANGELOG file
 
 ### Changed
 - Renamed `showMenu()`/`hideMenu()` methods to `showSideMenu()`/`hideSideMenu()`
+- Reworked [Sample](./Sample)
 
 ### Fixed
 - Displaying horizontal images in [Sample](./Sample)
