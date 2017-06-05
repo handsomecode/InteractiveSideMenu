@@ -14,6 +14,7 @@ All notable changes to the library will be documented in this file.
 
 ### Fixed
 - Displaying horizontal images in [Sample](./Sample)
+- Customization of spring animation parameters: [Issue #17]
 
 **Migration notes**
 
@@ -57,3 +58,4 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 - README file
 
 [Unreleased]: https://github.com/handsomecode/InteractiveSideMenu/compare/master...feature/nav_and_tab_controllers_support
+[Issue #17]: https://github.com/handsomecode/InteractiveSideMenu/issues/17
