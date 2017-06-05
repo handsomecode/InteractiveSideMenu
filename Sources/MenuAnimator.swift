@@ -18,31 +18,52 @@
 
 import UIKit
 
+/**
+ Options that define menu transition settings.
+ Class lets user customize their transitioning animation: duration, content scale, visible content width, animationOptions, using spring animation or not and params if yes.
+ */
 public struct TransitionOptions {
-    
+
+    /**
+     The duration of showing/hiding menu animation. Default value is 0.5.
+     */
     public var duration: TimeInterval = 0.5 {
         willSet(newDuration) {
             if(newDuration < 0) {
-                fatalError("Invalid duration value (\(newDuration)). It must be non negative")
+                fatalError("Invalid `duration` value (\(newDuration)). It must be non negative")
             }
         }
     }
 
+    /**
+     The scale factor of content menu item when the menu is opened. Default value is 0.88.
+     */
     public var contentScale: CGFloat = 0.88 {
         willSet(newContentScale) {
             if(newContentScale < 0) {
-                fatalError("Invalid contentScale value (\(newContentScale)). It must be non negative")
+                fatalError("Invalid `contentScale` value (\(newContentScale)). It must be non negative")
             }
         }
     }
 
+    /// The width of visible part of content menu item when the menu is shown. Default value is 56 points.
     public var visibleContentWidth: CGFloat = 56.0
+
+    /// Defines if spring animation will be used on menu transition finishing. Default value is true.
     public var useFinishingSpringSettings = true
+
+    /// Defines if spring animation will be used on menu transition cancelling (when user let draggable view to go back to the begining position). Default value is true.
     public var useCancellingSpringSettings = true
+
+    /// Spring animation settings if `useFinishingSpringSettings` is set to true.
     public var finishingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
-                                                    dismissSpringParams: SpringParams(dampingRatio: 0.8, velocity: 0.3))
+                                                    dismissSpringParams: SpringParams(dampingRatio:
+                                                        0.8, velocity: 0.3))
+    /// Spring animation settings if `useCancellingSpringSettings` is set to true.
     public var cancellingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0),
                                                     dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
+
+    /// Regular view animation options. Default value is `curveEaseInOut`.
     public var animationOptions: UIViewAnimationOptions = .curveEaseInOut
 
     public init() {
@@ -82,26 +103,36 @@ public struct TransitionOptions {
     }
 }
 
-
-public struct SpringParams {
-    let dampingRatio: CGFloat
-    let velocity: CGFloat
-}
-
-
+/**
+ Settings of spring animation for presenting and dismissing actions.
+ */
 public struct SpringSettings {
     let presentSpringParams: SpringParams
     let dismissSpringParams: SpringParams
 }
 
+/**
+ Basic spring params.
+ */
+public struct SpringParams {
 
+    /// The damping ratio from 0 to 1 for the spring animation as it approaches its quiescent state.
+    let dampingRatio: CGFloat
+
+    /// The initial spring velocity. For smooth start to the animation, match this value to the view’s velocity.
+    let velocity: CGFloat
+}
+
+/**
+ Delegate of menu transitioning actions.
+ */
 class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     var interactiveTransition: MenuInteractiveTransition!
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid interactiveTransition value. This property should not be nil")
+            fatalError("Invalid `interactiveTransition` value. This property should not be nil")
         }
         interactiveTransition.present = true
         
@@ -110,7 +141,7 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid interactiveTransition value. This property should not be nil")
+            fatalError("Invalid `interactiveTransition` value. This property should not be nil")
         }
         interactiveTransition.present = false
         
@@ -119,19 +150,22 @@ class MenuTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid interactiveTransition value. This property should not be nil")
+            fatalError("Invalid `interactiveTransition` value. This property should not be nil")
         }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if interactiveTransition == nil {
-            fatalError("Invalid interactiveTransition value. This property should not be nil")
+            fatalError("Invalid `interactiveTransition` value. This property should not be nil")
         }
         return interactiveTransition.interactionInProgress ? interactiveTransition : nil
     }
 }
 
+/**
+ The side menu interactive transitioning implementation.
+ */
 class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransitioning, UIViewControllerAnimatedTransitioning {
     
     typealias Action = () -> ()
@@ -245,7 +279,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
 
             guard let contentSnapshotView = self.contentSnapshotView else {
-                fatalError("Invalid contentSnapshotView value. This property should not be nil")
+                fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
             }
 
             containerView.addSubview(contentSnapshotView)
@@ -269,7 +303,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
 
     private func updateTransition(percentComplete: CGFloat) {
         guard let transitionContext = self.transitionContext else {
-            fatalError("Invalid transitionContext value. This property should not be nil")
+            fatalError("Invalid `transitionContext` value. This property should not be nil")
         }
         let containerView = transitionContext.containerView
         let screenWidth = containerView.frame.size.width
@@ -277,7 +311,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let totalWidth = screenWidth - options.visibleContentWidth
 
         guard let contentSnapshotView = self.contentSnapshotView else {
-            fatalError("Invalid contentSnapshotView value. This property should not be nil")
+            fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
         }
         
         if present {
@@ -316,10 +350,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         let completion : (Bool) -> Void = { [weak self] _ in
             if let transition = self {
                 guard let transitionContext = transition.transitionContext else {
-                    fatalError("Invalid transition.transitionContext value. This property should not be nil")
+                    fatalError("Invalid `transition.transitionContext` value. This property should not be nil")
                 }
                 guard let contentSnapshotView = transition.contentSnapshotView else {
-                    fatalError("Invalid transition.contentSnapshotView value. This property should not be nil")
+                    fatalError("Invalid `transition.contentSnapshotView` value. This property should not be nil")
                 }
                 guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
                     fatalError("Invalid fromViewController key. Can't finish transition")
@@ -377,10 +411,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             if let transition = self {
 
                 guard let transitionContext = transition.transitionContext else {
-                    fatalError("Invalid transition.transitionContext value. This property should not be nil")
+                    fatalError("Invalid `transition.transitionContext` value. This property should not be nil")
                 }
                 guard let contentSnapshotView = transition.contentSnapshotView else {
-                    fatalError("Invalid transition.contentSnapshotView value. This property should not be nil")
+                    fatalError("Invalid `transition.contentSnapshotView` value. This property should not be nil")
                 }
                 guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) else {
                     fatalError("Invalid fromViewController key. Can't cancel transition")
@@ -450,7 +484,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             case .changed:
                 if transitionStarted && (present && dx > 0 || !present && dx < 0) {
                     guard let transitionContext = transitionContext else {
-                        fatalError("Invalid transitionContext value. This property should not be nil")
+                        fatalError("Invalid `transitionContext` value. This property should not be nil")
                     }
                     updateTransition(percentComplete: progress)
                     transitionContext.updateInteractiveTransition(progress)
@@ -459,7 +493,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
             case .cancelled, .ended:
                 if transitionStarted {
                     guard let transitionContext = transitionContext else {
-                        fatalError("Invalid transitionContext value. This property should not be nil")
+                        fatalError("Invalid `transitionContext` value. This property should not be nil")
                     }
                     if progress > 0.4 && velocity >= 0 || progress > 0.01 && velocity > 100 {
                         finishTransition(currentPercentComplete: progress)
@@ -473,7 +507,7 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                     if transitionStarted {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             guard let transitionContext = self.transitionContext else {
-                                fatalError("Invalid transitionContext value. This property should not be nil")
+                                fatalError("Invalid `transitionContext` value. This property should not be nil")
                             }
                             if self.transitionStarted {
                                 self.cancelTransition(currentPercentComplete: progress)
