@@ -482,10 +482,10 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
                 }
                 
             case .changed:
-                guard let transitionContext = transitionContext else {
-                    fatalError("Invalid `transitionContext` value. This property should not be nil")
-                }
                 if transitionStarted && (present && dx > 0 || !present && dx < 0) {
+                    guard let transitionContext = transitionContext else {
+                        fatalError("Invalid `transitionContext` value. This property should not be nil")
+                    }
                     updateTransition(percentComplete: progress)
                     transitionContext.updateInteractiveTransition(progress)
                 }
