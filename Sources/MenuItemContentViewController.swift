@@ -19,7 +19,7 @@
 import UIKit
 
 /**
- The protocol to define item of side menu. Every menu item should adopt this protocol.
+ The protocol to indicate item of side menu. Every menu item should adopt this protocol.
  */
 public protocol SideMenuItemContent {
 

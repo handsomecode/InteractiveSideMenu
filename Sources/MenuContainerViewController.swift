@@ -29,7 +29,7 @@ open class MenuContainerViewController: UIViewController {
     public var menuViewController: MenuViewController! {
         didSet {
             if menuViewController == nil {
-                fatalError("Invalid menuViewController value. It should not be nil")
+                fatalError("Invalid `menuViewController` value. It should not be nil")
             }
             menuViewController.menuContainerViewController = self
             menuViewController.transitioningDelegate = self.navigationMenuTransitionDelegate
@@ -39,9 +39,7 @@ open class MenuContainerViewController: UIViewController {
     
     /**
      The options defining side menu transitioning.
-     
      Could be set at any time of controller lifecycle.
-     Are passed to MenuInteractiveTransition class.
      */
     public var transitionOptions: TransitionOptions {
         get {
@@ -116,7 +114,7 @@ open class MenuContainerViewController: UIViewController {
         let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
         coordinator.animate(alongsideTransition: { _ in
             if self.menuViewController == nil {
-                fatalError("Invalid menuViewController value. It should not be nil")
+                fatalError("Invalid `menuViewController` value. It should not be nil")
             }
             self.menuViewController.view.bounds = viewBounds
             self.menuViewController.view.center = viewCenter
@@ -147,7 +145,7 @@ open class MenuContainerViewController: UIViewController {
      */
     private func presentNavigationMenu() {
         if menuViewController == nil {
-            fatalError("Invalid menuViewController value. It should not be nil")
+            fatalError("Invalid `menuViewController` value. It should not be nil")
         }
         self.present(menuViewController, animated: true, completion: nil)
     }
