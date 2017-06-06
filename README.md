@@ -15,6 +15,8 @@ It supports following customization:
 - Using spring animation with params customization
 - Animation options like animation curve
 
+All these parameters could be various in different orientations.
+
 # Installation
 
 ## CocoaPods
@@ -31,14 +33,14 @@ github "handsomecode/InteractiveSideMenu"
 
 
 # Usage
-You should use basic ViewControllers for creating subclasses for implementing your side menu.
+To implement your side menu you should create subclasses of basic View Controllers.
 - ```MenuContainerViewController``` is a host for menu and content views
 - ```MenuViewController``` is a container for menu view
 
-Also you should ensure that every menu item ViewController adopts relevant protocol. 
+Also, ensure that every menu item ViewController adopts relevant protocol.
 - ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
 
-To setup your side menu you shoud do 3 things:
+To setup your side menu you need to do three things:
 - Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
 - Provide implementation of menu content and assing array of content controllers to ```contentViewControllers``` property
 - Select initial content controller by calling ```selectContentViewController(_ selectedContentVC: MenuItemContentViewController)```
@@ -64,7 +66,7 @@ class HostViewController: MenuContainerViewController {
 }
 ```
 
-To show menu you should call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
+To show menu, call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
 ```swift
 import InteractiveSideMenu
 
@@ -76,7 +78,7 @@ class KittyViewController: UIViewController, SideMenuItemContent {
 }
 ``` 
 
-To change content view you should choose desired content controller and hide menu.
+To change content view, choose desired content controller and hide menu.
 ```swift
     let index = 2 // second menu item
     guard let menuContainerViewController = self.menuContainerViewController else { return }
@@ -85,7 +87,7 @@ To change content view you should choose desired content controller and hide men
     menuContainerViewController.hideMenu()
  ```
 
-To customize animation for menu opening or closing you should update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
+To customize animation for menu opening or closing, update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
@@ -95,7 +97,7 @@ override func viewDidLoad() {
 }
 ```
 
-Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
+Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it, override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
@@ -106,7 +108,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 }
 ```
 
-Transition options could be used to set different settings for Compact and Regular sizes as well. To do it you should implement ViewController's ```traitCollectionDidChange(_: )``` callback.
+Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
 
  See [Sample](./Sample) for more details.
 
