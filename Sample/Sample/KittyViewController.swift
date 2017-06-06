@@ -1,5 +1,5 @@
 //
-// FirstViewController.swift
+// KittyViewController.swift
 //
 // Copyright 2017 Handsome LLC
 //
@@ -19,8 +19,13 @@
 import UIKit
 import InteractiveSideMenu
 
+/*
+ KittyViewController is a controller relevant one of the side menu items. To indicate this it adopts `SideMenuItemContent` protocol.
+ */
 class KittyViewController: UIViewController, SideMenuItemContent {
-    
+
+    /* Show side menu on menu button click
+     */
     @IBAction func openMenu(_ sender: UIButton) {
         showSideMenu()
     }
