@@ -28,6 +28,10 @@ class NavigationMenuViewController: MenuViewController {
     let menuItems = ["Kitty", "TabBar cats"]
 
     @IBOutlet weak var tableView: UITableView!
+
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
