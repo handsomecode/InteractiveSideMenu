@@ -31,10 +31,12 @@ github "handsomecode/InteractiveSideMenu"
 
 
 # Usage
-You should use 3 basic ViewControllers for creating subclasses for implementing your side menu.
+You should use basic ViewControllers for creating subclasses for implementing your side menu.
 - ```MenuContainerViewController``` is a host for menu and content views
 - ```MenuViewController``` is a container for menu view
-- ```MenuItemContentControlller``` is a container for content that corresponds menu item
+
+Also you should ensure that every menu item ViewController adopts relevant protocol. 
+- ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
 
 To setup your side menu you shoud do 3 things:
 - Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
@@ -48,11 +50,8 @@ class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
-
-		contentViewControllers = contentControllers()
-
+	contentViewControllers = contentControllers()
         selectContentViewController(contentViewControllers.first!)
     }
 
@@ -61,40 +60,53 @@ class HostViewController: MenuContainerViewController {
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "First") as! MenuItemContentViewController)
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "Second") as! MenuItemContentViewController)
     	return contentList
-	}
+    }
 }
 ```
 
-To show menu you should call ```showMenu()``` method that is available in MenuItemContentViewController class.
+To show menu you should call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
 ```swift
 import InteractiveSideMenu
 
-class FirstViewController: MenuItemContentViewController {
+class KittyViewController: UIViewController, SideMenuItemContent {
     
-    @IBAction func didOpenMenu(_ sender: UIButton) {
-        showMenu()
+    @IBAction func openMenu(_ sender: UIButton) {
+        showSideMenu()
     }
 }
 ``` 
 
 To change content view you should choose desired content controller and hide menu.
 ```swift
-let index = 2 // second menu item
-guard let menuContainerViewController = self.menuContainerViewController else { return }
-let contentController = menuContainerViewController.contentViewControllers[index]
-menuContainerViewController.selectContentViewController(contentController)
-menuContainerViewController.hideMenu()
+    let index = 2 // second menu item
+    guard let menuContainerViewController = self.menuContainerViewController else { return }
+    let contentController = menuContainerViewController.contentViewControllers[index]
+    menuContainerViewController.selectContentViewController(contentController)
+    menuContainerViewController.hideMenu()
  ```
 
- To customize animation for menu opening or closing you should override ```menuTransitionOptionsBuilder()``` method that is available in ```MenuContainerViewColtroller``` class.
+To customize animation for menu opening or closing you should update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
- override func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
-    return TransitionOptionsBuilder() { builder in
-        builder.duration = 0.5
-        builder.contentScale = 1
-    }
+override func viewDidLoad() {
+    super.viewDidLoad()
+    let screenSize: CGRect = UIScreen.main.bounds
+    self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+    ...
 }
-  ```
+```
+
+Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it you should override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
+```swift
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 6
+    self.transitionOptions = options
+}
+```
+
+Transition options could be used to set different settings for Compact and Regular sizes as well. To do it you should implement ViewController's ```traitCollectionDidChange(_: )``` callback.
 
  See [Sample](./Sample) for more details.
 

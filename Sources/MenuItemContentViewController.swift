@@ -18,13 +18,25 @@
 
 import UIKit
 
-open class MenuItemContentViewController: UIViewController {
-    
-    private var menuContainerViewController: MenuContainerViewController {
-        return self.parent as! MenuContainerViewController
-    }
-    
-    public func showMenu() {
-        menuContainerViewController.showMenu()
+/**
+ The protocol to indicate item of side menu. Every menu item should adopt this protocol.
+ */
+public protocol SideMenuItemContent {
+
+    /**
+     Shows left side menu.
+     */
+    func showSideMenu()
+}
+
+/**
+ The extention of SideMenuItemContent protocol implementing showSideMenu() method for UIViewCntroller class.
+ */
+extension SideMenuItemContent where Self: UIViewController {
+
+    public func showSideMenu() {
+        if let menuContainerViewController = self.parent as? MenuContainerViewController {
+            menuContainerViewController.showSideMenu()
+        }
     }
 }
