@@ -13,8 +13,8 @@ All notable changes to the library will be documented in this file.
 - Reworked [Sample](./Sample)
 
 ### Fixed
-- Displaying horizontal images in [Sample](./Sample)
 - Customization of spring animation parameters: [Issue #17]
+- Displaying horizontal images in [Sample](./Sample)
 
 **Migration notes**
 
@@ -53,7 +53,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 
 ## 1.0 - 2017-01-23
 ### Added
-- LeftSideMenu with possibility to customize menu animation and content    
+- Left SideMenu with possibility to customize menu animation and content    
 - Sample demonstrating using SideMenu library
 - README file
 

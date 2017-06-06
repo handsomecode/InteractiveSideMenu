@@ -67,7 +67,7 @@
                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UITableViewCell" id="lPg-q5-HG9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" id="lPg-q5-HG9">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lPg-q5-HG9" id="7Mm-JH-lHF">
@@ -76,6 +76,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Y9l-pR-fbD"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="hc7-Uv-uf9"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -152,9 +156,9 @@
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="baseline" secondItem="ERA-XQ-g0N" secondAttribute="baseline" constant="22" id="epz-Po-KkV"/>
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" id="l6N-OA-JNm"/>
                             <constraint firstAttribute="bottom" secondItem="Bnb-ow-Hxx" secondAttribute="bottom" id="loX-cs-71k"/>
-                            <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" constant="20" id="opz-em-ji4"/>
                             <constraint firstItem="Bnb-ow-Hxx" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="sEV-X9-tvK"/>
                             <constraint firstItem="g4R-sn-aDK" firstAttribute="leading" secondItem="mKv-5e-xGD" secondAttribute="leading" id="ujt-ff-Gxd"/>
+                            <constraint firstItem="ERA-XQ-g0N" firstAttribute="top" secondItem="mKv-5e-xGD" secondAttribute="top" constant="20" id="yio-oN-NEJ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Playful cat" image="ic_tabbar_playful" id="lIw-Pi-PM9"/>
