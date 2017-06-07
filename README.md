@@ -15,6 +15,8 @@ It supports following customization:
 - Using spring animation with params customization
 - Animation options like animation curve
 
+All these parameters could vary for different orientations.
+
 # Installation
 
 ## CocoaPods
@@ -31,12 +33,14 @@ github "handsomecode/InteractiveSideMenu"
 
 
 # Usage
-You should use 3 basic ViewControllers for creating subclasses for implementing your side menu.
+To implement your side menu you should create subclasses of basic View Controllers.
 - ```MenuContainerViewController``` is a host for menu and content views
 - ```MenuViewController``` is a container for menu view
-- ```MenuItemContentControlller``` is a container for content that corresponds menu item
 
-To setup your side menu you shoud do 3 things:
+Also, ensure that every menu item ViewController adopts relevant protocol.
+- ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
+
+To setup your side menu you need to do three things:
 - Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
 - Provide implementation of menu content and assing array of content controllers to ```contentViewControllers``` property
 - Select initial content controller by calling ```selectContentViewController(_ selectedContentVC: MenuItemContentViewController)```
@@ -48,11 +52,8 @@ class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
-
-		contentViewControllers = contentControllers()
-
+	contentViewControllers = contentControllers()
         selectContentViewController(contentViewControllers.first!)
     }
 
@@ -61,40 +62,53 @@ class HostViewController: MenuContainerViewController {
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "First") as! MenuItemContentViewController)
     	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "Second") as! MenuItemContentViewController)
     	return contentList
-	}
+    }
 }
 ```
 
-To show menu you should call ```showMenu()``` method that is available in MenuItemContentViewController class.
+To show menu, call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
 ```swift
 import InteractiveSideMenu
 
-class FirstViewController: MenuItemContentViewController {
+class KittyViewController: UIViewController, SideMenuItemContent {
     
-    @IBAction func didOpenMenu(_ sender: UIButton) {
-        showMenu()
+    @IBAction func openMenu(_ sender: UIButton) {
+        showSideMenu()
     }
 }
 ``` 
 
-To change content view you should choose desired content controller and hide menu.
+To change content view, choose desired content controller and hide menu.
 ```swift
-let index = 2 // second menu item
-guard let menuContainerViewController = self.menuContainerViewController else { return }
-let contentController = menuContainerViewController.contentViewControllers[index]
-menuContainerViewController.selectContentViewController(contentController)
-menuContainerViewController.hideMenu()
+    let index = 2 // second menu item
+    guard let menuContainerViewController = self.menuContainerViewController else { return }
+    let contentController = menuContainerViewController.contentViewControllers[index]
+    menuContainerViewController.selectContentViewController(contentController)
+    menuContainerViewController.hideMenu()
  ```
 
- To customize animation for menu opening or closing you should override ```menuTransitionOptionsBuilder()``` method that is available in ```MenuContainerViewColtroller``` class.
+To customize animation for menu opening or closing, update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
- override func menuTransitionOptionsBuilder() -> TransitionOptionsBuilder? {
-    return TransitionOptionsBuilder() { builder in
-        builder.duration = 0.5
-        builder.contentScale = 1
-    }
+override func viewDidLoad() {
+    super.viewDidLoad()
+    let screenSize: CGRect = UIScreen.main.bounds
+    self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+    ...
 }
-  ```
+```
+
+Also, you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it, override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
+```swift
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    var options = TransitionOptions()
+    options.duration = size.width < size.height ? 0.4 : 0.6
+    options.visibleContentWidth = size.width / 6
+    self.transitionOptions = options
+}
+```
+
+Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
 
  See [Sample](./Sample) for more details.
 
