@@ -1,7 +1,7 @@
 # Change Log
-All notable changes to the library will be documented in this file.
+All notable changes of the library will be documented in this file.
 
-## [Unreleased]
+## 2.0 - [2017-06-07]
 ### Added
 - UITabBarController and UINavigationController menu items support
 - Rotation support
@@ -57,5 +57,5 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 - Sample demonstrating using SideMenu library
 - README file
 
-[Unreleased]: https://github.com/handsomecode/InteractiveSideMenu/compare/master...feature/nav_and_tab_controllers_support
+[2017-06-07]: https://github.com/handsomecode/InteractiveSideMenu/compare/1.0...2.0
 [Issue #17]: https://github.com/handsomecode/InteractiveSideMenu/issues/17
