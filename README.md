@@ -15,7 +15,7 @@ It supports following customization:
 - Using spring animation with params customization
 - Animation options like animation curve
 
-All these parameters could be various in different orientations.
+All these parameters could vary for different orientations.
 
 # Installation
 
@@ -97,7 +97,7 @@ override func viewDidLoad() {
 }
 ```
 
-Also you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it, override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
+Also, you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it, override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
