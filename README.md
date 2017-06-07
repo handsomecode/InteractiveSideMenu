@@ -110,7 +110,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 
 Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
 
- See [Sample](./Sample) for more details.
+ Use [Sample](./Sample) to see implementation details and [Changelog](./CHANGELOG.md) to get more information about updating library from v1.0 to v2.0.
 
 # Requirements
 - iOS 8.0+
