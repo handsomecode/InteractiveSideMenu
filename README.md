@@ -17,6 +17,14 @@ It supports following customization:
 
 All these parameters could vary for different orientations.
 
+## Communication
+
+- If you **need help or found a bug**, please, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **are ready to contribute**, submit a pull request.
+- If you **like Interactive Side Menu**, please, give it a star.
+- If you **use Interactive Side Menu in your application published to AppStore**, [send us a link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) and we'll create the list with applications used our library.
+
 # Installation
 
 ## CocoaPods
@@ -24,6 +32,7 @@ To install it through [CocoaPods](https://cocoapods.org/), add the following lin
 ```
 pod 'InteractiveSideMenu'
 ```
+Please, don't forget to run `pod update` command to update your local specs repository during migration from one version to another.
 
 ## Carthage
 To install it through [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
@@ -40,6 +49,7 @@ To implement your side menu you should create subclasses of basic View Controlle
 Also, ensure that every menu item ViewController adopts relevant protocol.
 - ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
 
+## HostViewController implementation
 To setup your side menu you need to do three things:
 - Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
 - Provide implementation of menu content and assing array of content controllers to ```contentViewControllers``` property
@@ -66,6 +76,7 @@ class HostViewController: MenuContainerViewController {
 }
 ```
 
+## Items content
 To show menu, call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
 ```swift
 import InteractiveSideMenu
@@ -80,13 +91,32 @@ class KittyViewController: UIViewController, SideMenuItemContent {
 
 To change content view, choose desired content controller and hide menu.
 ```swift
-    let index = 2 // second menu item
+    let index = 2 // Second menu item
     guard let menuContainerViewController = self.menuContainerViewController else { return }
     let contentController = menuContainerViewController.contentViewControllers[index]
     menuContainerViewController.selectContentViewController(contentController)
-    menuContainerViewController.hideMenu()
+    menuContainerViewController.hideSideMenu()
  ```
+ 
+### TabBar and Navigation controllers
 
+To use menu with **TabBar** or **NavigationController**, ensure that you indicate UITabBarController or UINavigationController as item content directly, not any corresponding ViewControllers.
+```swift
+class NavigationViewController: UINavigationController, SideMenuItemContent {
+}
+
+class InnerViewController: UIViewController {
+
+    @IBAction func openMenu(_ sender: Any) {
+        if let navigationViewController = self.navigationController as? SideMenuItemContent {
+            navigationViewController.showSideMenu()
+        }
+    }
+}
+```
+Please, find UITabBarController implementation details in [Sample](./Sample).
+ 
+## Animation Customization
 To customize animation for menu opening or closing, update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
  ```swift
 override func viewDidLoad() {
