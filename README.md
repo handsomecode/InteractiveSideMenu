@@ -25,6 +25,8 @@ All these parameters could vary for different orientations.
 - If you **like Interactive Side Menu**, please, give it a star.
 - If you **use Interactive Side Menu in your application published to AppStore**, [send us a link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) and we'll create the list with applications used our library.
 
+You can find more details into [Contributing](./CONTRIBUTING.md) file.
+
 # Installation
 
 ## CocoaPods
