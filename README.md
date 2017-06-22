@@ -25,7 +25,7 @@ All these parameters could vary for different orientations.
 - If you **like Interactive Side Menu**, please, give it a star.
 - If you **use Interactive Side Menu in your application published to AppStore**, [send us a link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) and we'll create the list with applications used our library.
 
-You can find more details into [Contributing](./CONTRIBUTING.md) file.
+You can find more details into [CONTRIBUTING](./CONTRIBUTING.md) file.
 
 # Installation
 
@@ -142,7 +142,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 
 Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
 
- Use [Sample](./Sample) to see implementation details and [Changelog](./CHANGELOG.md) to get more information about updating library from v1.0 to v2.0.
+ Use [Sample](./Sample) to see implementation details and [CHANGELOG](./CHANGELOG.md) to get more information about updating library from v1.0 to v2.0.
 
 # Requirements
 - iOS 8.0+
