@@ -39,7 +39,7 @@ Include details about your configuration and environment:
 
 ### How to tell us about your application
 
-If you are using **InteractiveSideMenu** in your project that is successfully published to AppStore, [send the link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) to us and we'll add you to the list of applications that user the library.
+If you are using **InteractiveSideMenu** in your project that is successfully published to AppStore, [send the link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) to us and we'll add you to the list of applications that use the library.
 
 
 ### How to submit changes
