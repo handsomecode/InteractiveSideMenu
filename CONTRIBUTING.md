@@ -1,15 +1,15 @@
 # Contributing to InteractiveSideMenu
 
-:+1: First of all, big thanks for your desire to contibute in this project :+1:
+:+1: First of all, big thanks for your desire to contribute in this project :+1:
 
 ## How to contribute
 
-The easiest way to contribute is to *report us about a bug* or *propose a new feature*. Use [GitHub Issues](https://github.com/handsomecode/InteractiveSideMenu/issues) to say us about it.
-Please, feel free to send your suggestions concerning any library issue, documentation and README typos, [Sample](./Sample) improvements, and any other enhancement. **We really appreciate your participation!**
+The easiest way to contribute is to *report a bug* or *propose a new feature* using [GitHub Issues](https://github.com/handsomecode/InteractiveSideMenu/issues).
+Also, feel free to send your suggestions concerning any library issues, documentation and README typos, [Sample](./Sample) improvements, or any other enhancements. **We really appreciate your participation!**
 
 ### How to ask a question
 
-Before asking a question, please, look through [README](./README.md) and [Sample application](./Sample). Then take a look into [already asked GitHub Issues](https://github.com/handsomecode/InteractiveSideMenu/issues) (even closed). If you still not found an answer, feel free to [open an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/new) and ask us your question. It'd be great to mark it with prepared `question` label.
+Before asking a question, please look through the [README](./README.md) and [Sample application](./Sample) or take a look into [already asked GitHub Issues](https://github.com/handsomecode/InteractiveSideMenu/issues) (even closed). If you still haven't found an answer, feel free to [open an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/new) and ask us your question and mark it with the prepared `question` label.
 
 ### How to report a bug
 
@@ -18,28 +18,28 @@ The standard way to report a bug is [GitHub Issues](https://github.com/handsomec
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
 - **Use a clear and descriptive title** for the issue to identify the problem.
-- **Describe the exact steps which reproduce the problem** in as many details as possible.
-- **Provide specific examples** to demonstrate these steps. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use Markdown code blocks.
+- **Describe the exact steps to reproduce the problem** in as many details as possible.
+- **Provide specific examples** to demonstrate these steps. Include links to files or GitHub projects, or copy/paste snippets. If you're providing snippets in the issue, use Markdown code blocks.
 - **Describe the behavior you observed** after following these steps and point out what exactly is the problem with that behavior.
-- **Explain which behavior you expected** to see instead and why.
+- **Explain the behavior you expected** to see instead and why.
 - **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem.
-- **If you're reporting that library crashed**, include a crash report with a stack trace.
+- **If you're reporting a library crash**, include a crash report with a stack trace.
 
 Include details about your configuration and environment:
 
 - **Which version of InteractiveSideMenu** are you using?
 - Do you test on the **Simulator** or a **Real device**?
 - **iOS version** that you test with.
-- **XCode version** if it could be helpful in your case.
+- **Xcode version** if it could be helpful in your case.
 
 ### How to request an enhancement
 
-**Enhancements** are features that you might like to suggest to a project, but aren't necessarily bugs/problems with the existing code. There is *a label* for enhancments in [Github's Issues](https://github.com/handsomecode/InteractiveSideMenu/issues), so you can tag issues as `enhancement`, and thereby allow us to prioritize issues/bugs reported to the project.
+**Enhancements** are features that you might like to suggest to a project, but aren't necessarily bugs/problems with the existing code. There is *a label* for enhancements in [Github's Issues](https://github.com/handsomecode/InteractiveSideMenu/issues), so you can tag issues as `enhancement`, and thereby allow us to prioritize issues/bugs reported to the project.
 
 
-### How to say us about your application
+### How to tell us about your application
 
-If you are using **InteractiveSideMenu** in your project that is successfully published to AppStore, [send the link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) to us and we'll add you to the list with applications, used our library. 
+If you are using **InteractiveSideMenu** in your project that is successfully published to AppStore, [send the link](https://github.com/handsomecode/InteractiveSideMenu/issues/new) to us and we'll add you to the list of applications that use the library.
 
 
 ### How to submit changes
@@ -82,7 +82,7 @@ GitHub, clone, and develop on a branch.
    ```bash
    $ git push -u origin feature/my_updates
    ```
-   
+
 5. Add your updates to [Sample](./Sample) as well. Also, don't forget to update [README](./README.md) and [CHANGELOG](./CHANGELOG.md) with your changes.
 
 6. Follow [these instructions](https://help.github.com/articles/creating-a-pull-request-from-a-fork)
@@ -94,8 +94,3 @@ to create a pull request from your fork. This will send an email to the committe
 ## Code of Conduct
 
 This project is governed by the [CODE OF CONDUCT](./CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please, report unacceptable behavior to mobile@handsome.is.
-
-
-
-
-
