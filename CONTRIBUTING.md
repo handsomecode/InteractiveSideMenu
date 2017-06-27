@@ -44,7 +44,7 @@ If you are using **InteractiveSideMenu** in your project that is successfully pu
 
 ### How to submit changes
 
-When contributing to this repository, please, first discuss the change you wish to make via [issue](https://github.com/handsomecode/InteractiveSideMenu/issues/new) or email to mobile@handsome.is before making a change.
+When contributing to this repository, please, first discuss the change you wish to make via [issue](https://github.com/handsomecode/InteractiveSideMenu/issues/new).
 The preferred workflow for contributing to InteractiveSideMenu is to fork the [main repository](https://github.com/handsomecode/InteractiveSideMenu) on
 GitHub, clone, and develop on a branch.
 
