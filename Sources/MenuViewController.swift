@@ -27,4 +27,3 @@ open class MenuViewController: UIViewController {
         menuContainerViewController?.hideSideMenu()
     }
 }
-
