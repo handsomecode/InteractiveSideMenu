@@ -73,7 +73,7 @@ open class MenuContainerViewController: UIViewController {
     /**
      Embeds menu item content view controller.
 
-     - parameter selectedContentVC: view controller to be embedded.
+     - parameter selectedContentVC: The view controller to be embedded.
      */
     public func selectContentViewController(_ selectedContentVC: UIViewController) {
         if let currentContentVC = currentContentViewController {
@@ -87,7 +87,7 @@ open class MenuContainerViewController: UIViewController {
         }
     }
 
-    // MARK: - Controller lifecycle.
+    // MARK: - Controller lifecycle
     //
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +135,7 @@ open class MenuContainerViewController: UIViewController {
     /**
      Adds proper content view controller as a child.
      
-     - parameter selectedContentVC: view controller to be added.
+     - parameter selectedContentVC: The view controller to be added.
      */
     private func setCurrentView(_ selectedContentVC: UIViewController) {
         addChildViewController(selectedContentVC)

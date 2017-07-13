@@ -29,7 +29,7 @@ final class MenuInteractiveTransition: NSObject {
     //
     var present = false
     var interactionInProgress = false
-
+    
     var options = TransitionOptions()
     fileprivate let presentAction: Action
     fileprivate let dismissAction: Action
@@ -38,7 +38,7 @@ final class MenuInteractiveTransition: NSObject {
     fileprivate var transitionStarted = false
     fileprivate var transitionContext: UIViewControllerContextTransitioning?
     fileprivate var contentSnapshotView: UIView?
-
+    
     fileprivate var tapRecognizer: UITapGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
     
@@ -86,6 +86,118 @@ extension MenuInteractiveTransition {
         present = false
         
         handlePan(recognizer: recognizer)
+    }
+    
+    fileprivate func startTransition(transitionContext: UIViewControllerContextTransitioning) {
+        transitionStarted = true
+        
+        self.transitionContext = transitionContext
+        
+        guard let fromViewController = transitionContext.viewController(forKey: .from) else {
+            fatalError("Invalid fromViewController key. Can't start transition")
+        }
+        guard let toViewController = transitionContext.viewController(forKey: .to) else {
+            fatalError("Invalid toViewController key. Can't start transition")
+        }
+        let containerView = transitionContext.containerView
+        let screenWidth = containerView.bounds.width
+        
+        if present {
+            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+            
+            if tapRecognizer == nil {
+                
+                guard toViewController is MenuViewController else {
+                    fatalError("Invalid toViewController type. It must be MenuViewController")
+                }
+                tapRecognizer = UITapGestureRecognizer(target: toViewController,
+                                                       action: #selector(MenuViewController.handleTap(recognizer:)))
+                panRecognizer = UIPanGestureRecognizer(target: self,
+                                                       action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
+            }
+            
+            contentSnapshotView = createSnapshotView(from: fromViewController.view)
+            
+            guard let contentSnapshotView = self.contentSnapshotView else {
+                fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
+            }
+            
+            containerView.addSubview(contentSnapshotView)
+            
+            fromViewController.view.isHidden = true
+        } else {
+            containerView.addSubview(toViewController.view)
+            
+            toViewController.view.transform = CGAffineTransform(scaleX: options.contentScale, y: options.contentScale)
+            addShadow(to: toViewController.view)
+            
+            let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
+            let rect = CGRect(origin: newOrigin, size: toViewController.view.bounds.size)
+            
+            toViewController.view.frame = rect
+        }
+        
+        toViewController.view.isUserInteractionEnabled = false
+        fromViewController.view.isUserInteractionEnabled = false
+    }
+    
+    
+    fileprivate func finishTransition(currentPercentComplete : CGFloat) {
+        transitionStarted = false
+        
+        let animation: () -> Void = { [unowned self] in self.updateTransition(percentComplete: 1.0) }
+        let completion : (Bool) -> Void = { [unowned self] _ in
+            guard let transitionContext = self.transitionContext else {
+                fatalError("Invalid `transition.transitionContext` value. This property should not be nil")
+            }
+            guard let contentSnapshotView = self.contentSnapshotView else {
+                fatalError("Invalid `transition.contentSnapshotView` value. This property should not be nil")
+            }
+            guard let fromViewController = transitionContext.viewController(forKey: .from) else {
+                fatalError("Invalid fromViewController key. Can't finish transition")
+            }
+            guard let toViewController = transitionContext.viewController(forKey: .to) else {
+                fatalError("Invalid toViewController key. Can't finish transition")
+            }
+            
+            if self.present {
+                fromViewController.view.isHidden = false
+                contentSnapshotView.removeFromSuperview()
+                
+                if let panRecognizer = self.panRecognizer {
+                    contentSnapshotView.addGestureRecognizer(panRecognizer)
+                }
+                if let tapRecognizer = self.tapRecognizer {
+                    contentSnapshotView.addGestureRecognizer(tapRecognizer)
+                }
+                
+                toViewController.view.addSubview(contentSnapshotView)
+            } else {
+                toViewController.view.isHidden = false
+                self.removeShadow(from: toViewController.view)
+            }
+            
+            toViewController.view.isUserInteractionEnabled = true
+            fromViewController.view.isUserInteractionEnabled = true
+            
+            transitionContext.completeTransition(true)
+        }
+        
+        if options.useFinishingSpringSettings {
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
+                           delay: 0,
+                           usingSpringWithDamping: present ? options.finishingSpringSettings.presentSpringParams.dampingRatio : options.finishingSpringSettings.dismissSpringParams.dampingRatio,
+                           initialSpringVelocity: present ? options.finishingSpringSettings.presentSpringParams.velocity : options.finishingSpringSettings.dismissSpringParams.velocity,
+                           options: options.animationOptions,
+                           animations: animation,
+                           completion: completion)
+        } else {
+            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
+                           delay: 0,
+                           options: options.animationOptions,
+                           animations: animation,
+                           completion: completion)
+        }
     }
     
     private func createSnapshotView(from: UIView) -> UIView {
@@ -226,118 +338,6 @@ extension MenuInteractiveTransition {
             
         default:
             break
-        }
-    }
-    
-    fileprivate func startTransition(transitionContext: UIViewControllerContextTransitioning) {
-        transitionStarted = true
-        
-        self.transitionContext = transitionContext
-        
-        guard let fromViewController = transitionContext.viewController(forKey: .from) else {
-            fatalError("Invalid fromViewController key. Can't start transition")
-        }
-        guard let toViewController = transitionContext.viewController(forKey: .to) else {
-            fatalError("Invalid toViewController key. Can't start transition")
-        }
-        let containerView = transitionContext.containerView
-        let screenWidth = containerView.frame.size.width
-        
-        if present {
-            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
-            
-            if tapRecognizer == nil {
-                
-                guard toViewController is MenuViewController else {
-                    fatalError("Invalid toViewController type. It must be MenuViewController")
-                }
-                tapRecognizer = UITapGestureRecognizer(target: toViewController,
-                                                       action: #selector(MenuViewController.handleTap(recognizer:)))
-                panRecognizer = UIPanGestureRecognizer(target: self,
-                                                       action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
-            }
-            
-            contentSnapshotView = createSnapshotView(from: fromViewController.view)
-            
-            guard let contentSnapshotView = self.contentSnapshotView else {
-                fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
-            }
-            
-            containerView.addSubview(contentSnapshotView)
-            
-            fromViewController.view.isHidden = true
-        } else {
-            containerView.addSubview(toViewController.view)
-            
-            toViewController.view.transform = CGAffineTransform(scaleX: options.contentScale, y: options.contentScale)
-            addShadow(to: toViewController.view)
-            
-            let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
-            let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
-            
-            toViewController.view.frame = rect
-        }
-        
-        toViewController.view.isUserInteractionEnabled = false
-        fromViewController.view.isUserInteractionEnabled = false
-    }
-    
-    
-    fileprivate func finishTransition(currentPercentComplete : CGFloat) {
-        transitionStarted = false
-        
-        let animation: () -> Void = { [unowned self] in self.updateTransition(percentComplete: 1.0) }
-        let completion : (Bool) -> Void = { [unowned self] _ in
-            guard let transitionContext = self.transitionContext else {
-                fatalError("Invalid `transition.transitionContext` value. This property should not be nil")
-            }
-            guard let contentSnapshotView = self.contentSnapshotView else {
-                fatalError("Invalid `transition.contentSnapshotView` value. This property should not be nil")
-            }
-            guard let fromViewController = transitionContext.viewController(forKey: .from) else {
-                fatalError("Invalid fromViewController key. Can't finish transition")
-            }
-            guard let toViewController = transitionContext.viewController(forKey: .to) else {
-                fatalError("Invalid toViewController key. Can't finish transition")
-            }
-            
-            if self.present {
-                fromViewController.view.isHidden = false
-                contentSnapshotView.removeFromSuperview()
-                
-                if let panRecognizer = self.panRecognizer {
-                    contentSnapshotView.addGestureRecognizer(panRecognizer)
-                }
-                if let tapRecognizer = self.tapRecognizer {
-                    contentSnapshotView.addGestureRecognizer(tapRecognizer)
-                }
-                
-                toViewController.view.addSubview(contentSnapshotView)
-            } else {
-                toViewController.view.isHidden = false
-                self.removeShadow(from: toViewController.view)
-            }
-            
-            toViewController.view.isUserInteractionEnabled = true
-            fromViewController.view.isUserInteractionEnabled = true
-            
-            transitionContext.completeTransition(true)
-        }
-        
-        if options.useFinishingSpringSettings {
-            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
-                           delay: 0,
-                           usingSpringWithDamping: present ? options.finishingSpringSettings.presentSpringParams.dampingRatio : options.finishingSpringSettings.dismissSpringParams.dampingRatio,
-                           initialSpringVelocity: present ? options.finishingSpringSettings.presentSpringParams.velocity : options.finishingSpringSettings.dismissSpringParams.velocity,
-                           options: options.animationOptions,
-                           animations: animation,
-                           completion: completion)
-        } else {
-            UIView.animate(withDuration: options.duration - options.duration * Double(currentPercentComplete),
-                           delay: 0,
-                           options: options.animationOptions,
-                           animations: animation,
-                           completion: completion)
         }
     }
     
