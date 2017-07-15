@@ -100,7 +100,7 @@ extension MenuInteractiveTransition {
             fatalError("Invalid toViewController key. Can't start transition")
         }
         let containerView = transitionContext.containerView
-        let screenWidth = containerView.bounds.width
+        let screenWidth = containerView.frame.size.width
         
         if present {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
@@ -132,7 +132,7 @@ extension MenuInteractiveTransition {
             addShadow(to: toViewController.view)
             
             let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
-            let rect = CGRect(origin: newOrigin, size: toViewController.view.bounds.size)
+            let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
             
             toViewController.view.frame = rect
         }
