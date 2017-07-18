@@ -58,6 +58,3 @@ class SecondViewController: UIViewController {
     }
 
 }
-
-
-

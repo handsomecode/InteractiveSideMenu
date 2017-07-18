@@ -36,7 +36,7 @@ open class MenuContainerViewController: UIViewController {
             menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
         }
     }
-    
+
     /**
      The options defining side menu transitioning.
      Could be set at any time of controller lifecycle.
@@ -62,7 +62,7 @@ open class MenuContainerViewController: UIViewController {
         presentNavigationMenu()
     }
 
-    /** 
+    /**
      Hides left side menu.
      Controller from the right side will be visible.
      */
@@ -134,7 +134,7 @@ open class MenuContainerViewController: UIViewController {
 
     /**
      Adds proper content view controller as a child.
-     
+
      - parameter selectedContentVC: The view controller to be added.
      */
     private func setCurrentView(_ selectedContentVC: UIViewController) {
@@ -158,11 +158,11 @@ extension UIView {
     func addSubviewWithFullSizeConstraints(view : UIView) {
         insertSubviewWithFullSizeConstraints(view: view, atIndex: subviews.count)
     }
-    
+
     func insertSubviewWithFullSizeConstraints(view : UIView, atIndex: Int) {
         view.translatesAutoresizingMaskIntoConstraints = false
         insertSubview(view, at: atIndex)
-        
+
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
     }
