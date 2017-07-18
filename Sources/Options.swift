@@ -28,6 +28,11 @@ public struct SpringParams {
 
     /// The initial spring velocity. For smooth start to the animation, match this value to the view’s velocity.
     let velocity: CGFloat
+
+    public init(dampingRatio: CGFloat, velocity: CGFloat) {
+        self.dampingRatio = dampingRatio
+        self.velocity = velocity
+    }
 }
 
 /**
@@ -36,6 +41,11 @@ public struct SpringParams {
 public struct SpringSettings {
     let presentSpringParams: SpringParams
     let dismissSpringParams: SpringParams
+
+    public init(presentSpringParams: SpringParams, dismissSpringParams: SpringParams) {
+        self.presentSpringParams = presentSpringParams
+        self.dismissSpringParams = dismissSpringParams
+    }
 }
 
 
