@@ -32,28 +32,28 @@ open class MenuContainerViewController: UIViewController {
                 fatalError("Invalid `menuViewController` value. It should not be nil")
             }
             menuViewController.menuContainerViewController = self
-            menuViewController.transitioningDelegate = self.navigationMenuTransitionDelegate
-            menuViewController.navigationMenuTransitionDelegate = self.navigationMenuTransitionDelegate
+            menuViewController.transitioningDelegate = navigationMenuTransitionDelegate
+            menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
         }
     }
-    
+
     /**
      The options defining side menu transitioning.
      Could be set at any time of controller lifecycle.
      */
     public var transitionOptions: TransitionOptions {
         get {
-            return navigationMenuTransitionDelegate?.interactiveTransition?.options ?? TransitionOptions()
+            return navigationMenuTransitionDelegate?.interactiveTransition.options ?? TransitionOptions()
         }
         set {
-            navigationMenuTransitionDelegate?.interactiveTransition?.options = newValue
+            navigationMenuTransitionDelegate?.interactiveTransition.options = newValue
         }
     }
 
     /**
      The list of all content view controllers corresponding to side menu items.
      */
-    public var contentViewControllers: [UIViewController]!
+    public var contentViewControllers = [UIViewController]()
 
     /**
      Shows left side menu.
@@ -62,21 +62,21 @@ open class MenuContainerViewController: UIViewController {
         presentNavigationMenu()
     }
 
-    /** 
+    /**
      Hides left side menu.
      Controller from the right side will be visible.
      */
     public func hideSideMenu() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     /**
      Embeds menu item content view controller.
 
-     - parameter selectedContentVC: view controller to be embedded
+     - parameter selectedContentVC: The view controller to be embedded.
      */
     public func selectContentViewController(_ selectedContentVC: UIViewController) {
-        if let currentContentVC = self.currentContentViewController {
+        if let currentContentVC = currentContentViewController {
             if currentContentVC != selectedContentVC {
                 currentContentVC.view.removeFromSuperview()
                 currentContentVC.removeFromParentViewController()
@@ -92,11 +92,14 @@ open class MenuContainerViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationMenuTransitionDelegate = MenuTransitioningDelegate()
-        navigationMenuTransitionDelegate.interactiveTransition = MenuInteractiveTransition(
-            presentAction: { [weak self] in self?.presentNavigationMenu() },
-            dismissAction: { [weak self] in self?.dismiss(animated: true, completion: nil) }
-        )
+        navigationMenuTransitionDelegate = MenuTransitioningDelegate(interactiveTransition: MenuInteractiveTransition(
+            presentAction: { [unowned self] in
+                self.presentNavigationMenu()
+            },
+            dismissAction: { [unowned self] in
+                self.dismiss(animated: true, completion: nil)
+            }
+        ))
 
         let screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(
             target: navigationMenuTransitionDelegate.interactiveTransition,
@@ -104,7 +107,7 @@ open class MenuContainerViewController: UIViewController {
         )
 
         screenEdgePanRecognizer.edges = .left
-        self.view.addGestureRecognizer(screenEdgePanRecognizer)
+        view.addGestureRecognizer(screenEdgePanRecognizer)
     }
 
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -131,13 +134,13 @@ open class MenuContainerViewController: UIViewController {
 
     /**
      Adds proper content view controller as a child.
-     
-     - parameter selectedContentVC: view controller to be added
+
+     - parameter selectedContentVC: The view controller to be added.
      */
     private func setCurrentView(_ selectedContentVC: UIViewController) {
-        self.addChildViewController(selectedContentVC)
-        self.view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
-        self.currentContentViewController = selectedContentVC
+        addChildViewController(selectedContentVC)
+        view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
+        currentContentViewController = selectedContentVC
     }
 
     /**
@@ -147,20 +150,20 @@ open class MenuContainerViewController: UIViewController {
         if menuViewController == nil {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
-        self.present(menuViewController, animated: true, completion: nil)
+        present(menuViewController, animated: true, completion: nil)
     }
 }
 
 extension UIView {
     func addSubviewWithFullSizeConstraints(view : UIView) {
-        insertSubviewWithFullSizeConstraints(view: view, atIndex: self.subviews.count)
+        insertSubviewWithFullSizeConstraints(view: view, atIndex: subviews.count)
     }
-    
+
     func insertSubviewWithFullSizeConstraints(view : UIView, atIndex: Int) {
         view.translatesAutoresizingMaskIntoConstraints = false
-        self.insertSubview(view, at: atIndex)
-        
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
+        insertSubview(view, at: atIndex)
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
     }
 }

@@ -26,7 +26,7 @@ import InteractiveSideMenu
  Has opportunity to show/hide side menu.
  */
 class HostViewController: MenuContainerViewController {
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

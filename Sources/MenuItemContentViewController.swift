@@ -30,12 +30,12 @@ public protocol SideMenuItemContent {
 }
 
 /**
- The extention of SideMenuItemContent protocol implementing showSideMenu() method for UIViewCntroller class.
+ The extension of SideMenuItemContent protocol implementing `showSideMenu()` method for UIViewController class.
  */
 extension SideMenuItemContent where Self: UIViewController {
 
     public func showSideMenu() {
-        if let menuContainerViewController = self.parent as? MenuContainerViewController {
+        if let menuContainerViewController = parent as? MenuContainerViewController {
             menuContainerViewController.showSideMenu()
         }
     }
