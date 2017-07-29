@@ -35,6 +35,8 @@ class NavigationMenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Menu"
 
         // Select the initial row
         tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.none)
@@ -63,7 +65,7 @@ extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        guard let menuContainerViewController = self.menuContainerViewController else {
+        guard let menuContainerViewController = navigationController?.menuContainerViewController else {
             return
         }
 
