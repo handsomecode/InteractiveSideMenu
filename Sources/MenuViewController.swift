@@ -18,12 +18,45 @@
 
 import UIKit
 
-open class MenuViewController: UIViewController {
+@objc public protocol MenuViewController
+{
+    // UIViewController
+    var transitioningDelegate: UIViewControllerTransitioningDelegate? { get set }
+    var view: UIView! { get }
+    
+    // MenuViewController
+    weak var menuContainerViewController: MenuContainerViewController? { get set }
+    var navigationMenuTransitionDelegate: MenuTransitioningDelegate? { get set }
+    @objc func handleTap(recognizer: UIGestureRecognizer)
+}
 
-    public weak var menuContainerViewController: MenuContainerViewController?
-    var navigationMenuTransitionDelegate: MenuTransitioningDelegate?
+private var key_menuContainerViewController = "menuContainerViewController"
+private var key_navigationMenuTransitionDelegate = "navigationMenuTransitionDelegate"
 
-    func handleTap(recognizer: UIGestureRecognizer){
+extension UIViewController: MenuViewController
+{
+    public var menuContainerViewController: MenuContainerViewController?
+    {
+        get {
+            return objc_getAssociatedObject(self, &key_menuContainerViewController) as? MenuContainerViewController
+        }
+        set {
+            objc_setAssociatedObject(self, &key_menuContainerViewController, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    public var navigationMenuTransitionDelegate: MenuTransitioningDelegate?
+    {
+        get {
+            return objc_getAssociatedObject(self, &key_navigationMenuTransitionDelegate) as? MenuTransitioningDelegate
+        }
+        set {
+            objc_setAssociatedObject(self, &key_navigationMenuTransitionDelegate, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    public func handleTap(recognizer: UIGestureRecognizer) {
         menuContainerViewController?.hideSideMenu()
     }
 }
+

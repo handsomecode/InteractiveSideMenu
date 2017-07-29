@@ -22,7 +22,7 @@ import UIKit
  Container for menu view controller.
  */
 open class MenuContainerViewController: UIViewController {
-
+    
     /**
      The view controller for side menu.
      */
@@ -36,7 +36,7 @@ open class MenuContainerViewController: UIViewController {
             menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
         }
     }
-
+    
     /**
      The options defining side menu transitioning.
      Could be set at any time of controller lifecycle.
@@ -49,19 +49,19 @@ open class MenuContainerViewController: UIViewController {
             navigationMenuTransitionDelegate?.interactiveTransition.options = newValue
         }
     }
-
+    
     /**
      The list of all content view controllers corresponding to side menu items.
      */
     public var contentViewControllers = [UIViewController]()
-
+    
     /**
      Shows left side menu.
      */
     public func showSideMenu() {
         presentNavigationMenu()
     }
-
+    
     /**
      Hides left side menu.
      Controller from the right side will be visible.
@@ -69,10 +69,10 @@ open class MenuContainerViewController: UIViewController {
     public func hideSideMenu() {
         dismiss(animated: true, completion: nil)
     }
-
+    
     /**
      Embeds menu item content view controller.
-
+     
      - parameter selectedContentVC: The view controller to be embedded.
      */
     public func selectContentViewController(_ selectedContentVC: UIViewController) {
@@ -86,12 +86,12 @@ open class MenuContainerViewController: UIViewController {
             setCurrentView(selectedContentVC)
         }
     }
-
+    
     // MARK: - Controller lifecycle
     //
     override open func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationMenuTransitionDelegate = MenuTransitioningDelegate(interactiveTransition: MenuInteractiveTransition(
             presentAction: { [unowned self] in
                 self.presentNavigationMenu()
@@ -100,19 +100,19 @@ open class MenuContainerViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
         ))
-
+        
         let screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(
-            target: navigationMenuTransitionDelegate.interactiveTransition,
+            target: navigationMenuTransitionDelegate?.interactiveTransition,
             action: #selector(MenuInteractiveTransition.handlePanPresentation(recognizer:))
         )
-
+        
         screenEdgePanRecognizer.edges = .left
         view.addGestureRecognizer(screenEdgePanRecognizer)
     }
-
+    
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
+        
         let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
         let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
         coordinator.animate(alongsideTransition: { _ in
@@ -126,15 +126,14 @@ open class MenuContainerViewController: UIViewController {
             self.hideSideMenu()
         }, completion: nil)
     }
-
+    
     // MARK: - Private
     //
     private weak var currentContentViewController: UIViewController?
-    private var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
-
+    
     /**
      Adds proper content view controller as a child.
-
+     
      - parameter selectedContentVC: The view controller to be added.
      */
     private func setCurrentView(_ selectedContentVC: UIViewController) {
@@ -142,7 +141,7 @@ open class MenuContainerViewController: UIViewController {
         view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
         currentContentViewController = selectedContentVC
     }
-
+    
     /**
      Presents left side menu.
      */
@@ -150,7 +149,9 @@ open class MenuContainerViewController: UIViewController {
         if menuViewController == nil {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
-        present(menuViewController, animated: true, completion: nil)
+        if let vc = menuViewController as? UIViewController {
+            present(vc, animated: true, completion: nil)
+        }
     }
 }
 
@@ -158,11 +159,11 @@ extension UIView {
     func addSubviewWithFullSizeConstraints(view : UIView) {
         insertSubviewWithFullSizeConstraints(view: view, atIndex: subviews.count)
     }
-
+    
     func insertSubviewWithFullSizeConstraints(view : UIView, atIndex: Int) {
         view.translatesAutoresizingMaskIntoConstraints = false
         insertSubview(view, at: atIndex)
-
+        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
     }

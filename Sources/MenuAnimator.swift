@@ -107,9 +107,6 @@ extension MenuInteractiveTransition {
 
             if tapRecognizer == nil {
 
-                guard toViewController is MenuViewController else {
-                    fatalError("Invalid toViewController type. It must be MenuViewController")
-                }
                 tapRecognizer = UITapGestureRecognizer(target: toViewController,
                                                        action: #selector(MenuViewController.handleTap(recognizer:)))
                 panRecognizer = UIPanGestureRecognizer(target: self,
