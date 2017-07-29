@@ -42,7 +42,7 @@ class HostViewController: MenuContainerViewController {
         self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
 
         // Instantiate menu view controller by identifier
-        self.menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
+        self.menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu")
 
         // Gather content items controllers
         self.contentViewControllers = contentControllers()

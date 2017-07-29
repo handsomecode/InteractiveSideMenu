@@ -22,7 +22,7 @@ import InteractiveSideMenu
 /*
  Menu controller is responsible for creating its content and showing/hiding menu using 'menuContainerViewController' property.
  */
-class NavigationMenuViewController: MenuViewController {
+class NavigationMenuViewController: UIViewController {
 
     let kCellReuseIdentifier = "MenuCell"
     let menuItems = ["Kitty", "TabBar cats"]
