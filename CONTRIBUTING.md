@@ -62,13 +62,14 @@ GitHub, clone, and develop on a branch.
    $ cd InteractiveSideMenu
    ```
 
-3. Create a ``feature`` branch to hold your development changes
+3. Checkout to `develop` branch, and create a ``feature`` branch to hold your development changes
 
    ```bash
+   $ git checkout develop
    $ git checkout -b feature/my_updates
    ```
 
-   Always use a ``feature`` branch. It's good practice to never work on the ``master`` branch!
+   Always use a ``feature`` branch. It's good practice to add updates to the main branches.
 
 4. Develop the feature on your feature branch. Add changed files using ``git add`` and then ``git commit`` files
 
