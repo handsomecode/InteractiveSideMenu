@@ -22,6 +22,8 @@ import UIKit
  Container for menu view controller.
  */
 open class MenuContainerViewController: UIViewController {
+    
+    var isShown: Bool = false
 
     /**
      The view controller for side menu.
@@ -68,6 +70,7 @@ open class MenuContainerViewController: UIViewController {
      */
     public func hideSideMenu() {
         self.dismiss(animated: true, completion: nil)
+        isShown = false
     }
 
     /**
@@ -120,7 +123,9 @@ open class MenuContainerViewController: UIViewController {
             self.menuViewController.view.center = viewCenter
             self.view.bounds = viewBounds
             self.view.center = viewCenter
-            self.hideSideMenu()
+            if self.isShown {
+                self.hideSideMenu()
+            }
         }, completion: nil)
     }
 
@@ -148,6 +153,7 @@ open class MenuContainerViewController: UIViewController {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
         self.present(menuViewController, animated: true, completion: nil)
+        isShown = true
     }
 }
 
