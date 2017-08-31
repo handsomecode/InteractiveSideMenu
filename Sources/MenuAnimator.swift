@@ -20,7 +20,7 @@ import UIKit
 
 /**
  Options that define menu transition settings.
- Class lets user customize their transitioning animation: duration, content scale, visible content width, animationOptions, using spring animation or not and params if yes.
+ Class lets user customize their transitioning animation: duration, content scale, visible content width, animationOptions, using spring animation or not and params if ye@objc @objc s.
  */
 public struct TransitionOptions {
 
@@ -220,13 +220,13 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         finishTransition(currentPercentComplete: 0)
     }
     
-    func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
+    @objc func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
         present = true
         
         handlePan(recognizer: recognizer)
     }
     
-    func handlePanDismission(recognizer: UIPanGestureRecognizer) {
+    @objc func handlePanDismission(recognizer: UIPanGestureRecognizer) {
         present = false
         
         handlePan(recognizer: recognizer)
