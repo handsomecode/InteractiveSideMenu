@@ -20,7 +20,7 @@ import UIKit
 
 /**
  Options that define menu transition settings.
- Class lets user customize their transitioning animation: duration, content scale, visible content width, animationOptions, using spring animation or not and params if ye@objc @objc s.
+ Class lets user customize their transitioning animation: duration, content scale, visible content width, animationOptions, using spring animation or not and params if yes.
  */
 public struct TransitionOptions {
 
