@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "InteractiveSideMenu"
-  s.version      = "2.0"
+  s.version      = "2.0.1"
   s.summary      = "Interactive Side Menu in Swift"
   s.homepage     = "https://github.com/handsomecode/InteractiveSideMenu"
   s.license      = "Apache 2.0 license"
@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
 
   s.source_files  = "Sources/*.swift"
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 end

@@ -220,13 +220,13 @@ class MenuInteractiveTransition: NSObject, UIViewControllerInteractiveTransition
         finishTransition(currentPercentComplete: 0)
     }
     
-    func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
+    @objc func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
         present = true
         
         handlePan(recognizer: recognizer)
     }
     
-    func handlePanDismission(recognizer: UIPanGestureRecognizer) {
+    @objc func handlePanDismission(recognizer: UIPanGestureRecognizer) {
         present = false
         
         handlePan(recognizer: recognizer)
