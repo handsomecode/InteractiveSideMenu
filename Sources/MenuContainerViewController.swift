@@ -23,6 +23,9 @@ import UIKit
  */
 open class MenuContainerViewController: UIViewController {
 
+    // Describes if side menu is shown or not.
+    var isShown = false
+
     /**
      The view controller for side menu.
      */
@@ -67,7 +70,7 @@ open class MenuContainerViewController: UIViewController {
      Controller from the right side will be visible.
      */
     public func hideSideMenu() {
-        dismiss(animated: true, completion: nil)
+        dismissNavigationMenu()
     }
 
     /**
@@ -97,7 +100,7 @@ open class MenuContainerViewController: UIViewController {
                 self.presentNavigationMenu()
             },
             dismissAction: { [unowned self] in
-                self.dismiss(animated: true, completion: nil)
+                self.dismissNavigationMenu()
             }
         ))
 
@@ -123,7 +126,9 @@ open class MenuContainerViewController: UIViewController {
             self.menuViewController.view.center = viewCenter
             self.view.bounds = viewBounds
             self.view.center = viewCenter
-            self.hideSideMenu()
+            if self.isShown {
+                self.hideSideMenu()
+            }
         }, completion: nil)
     }
 
@@ -151,6 +156,15 @@ open class MenuContainerViewController: UIViewController {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
         present(menuViewController, animated: true, completion: nil)
+        isShown = true
+    }
+
+    /**
+     Dismisses left side menu.
+     */
+    private func dismissNavigationMenu() {
+        self.dismiss(animated: true, completion: nil)
+        isShown = false
     }
 }
 
