@@ -111,6 +111,10 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
 
  See [Sample](./Sample) for more details.
+ 
+# Known Issues
+There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with scaling of NavigationBar in iOS 11. Status bar background is hidden during side menu closing if `contentScale < 1`. It’s supposed to be *iOS 11* Navigation Bar issue that's been reported to Apple.
+
 
 # Requirements
 - iOS 8.0+
