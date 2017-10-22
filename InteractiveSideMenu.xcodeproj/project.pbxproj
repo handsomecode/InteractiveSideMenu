@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84E2E6751F15401000E5FF37 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2E6741F15401000E5FF37 /* Options.swift */; };
+		84E2E6771F15406600E5FF37 /* MenuTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2E6761F15406600E5FF37 /* MenuTransitioningDelegate.swift */; };
 		881EF0921E3101130035DEB4 /* InteractiveSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 881EF0901E3101130035DEB4 /* InteractiveSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		881EF0971E3101B80035DEB4 /* MenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0931E3101B80035DEB4 /* MenuAnimator.swift */; };
 		881EF0981E3101B80035DEB4 /* MenuContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0941E3101B80035DEB4 /* MenuContainerViewController.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84E2E6741F15401000E5FF37 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
+		84E2E6761F15406600E5FF37 /* MenuTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTransitioningDelegate.swift; sourceTree = "<group>"; };
 		881EF0831E30FFE40035DEB4 /* InteractiveSideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InteractiveSideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		881EF08F1E3101130035DEB4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881EF0901E3101130035DEB4 /* InteractiveSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveSideMenu.h; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 		881EF08E1E3101130035DEB4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				84E2E6741F15401000E5FF37 /* Options.swift */,
+				84E2E6761F15406600E5FF37 /* MenuTransitioningDelegate.swift */,
 				881EF0931E3101B80035DEB4 /* MenuAnimator.swift */,
 				881EF0941E3101B80035DEB4 /* MenuContainerViewController.swift */,
 				881EF0951E3101B80035DEB4 /* MenuItemContentViewController.swift */,
@@ -145,8 +151,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				881EF0971E3101B80035DEB4 /* MenuAnimator.swift in Sources */,
+				84E2E6771F15406600E5FF37 /* MenuTransitioningDelegate.swift in Sources */,
 				881EF0981E3101B80035DEB4 /* MenuContainerViewController.swift in Sources */,
 				881EF0991E3101B80035DEB4 /* MenuItemContentViewController.swift in Sources */,
+				84E2E6751F15401000E5FF37 /* Options.swift in Sources */,
 				881EF09A1E3101B80035DEB4 /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
