@@ -1,7 +1,16 @@
 # Change Log
-All notable changes to the library will be documented in this file.
+All notable changes of the library will be documented in this file.
 
-## [Unreleased]
+## 2.1 - [2017-10-23]
+### Added
+- Swift 4 support
+- Code refactoring
+- Check if menu is opened before a transition
+
+### Fixed
+- Small UI fix of Sample, associated with iOS 11
+
+## 2.0 - [2017-06-07]
 ### Added
 - UITabBarController and UINavigationController menu items support
 - Rotation support
@@ -18,7 +27,7 @@ All notable changes to the library will be documented in this file.
 
 **Migration notes**
 
-- To mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance.
+- To mark UIViewController as item of SideMenu you should adopt `SideMenuItemContent` protocol instead of inheritance from `MenuItemContentViewController`.
 To show menu you should call `showSideMenu()` method from this protocol.
 ```swift
 import InteractiveSideMenu
@@ -30,6 +39,8 @@ class KittyViewController: UIViewController, SideMenuItemContent {
     }
 }
 ```
+Please, keep in mind, that now you are manipulating with `UIViewControllers` instead of `MenuItemContentViewControllers` in your `HostViewController` class.
+
 -  To customize animation you should now update ```transitionOptions``` property in ```MenuContainerViewColtroller``` class.
 ```swift
 override func viewDidLoad() {
@@ -57,5 +68,6 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 - Sample demonstrating using SideMenu library
 - README file
 
-[Unreleased]: https://github.com/handsomecode/InteractiveSideMenu/compare/master...feature/nav_and_tab_controllers_support
+[2017-10-23]: https://github.com/handsomecode/InteractiveSideMenu/compare/2.0...2.1
+[2017-06-07]: https://github.com/handsomecode/InteractiveSideMenu/compare/1.0...2.0
 [Issue #17]: https://github.com/handsomecode/InteractiveSideMenu/issues/17
