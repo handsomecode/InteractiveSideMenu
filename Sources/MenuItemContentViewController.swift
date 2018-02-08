@@ -1,5 +1,5 @@
 //
-// MenuItemContentViewController.swift
+// SideMenuItemContent.swift
 //
 // Copyright 2017 Handsome LLC
 //

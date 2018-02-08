@@ -1,49 +1,60 @@
+<p align="center">
+    <a href="https://github.com/handsomecode/InteractiveSideMenu">
+        <img src="Screenshots/InteractiveSideMenu.gif">
+    </a>
+</p>
+<p align="center">
+    <a href="https://swift.org/">
+        <img src="https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg" alt="Swift version: 3.0">
+    </a>
+    <a href="https://cocoapods.org/pods/InteractiveSideMenu">
+        <img src="https://img.shields.io/badge/CocoaPods-2.1-green.svg" alt="CocoaPods: 2.1">
+    </a>
+    <a href="https://github.com/Carthage/Carthage">
+        <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible">
+    </a>
+    <a href="https://github.com/handsomecode/InteractiveSideMenu/blob/master/LICENSE">
+        <img src="https://img.shields.io/hexpm/l/plug.svg" alt="License: Apache 2.0">
+    </a>
+</p>
+
 # Interactive Side Menu
+A customizable, interactive, auto expanding and collapsing side menu for iOS written in Swift.
 
-[![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)](https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/hexpm/l/plug.svg)](./LICENSE)
-
-iOS Interactive Side Menu written in Swift. 
-
-![sample](Screenshots/InteractiveSideMenu.gif)
-
-It supports following customization:
+Here are some of the ways Interactive Side Menu can be customized:
 - Animation duration
 - Visible content width
 - Content scale
-- Using spring animation with params customization
-- Animation options like animation curve
+- UIView spring animations
+- Animation curves
+- Customized animation settings for different orientations
 
-All these parameters could vary for different orientations.
+## Installation
 
-# Installation
-
-## CocoaPods
-To install it through [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
+### CocoaPods
+To install using [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 ```
 pod 'InteractiveSideMenu'
 ```
 
-## Carthage
-To install it through [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
+### Carthage
+To install using [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
 ```
 github "handsomecode/InteractiveSideMenu"
 ```
 
+## Usage
+To implement your side menu you should subclasses the following view controllers: `MenuContainerViewController` and `MenuViewController`
+- `MenuContainerViewController` is the main container that hosts the side menu and content controller
+- `MenuViewController` is the container controller for the side menu
 
-# Usage
-To implement your side menu you should create subclasses of basic View Controllers.
-- ```MenuContainerViewController``` is a host for menu and content views
-- ```MenuViewController``` is a container for menu view
+To add a new menu item, your view controller needs to conform to the `SideMenuItemContent` protocol.
 
-Also, ensure that every menu item ViewController adopts relevant protocol.
-- ```SideMenuItemContent``` is a ViewController's protocol for data that corresponds menu item
-
-To setup your side menu you need to do three things:
-- Provide implementation of base ```MenuViewController``` and assing it to  ```menuViewController``` property
-- Provide implementation of menu content and assing array of content controllers to ```contentViewControllers``` property
-- Select initial content controller by calling ```selectContentViewController(_ selectedContentVC: MenuItemContentViewController)```
+Setting up the side menu can be done in three steps:
+##### For this, Host = `MenuContainerViewController` subclass and Menu = `MenuViewController` subclass
+1. Assign Menu to the `menuViewController` property of Host
+2. Set the Host's `contentViewControllers` array with an array of `SideMenuItemContent` controllers
+3. Call `selectContentViewController(_ selectedContentVC: MenuItemContentViewController)` from Host
 
 ```swift
 import InteractiveSideMenu
@@ -66,7 +77,7 @@ class HostViewController: MenuContainerViewController {
 }
 ```
 
-To show menu, call ```showSideMenu()``` method from `SideMenuItemContent` protocol.
+To show menu, call `showSideMenu()` from any `SideMenuItemContent` controller.
 ```swift
 import InteractiveSideMenu
 
@@ -78,7 +89,7 @@ class KittyViewController: UIViewController, SideMenuItemContent {
 }
 ``` 
 
-To change content view, choose desired content controller and hide menu.
+To change the currently visible controller, pass the desired controller to your `MenuContainerViewController`:
 ```swift
     let index = 2 // second menu item
     guard let menuContainerViewController = self.menuContainerViewController else { return }
@@ -87,7 +98,7 @@ To change content view, choose desired content controller and hide menu.
     menuContainerViewController.hideMenu()
  ```
 
-To customize animation for menu opening or closing, update ```transitionOptions``` property that is available in ```MenuContainerViewColtroller``` class. Initial setup could be done, for example, on controller's ```viewDidLoad()```.
+To customize the open and close animations, update the `transitionOptions` property on your `MenuContainerViewColtroller` subclass. The sample project does this in `viewDidLoad()`
  ```swift
 override func viewDidLoad() {
     super.viewDidLoad()
@@ -97,7 +108,7 @@ override func viewDidLoad() {
 }
 ```
 
-Also, you have possibility to update customization settings, e.g. set another options for landscape orientation. To do it, override ```viewWillTransition(to:with:)``` mehod and add desired parameters to ```transitionOptions``` property.
+To customize transition options for different orientations, override `viewWillTransition(to:with:)` and update the `transitionOptions`.  This can also be done with trait collections using `traitCollectionDidChange(_:)`
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
@@ -108,12 +119,10 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 }
 ```
 
-Transition options could be used to set different parameters for Compact and Regular sizes as well. Implement ViewController's ```traitCollectionDidChange(_: )``` method to add these settings.
-
- See [Sample](./Sample) for more details.
+ Check out the [Sample](./Sample) project for more details and usage examples.
  
 # Known Issues
-There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with scaling of NavigationBar in iOS 11. Status bar background is hidden during side menu closing if `contentScale < 1`. It’s supposed to be *iOS 11* Navigation Bar issue that's been reported to Apple.
+There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with the scaling of a UINavigationBar in iOS 11. Status bar background is hidden during side menu closing if `contentScale < 1`.  This is an *iOS 11* issue and has been reported to Apple.
 
 
 # Requirements
