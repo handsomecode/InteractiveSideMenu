@@ -19,7 +19,7 @@
 import UIKit
 import InteractiveSideMenu
 
-/*
+/**
  Menu controller is responsible for creating its content and showing/hiding menu using 'menuContainerViewController' property.
  */
 class NavigationMenuViewController: MenuViewController {
@@ -41,9 +41,6 @@ class NavigationMenuViewController: MenuViewController {
     }
 }
 
-/*
- Extention of `NavigationMenuViewController` class, implements table view delegates methods.
- */
 extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
