@@ -1,6 +1,10 @@
 # Change Log
 All notable changes of the library will be documented in this file.
 
+## 2.2
+### Added
+- Ability to globally change the drop shadow of the current content view while the menu is open (#61)
+
 ## 2.1 - [2017-10-23]
 ### Added
 - Swift 4 support

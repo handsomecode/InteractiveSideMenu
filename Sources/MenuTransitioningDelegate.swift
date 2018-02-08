@@ -25,6 +25,12 @@ final class MenuTransitioningDelegate: NSObject {
 
     let interactiveTransition: MenuInteractiveTransition
 
+    public var shadowOptions = SideMenuItemShadow() {
+        didSet {
+            interactiveTransition.shadowOptions = shadowOptions
+        }
+    }
+
     init(interactiveTransition: MenuInteractiveTransition) {
         self.interactiveTransition = interactiveTransition
     }

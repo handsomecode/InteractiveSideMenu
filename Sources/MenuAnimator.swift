@@ -25,10 +25,9 @@ final class MenuInteractiveTransition: NSObject {
 
     typealias Action = () -> ()
 
-    //MARK: - Properties
-    //
     var present = false
     var interactionInProgress = false
+    var shadowOptions: SideMenuItemShadow
 
     var options = TransitionOptions()
     fileprivate let presentAction: Action
@@ -42,15 +41,25 @@ final class MenuInteractiveTransition: NSObject {
     fileprivate var tapRecognizer: UITapGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
 
-    required init(presentAction: @escaping Action, dismissAction: @escaping Action) {
+    required init(shadowOptions: SideMenuItemShadow, presentAction: @escaping Action, dismissAction: @escaping Action) {
+        self.shadowOptions = shadowOptions
         self.presentAction = presentAction
         self.dismissAction = dismissAction
         super.init()
     }
+
+    @objc func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
+        present = true
+        handlePan(recognizer: recognizer)
+    }
+
+    @objc func handlePanDismission(recognizer: UIPanGestureRecognizer) {
+        present = false
+        handlePan(recognizer: recognizer)
+    }
 }
 
 //MARK: - UIViewControllerInteractiveTransitioning
-//
 extension MenuInteractiveTransition: UIViewControllerInteractiveTransitioning {
 
     func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
@@ -59,7 +68,6 @@ extension MenuInteractiveTransition: UIViewControllerInteractiveTransitioning {
 }
 
 //MARK: - UIViewControllerAnimatedTransitioning
-//
 extension MenuInteractiveTransition: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -73,22 +81,8 @@ extension MenuInteractiveTransition: UIViewControllerAnimatedTransitioning {
 }
 
 //MARK: - Private methods
-//
-extension MenuInteractiveTransition {
-
-    @objc func handlePanPresentation(recognizer: UIPanGestureRecognizer) {
-        present = true
-
-        handlePan(recognizer: recognizer)
-    }
-
-    @objc func handlePanDismission(recognizer: UIPanGestureRecognizer) {
-        present = false
-
-        handlePan(recognizer: recognizer)
-    }
-
-    fileprivate func startTransition(transitionContext: UIViewControllerContextTransitioning) {
+private extension MenuInteractiveTransition {
+    func startTransition(transitionContext: UIViewControllerContextTransitioning) {
         transitionStarted = true
 
         self.transitionContext = transitionContext
@@ -141,7 +135,7 @@ extension MenuInteractiveTransition {
         fromViewController.view.isUserInteractionEnabled = false
     }
 
-    fileprivate func finishTransition(currentPercentComplete : CGFloat) {
+    func finishTransition(currentPercentComplete : CGFloat) {
         transitionStarted = false
 
         let animation: () -> Void = { [unowned self] in self.updateTransition(percentComplete: 1.0) }
@@ -199,7 +193,7 @@ extension MenuInteractiveTransition {
         }
     }
 
-    private func createSnapshotView(from: UIView) -> UIView {
+    func createSnapshotView(from: UIView) -> UIView {
         guard let snapshotView = from.snapshotView(afterScreenUpdates: true) else {
             print("Invalid snapshot view. Default color will be used")
             let placeholderView = UIView(frame: from.frame)
@@ -211,17 +205,19 @@ extension MenuInteractiveTransition {
         return snapshotView
     }
 
-    private func addShadow(to view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.3
-        view.layer.shadowOffset = CGSize(width: -5, height: 5)
+    func addShadow(to view: UIView) {
+        view.layer.shadowColor = shadowOptions.color?.cgColor
+        view.layer.shadowOpacity = Float(shadowOptions.opacity)
+        view.layer.shadowOffset = shadowOptions.offset
     }
 
-    private func removeShadow(from view: UIView) {
+    func removeShadow(from view: UIView) {
+        view.layer.shadowColor = nil
+        view.layer.shadowOpacity = 0.0
         view.layer.shadowOffset = .zero
     }
 
-    private func cancelTransition(currentPercentComplete : CGFloat) {
+    func cancelTransition(currentPercentComplete : CGFloat) {
         transitionStarted = false
 
         let animation : () -> Void = { [unowned self] in self.updateTransition(percentComplete: 0) }
@@ -270,7 +266,7 @@ extension MenuInteractiveTransition {
         }
     }
 
-    private func handlePan(recognizer: UIPanGestureRecognizer) {
+    func handlePan(recognizer: UIPanGestureRecognizer) {
         guard let recognizerView = recognizer.view else {
             fatalError("Invalid recognizer view value")
         }
@@ -340,7 +336,7 @@ extension MenuInteractiveTransition {
         }
     }
 
-    private func updateTransition(percentComplete: CGFloat) {
+    func updateTransition(percentComplete: CGFloat) {
         guard let transitionContext = self.transitionContext else {
             fatalError("Invalid `transitionContext` value. This property should not be nil")
         }

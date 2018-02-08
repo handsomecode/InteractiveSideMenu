@@ -19,7 +19,7 @@
 import UIKit
 import InteractiveSideMenu
 
-/*
+/**
  HostViewController is container view controller, contains menu controller and the list of relevant view controllers.
 
  Responsible for creating and selecting menu items content controlers.
@@ -54,9 +54,7 @@ class HostViewController: MenuContainerViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        /*
-         Options to customize menu transition animation.
-         */
+        // Options to customize menu transition animation.
         var options = TransitionOptions()
 
         // Animation duration
@@ -71,9 +69,7 @@ class HostViewController: MenuContainerViewController {
         let controllersIdentifiers = ["Kitty", "TabBar"]
         var contentList = [UIViewController]()
 
-        /*
-         Instantiate items controllers from storyboard.
-         */
+        // Instantiate items controllers from storyboard.
         for identifier in controllersIdentifiers {
             if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
                 contentList.append(viewController)
