@@ -22,7 +22,7 @@ import InteractiveSideMenu
 /*
  KittyViewController is a controller relevant one of the side menu items. To indicate this it adopts `SideMenuItemContent` protocol.
  */
-class KittyViewController: UIViewController, SideMenuItemContent {
+class KittyViewController: UIViewController, SideMenuItemContent, Storyboardable {
 
     /* Show side menu on menu button click
      */

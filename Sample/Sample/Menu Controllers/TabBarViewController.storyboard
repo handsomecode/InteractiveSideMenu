@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I1w-YY-xcp">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Playful cat-->
+        <scene sceneID="l7R-sh-p1E">
+            <objects>
+                <viewController id="1Lo-kS-Y2F" customClass="SecondViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z6S-vh-5q8"/>
+                        <viewControllerLayoutGuide type="bottom" id="jeE-qt-ZgV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3o0-5p-qCN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playful cat" translatesAutoresizingMaskIntoConstraints="NO" id="VMw-n4-DpE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rKf-I4-kI1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
+                                <color key="backgroundColor" red="0.27659601900000003" green="0.27531419289999998" blue="0.27266927660000001" alpha="0.38595920140000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUK-L9-VKf">
+                                <rect key="frame" x="6" y="20" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="aYj-TD-sUj"/>
+                                    <constraint firstAttribute="width" constant="44" id="rsR-J4-dgs"/>
+                                </constraints>
+                                <state key="normal" image="Menu"/>
+                                <connections>
+                                    <action selector="openMenu:" destination="1Lo-kS-Y2F" eventType="touchUpInside" id="enx-s0-IuZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VMw-n4-DpE" secondAttribute="trailing" id="4Ne-bh-sXn"/>
+                            <constraint firstAttribute="bottom" secondItem="VMw-n4-DpE" secondAttribute="bottom" id="EF0-Uv-OKU"/>
+                            <constraint firstItem="rKf-I4-kI1" firstAttribute="leading" secondItem="3o0-5p-qCN" secondAttribute="leading" id="P42-Hg-6jf"/>
+                            <constraint firstItem="rKf-I4-kI1" firstAttribute="top" secondItem="3o0-5p-qCN" secondAttribute="top" id="Y7q-qI-gSM"/>
+                            <constraint firstItem="rKf-I4-kI1" firstAttribute="bottom" secondItem="CUK-L9-VKf" secondAttribute="bottom" constant="3" id="hhr-XD-8ce"/>
+                            <constraint firstAttribute="trailing" secondItem="rKf-I4-kI1" secondAttribute="trailing" id="kPw-yy-Ln6"/>
+                            <constraint firstItem="CUK-L9-VKf" firstAttribute="top" secondItem="3o0-5p-qCN" secondAttribute="top" constant="20" id="oZa-CF-5Gj"/>
+                            <constraint firstItem="VMw-n4-DpE" firstAttribute="top" secondItem="3o0-5p-qCN" secondAttribute="top" id="tMg-qe-siH"/>
+                            <constraint firstItem="CUK-L9-VKf" firstAttribute="leading" secondItem="3o0-5p-qCN" secondAttribute="leading" constant="6" id="vdT-yh-6x6"/>
+                            <constraint firstItem="VMw-n4-DpE" firstAttribute="leading" secondItem="3o0-5p-qCN" secondAttribute="leading" id="xVH-3s-sGw"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Playful cat" image="ic_tabbar_playful" id="hoK-vk-VdV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O8B-0u-Bl9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2868" y="-315.29235382308849"/>
+        </scene>
+        <!--Serious cat-->
+        <scene sceneID="tes-Df-aIF">
+            <objects>
+                <viewController id="WOL-cV-hlK" customClass="FirstViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KZY-H1-qx0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hdl-cz-1UZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wQL-5H-EXM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="serious cat" translatesAutoresizingMaskIntoConstraints="NO" id="Pec-XC-O6P">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXo-Yp-9Sb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
+                                <color key="backgroundColor" red="0.27659601900000003" green="0.27531419289999998" blue="0.27266927660000001" alpha="0.55054873510000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anU-GH-Dm3">
+                                <rect key="frame" x="6" y="20" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HGq-CW-ZSY"/>
+                                    <constraint firstAttribute="width" constant="44" id="gt7-Me-AXd"/>
+                                </constraints>
+                                <state key="normal" image="Menu"/>
+                                <connections>
+                                    <action selector="openMenu:" destination="WOL-cV-hlK" eventType="touchUpInside" id="YCo-rH-FHp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zXo-Yp-9Sb" firstAttribute="leading" secondItem="wQL-5H-EXM" secondAttribute="leading" id="1U0-8U-GxB"/>
+                            <constraint firstItem="anU-GH-Dm3" firstAttribute="top" secondItem="wQL-5H-EXM" secondAttribute="top" constant="20" id="2O0-MY-uQn"/>
+                            <constraint firstAttribute="trailing" secondItem="Pec-XC-O6P" secondAttribute="trailing" id="LhP-fd-w8I"/>
+                            <constraint firstItem="Pec-XC-O6P" firstAttribute="leading" secondItem="wQL-5H-EXM" secondAttribute="leading" id="Xi1-Aa-yya"/>
+                            <constraint firstItem="zXo-Yp-9Sb" firstAttribute="bottom" secondItem="anU-GH-Dm3" secondAttribute="bottom" constant="3" id="ZVB-Mp-FE7"/>
+                            <constraint firstItem="anU-GH-Dm3" firstAttribute="leading" secondItem="wQL-5H-EXM" secondAttribute="leading" constant="6" id="cRM-4u-NhD"/>
+                            <constraint firstItem="Pec-XC-O6P" firstAttribute="top" secondItem="wQL-5H-EXM" secondAttribute="top" id="lSA-pP-drF"/>
+                            <constraint firstAttribute="trailing" secondItem="zXo-Yp-9Sb" secondAttribute="trailing" id="r0t-Om-9uC"/>
+                            <constraint firstItem="zXo-Yp-9Sb" firstAttribute="top" secondItem="wQL-5H-EXM" secondAttribute="top" id="tLk-rS-gmy"/>
+                            <constraint firstAttribute="bottom" secondItem="Pec-XC-O6P" secondAttribute="bottom" id="xrh-Ju-3pF"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Serious cat" image="ic_tabbar_serious" id="Hwb-0G-oz6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fau-IJ-G9y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2868" y="-992.65367316341838"/>
+        </scene>
+        <!--Tab Bar-->
+        <scene sceneID="3u9-oW-Lqk">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBar" title="Tab Bar" id="I1w-YY-xcp" customClass="TabBarViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="0dI-7h-Rhe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="WOL-cV-hlK" kind="relationship" relationship="viewControllers" id="UUQ-JF-Keu"/>
+                        <segue destination="1Lo-kS-Y2F" kind="relationship" relationship="viewControllers" id="Zzj-rm-CEv"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="plB-Mx-5j4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1769" y="-555"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Menu" width="24" height="17"/>
+        <image name="ic_tabbar_playful" width="20" height="20"/>
+        <image name="ic_tabbar_serious" width="20" height="20"/>
+        <image name="playful cat" width="500" height="375"/>
+        <image name="serious cat" width="1020" height="452"/>
+    </resources>
+</document>

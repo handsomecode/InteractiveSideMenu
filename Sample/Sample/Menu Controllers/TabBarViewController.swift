@@ -22,7 +22,7 @@ import InteractiveSideMenu
 /*
  TabBarViewController is a controller relevant one of the side menu items. To indicate this it adopts `SideMenuItemContent` protocol.
  */
-class TabBarViewController: UITabBarController, SideMenuItemContent {
+class TabBarViewController: UITabBarController, SideMenuItemContent, Storyboardable {
 
 }
 

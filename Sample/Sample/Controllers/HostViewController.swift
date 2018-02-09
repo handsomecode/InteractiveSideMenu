@@ -42,7 +42,7 @@ class HostViewController: MenuContainerViewController {
         self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
 
         // Instantiate menu view controller by identifier
-        self.menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
+        self.menuViewController = SampleMenuViewController.storyboardViewController()
 
         // Gather content items controllers
         self.contentViewControllers = contentControllers()
@@ -66,16 +66,9 @@ class HostViewController: MenuContainerViewController {
     }
 
     private func contentControllers() -> [UIViewController] {
-        let controllersIdentifiers = ["Kitty", "TabBar"]
-        var contentList = [UIViewController]()
+        let kittyController = KittyViewController.storyboardViewController()
+        let tabController = TabBarViewController.storyboardTabBarController()
 
-        // Instantiate items controllers from storyboard.
-        for identifier in controllersIdentifiers {
-            if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
-                contentList.append(viewController)
-            }
-        }
-
-        return contentList
+        return [kittyController, tabController]
     }
 }
