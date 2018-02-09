@@ -13,10 +13,11 @@
 		881EF0B21E3102E30035DEB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 881EF0B01E3102E30035DEB4 /* LaunchScreen.storyboard */; };
 		881EF0BD1E31037D0035DEB4 /* KittyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0B91E31037D0035DEB4 /* KittyViewController.swift */; };
 		881EF0BE1E31037D0035DEB4 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BA1E31037D0035DEB4 /* HostViewController.swift */; };
-		881EF0BF1E31037D0035DEB4 /* NavigationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */; };
+		881EF0BF1E31037D0035DEB4 /* SampleMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0BB1E31037D0035DEB4 /* SampleMenuViewController.swift */; };
 		9A15C5481EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881EF0C71E31049C0035DEB4 /* InteractiveSideMenu.framework */; };
 		9A15C5491EDD62BC00C4FD75 /* InteractiveSideMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 881EF0C71E31049C0035DEB4 /* InteractiveSideMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */; };
+		D4028937202CEC45009F1262 /* SampleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4028936202CEC45009F1262 /* SampleTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,9 +67,10 @@
 		881EF0B31E3102E30035DEB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		881EF0B91E31037D0035DEB4 /* KittyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KittyViewController.swift; sourceTree = "<group>"; };
 		881EF0BA1E31037D0035DEB4 /* HostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HostViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuViewController.swift; sourceTree = "<group>"; };
+		881EF0BB1E31037D0035DEB4 /* SampleMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleMenuViewController.swift; sourceTree = "<group>"; };
 		881EF0C21E31049C0035DEB4 /* InteractiveSideMenu.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InteractiveSideMenu.xcodeproj; path = ../InteractiveSideMenu.xcodeproj; sourceTree = "<group>"; };
 		9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		D4028936202CEC45009F1262 /* SampleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +107,9 @@
 			children = (
 				881EF0C11E3103A80035DEB4 /* MenuContentScreens */,
 				881EF0BA1E31037D0035DEB4 /* HostViewController.swift */,
-				881EF0BB1E31037D0035DEB4 /* NavigationMenuViewController.swift */,
+				881EF0BB1E31037D0035DEB4 /* SampleMenuViewController.swift */,
 				881EF0A71E3102E30035DEB4 /* AppDelegate.swift */,
+				D4028936202CEC45009F1262 /* SampleTableCell.swift */,
 				881EF0AB1E3102E30035DEB4 /* Main.storyboard */,
 				881EF0AE1E3102E30035DEB4 /* Assets.xcassets */,
 				881EF0B01E3102E30035DEB4 /* LaunchScreen.storyboard */,
@@ -225,7 +228,8 @@
 			files = (
 				881EF0BD1E31037D0035DEB4 /* KittyViewController.swift in Sources */,
 				881EF0BE1E31037D0035DEB4 /* HostViewController.swift in Sources */,
-				881EF0BF1E31037D0035DEB4 /* NavigationMenuViewController.swift in Sources */,
+				D4028937202CEC45009F1262 /* SampleTableCell.swift in Sources */,
+				881EF0BF1E31037D0035DEB4 /* SampleMenuViewController.swift in Sources */,
 				9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */,
 				881EF0A81E3102E30035DEB4 /* AppDelegate.swift in Sources */,
 			);
