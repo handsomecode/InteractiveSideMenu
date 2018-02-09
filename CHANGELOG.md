@@ -4,6 +4,12 @@ All notable changes of the library will be documented in this file.
 ## 2.2
 ### Added
 - Ability to globally change the drop shadow of the current content view while the menu is open (#61)
+- New sample project controller to tweak the transition settings
+- Status bar color can now be updated on a controller by controller basis
+
+### Changed
+- Changed default `contentScale` value from `0.88` to `0.86`
+- Updated sample project to better reflect the README demo gif
 
 ## 2.1 - [2017-10-23]
 ### Added

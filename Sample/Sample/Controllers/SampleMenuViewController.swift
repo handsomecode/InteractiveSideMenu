@@ -27,6 +27,7 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     @IBOutlet fileprivate weak var tableView: UITableView!
     @IBOutlet fileprivate weak var avatarImageView: UIImageView!
     @IBOutlet fileprivate weak var avatarImageViewCenterXConstraint: NSLayoutConstraint!
+    private var gradientLayer = CAGradientLayer()
 
     private var gradientApplied: Bool = false
 
@@ -50,19 +51,22 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if !gradientApplied {
-            gradientApplied = true
-            avatarImageViewCenterXConstraint.constant = -(menuContainerViewController?.transitionOptions.visibleContentWidth ?? 0.0)/2
+        avatarImageViewCenterXConstraint.constant = -(menuContainerViewController?.transitionOptions.visibleContentWidth ?? 0.0)/2
 
-            let gradient = CAGradientLayer()
-            let topColor = UIColor(red: 16.0/255.0, green: 12.0/255.0, blue: 54.0/255.0, alpha: 1.0)
-            let bottomColor = UIColor(red: 57.0/255.0, green: 33.0/255.0, blue: 61.0/255.0, alpha: 1.0)
-            gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-            gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-            gradient.colors = [topColor.cgColor, bottomColor.cgColor]
-            gradient.frame = view.bounds
-            view.layer.insertSublayer(gradient, at: 0)
+        if gradientLayer.superlayer != nil {
+            gradientLayer.removeFromSuperlayer()
         }
+        let topColor = UIColor(red: 16.0/255.0, green: 12.0/255.0, blue: 54.0/255.0, alpha: 1.0)
+        let bottomColor = UIColor(red: 57.0/255.0, green: 33.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+
+    deinit{
+        print()
     }
 }
 

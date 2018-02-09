@@ -27,10 +27,6 @@ import InteractiveSideMenu
  */
 class HostViewController: MenuContainerViewController {
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
     override var prefersStatusBarHidden: Bool {
         return false
     }
@@ -67,8 +63,9 @@ class HostViewController: MenuContainerViewController {
 
     private func contentControllers() -> [UIViewController] {
         let kittyController = KittyViewController.storyboardViewController()
-        let tabController = TabBarViewController.storyboardTabBarController()
+        let tabController = TabBarViewController.storyboardNavigationController()
+        let tweakController = TweakViewController.storyboardNavigationController()
 
-        return [kittyController, tabController]
+        return [kittyController, tabController, tweakController]
     }
 }

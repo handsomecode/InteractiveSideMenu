@@ -22,6 +22,8 @@
 		D4C58476202DD6B0006EF43A /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C58475202DD6B0006EF43A /* Storyboardable.swift */; };
 		D4C58478202DD6DF006EF43A /* TabBarViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4C58477202DD6DF006EF43A /* TabBarViewController.storyboard */; };
 		D4C5847F202DD896006EF43A /* SampleMenuViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4C5847E202DD896006EF43A /* SampleMenuViewController.storyboard */; };
+		D4C58482202DECB4006EF43A /* TweakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C58481202DECB4006EF43A /* TweakViewController.swift */; };
+		D4C58484202DECBB006EF43A /* TweakViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4C58483202DECBB006EF43A /* TweakViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		D4C58475202DD6B0006EF43A /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		D4C58477202DD6DF006EF43A /* TabBarViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBarViewController.storyboard; sourceTree = "<group>"; };
 		D4C5847E202DD896006EF43A /* SampleMenuViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SampleMenuViewController.storyboard; sourceTree = "<group>"; };
+		D4C58481202DECB4006EF43A /* TweakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweakViewController.swift; sourceTree = "<group>"; };
+		D4C58483202DECBB006EF43A /* TweakViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TweakViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				D4C58472202DD647006EF43A /* KittyViewController.storyboard */,
 				9A6755021EA8E30C00F0C71D /* TabBarViewController.swift */,
 				D4C58477202DD6DF006EF43A /* TabBarViewController.storyboard */,
+				D4C58481202DECB4006EF43A /* TweakViewController.swift */,
+				D4C58483202DECBB006EF43A /* TweakViewController.storyboard */,
 			);
 			path = "Menu Controllers";
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C58484202DECBB006EF43A /* TweakViewController.storyboard in Resources */,
 				D4C5847F202DD896006EF43A /* SampleMenuViewController.storyboard in Resources */,
 				881EF0B21E3102E30035DEB4 /* LaunchScreen.storyboard in Resources */,
 				D4C58473202DD647006EF43A /* KittyViewController.storyboard in Resources */,
@@ -280,6 +287,7 @@
 				881EF0BF1E31037D0035DEB4 /* SampleMenuViewController.swift in Sources */,
 				9A6755031EA8E30C00F0C71D /* TabBarViewController.swift in Sources */,
 				881EF0A81E3102E30035DEB4 /* AppDelegate.swift in Sources */,
+				D4C58482202DECB4006EF43A /* TweakViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,7 +423,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,7 +437,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Sample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = is.handsome.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
