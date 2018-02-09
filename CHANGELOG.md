@@ -11,6 +11,9 @@ All notable changes of the library will be documented in this file.
 - Changed default `contentScale` value from `0.88` to `0.86`
 - Updated sample project to better reflect the README demo gif
 
+### Breaking
+- Dropped support for iOS 8
+
 ## 2.1 - [2017-10-23]
 ### Added
 - Swift 4 support
