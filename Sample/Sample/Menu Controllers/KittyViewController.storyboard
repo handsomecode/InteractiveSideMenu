@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kCe-tA-DYp">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Kitty-->
+        <scene sceneID="XXc-3z-hj0">
+            <objects>
+                <viewController storyboardIdentifier="Kitty" title="Kitty" id="kCe-tA-DYp" customClass="KittyViewController" customModule="Sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bee-0f-QMn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kitty" translatesAutoresizingMaskIntoConstraints="NO" id="7ls-Ss-Had">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8q9-2m-oaU">
+                                <rect key="frame" x="6" y="20" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="ezd-p9-AZV"/>
+                                    <constraint firstAttribute="width" secondItem="8q9-2m-oaU" secondAttribute="height" multiplier="1:1" id="z7n-lH-ezv"/>
+                                </constraints>
+                                <state key="normal" image="Menu"/>
+                                <connections>
+                                    <action selector="openMenu:" destination="kCe-tA-DYp" eventType="touchUpInside" id="F9O-NP-UNO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="7ls-Ss-Had" firstAttribute="top" secondItem="bee-0f-QMn" secondAttribute="top" id="5aB-JJ-2xL"/>
+                            <constraint firstAttribute="bottom" secondItem="7ls-Ss-Had" secondAttribute="bottom" id="D8s-GM-dI1"/>
+                            <constraint firstAttribute="trailing" secondItem="7ls-Ss-Had" secondAttribute="trailing" id="INM-nv-WJb"/>
+                            <constraint firstItem="8q9-2m-oaU" firstAttribute="top" secondItem="Kc9-m1-lM2" secondAttribute="top" id="JRX-iP-1mR"/>
+                            <constraint firstItem="8q9-2m-oaU" firstAttribute="leading" secondItem="Kc9-m1-lM2" secondAttribute="leading" constant="6" id="T0F-XP-Eic"/>
+                            <constraint firstItem="7ls-Ss-Had" firstAttribute="leading" secondItem="bee-0f-QMn" secondAttribute="leading" id="l1Y-yB-aKr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Kc9-m1-lM2"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fSg-K2-jW4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Obq-0h-SGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="982" y="-555"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Menu" width="24" height="17"/>
+        <image name="kitty" width="1620" height="1080"/>
+    </resources>
+</document>

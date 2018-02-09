@@ -19,17 +19,13 @@
 import UIKit
 import InteractiveSideMenu
 
-/*
+/**
  HostViewController is container view controller, contains menu controller and the list of relevant view controllers.
 
  Responsible for creating and selecting menu items content controlers.
  Has opportunity to show/hide side menu.
  */
 class HostViewController: MenuContainerViewController {
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     override var prefersStatusBarHidden: Bool {
         return false
@@ -42,7 +38,7 @@ class HostViewController: MenuContainerViewController {
         self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
 
         // Instantiate menu view controller by identifier
-        self.menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
+        self.menuViewController = SampleMenuViewController.storyboardViewController()
 
         // Gather content items controllers
         self.contentViewControllers = contentControllers()
@@ -54,9 +50,7 @@ class HostViewController: MenuContainerViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        /*
-         Options to customize menu transition animation.
-         */
+        // Options to customize menu transition animation.
         var options = TransitionOptions()
 
         // Animation duration
@@ -68,18 +62,10 @@ class HostViewController: MenuContainerViewController {
     }
 
     private func contentControllers() -> [UIViewController] {
-        let controllersIdentifiers = ["Kitty", "TabBar"]
-        var contentList = [UIViewController]()
+        let kittyController = KittyViewController.storyboardViewController()
+        let tabController = TabBarViewController.storyboardNavigationController()
+        let tweakController = TweakViewController.storyboardNavigationController()
 
-        /*
-         Instantiate items controllers from storyboard.
-         */
-        for identifier in controllersIdentifiers {
-            if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
-                contentList.append(viewController)
-            }
-        }
-
-        return contentList
+        return [kittyController, tabController, tweakController]
     }
 }
