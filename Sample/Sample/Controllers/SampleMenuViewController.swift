@@ -22,7 +22,7 @@ import InteractiveSideMenu
 /**
  Menu controller is responsible for creating its content and showing/hiding menu using 'menuContainerViewController' property.
  */
-class SampleMenuViewController: MenuViewController {
+class SampleMenuViewController: MenuViewController, Storyboardable {
 
     @IBOutlet fileprivate weak var tableView: UITableView!
     @IBOutlet fileprivate weak var avatarImageView: UIImageView!
