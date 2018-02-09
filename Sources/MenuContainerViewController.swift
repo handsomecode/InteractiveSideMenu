@@ -23,6 +23,10 @@ import UIKit
  */
 open class MenuContainerViewController: UIViewController {
 
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return currentContentViewController?.preferredStatusBarStyle ?? .lightContent
+    }
+
     fileprivate weak var currentContentViewController: UIViewController?
     fileprivate var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
 
@@ -195,18 +199,10 @@ extension UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         insertSubview(view, at: atIndex)
 
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["view": view]))
-
-//        let top: NSLayoutConstraint
-//        if #available(iOS 11.0, *) {
-//            top = view.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
-//        } else {
-//            top = view.topAnchor.constraint(equalTo: self.topAnchor)
-//        }
-//        let leading = view.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-//        let trailing = self.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//        let bottom = self.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        NSLayoutConstraint.activate([top, leading, trailing, bottom])
+        let top = view.topAnchor.constraint(equalTo: self.topAnchor)
+        let leading = view.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let trailing = self.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let bottom = self.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        NSLayoutConstraint.activate([top, leading, trailing, bottom])
     }
 }

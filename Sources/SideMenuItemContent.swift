@@ -37,6 +37,9 @@ extension SideMenuItemContent where Self: UIViewController {
     public func showSideMenu() {
         if let menuContainerViewController = parent as? MenuContainerViewController {
             menuContainerViewController.showSideMenu()
+        } else if let navController = parent as? UINavigationController,
+            let menuContainerViewController = navController.parent as? MenuContainerViewController {
+            menuContainerViewController.showSideMenu()
         }
     }
 }
