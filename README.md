@@ -153,7 +153,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
  Check out the [Sample](./Sample) project for more details and usage examples.
  
 # Known Issues
-There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with the scaling of a UINavigationBar in iOS 11. Status bar background is hidden during side menu closing if `contentScale < 1`.  This is an *iOS 11* issue and has been reported to Apple.
+There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with the content controller's view not properly having the `safeAreaInsets` set.  This causes the view's layout to shift when the side menu is closed.  The issue appears to be tied to the transition options `contentScale` setting.  Choosing a value in the range 0.87 - 0.91 causes the `safeAreaInsets.top` to be set to `0.0`.  The default value of the library is no longer within this range but be mindful if changing that value for your own application.
 
 
 # Requirements
