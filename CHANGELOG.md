@@ -8,7 +8,7 @@ All notable changes of the library will be documented in this file.
 - Status bar color can now be updated on a controller by controller basis
 
 ### Changed
-- Changed default `contentScale` value from `0.88` to `0.86`
+- Changed default `contentScale` value from `0.88` to `0.86` (#53, #66, #72)
 - Updated sample project to better reflect the README demo gif
 
 ### Breaking
