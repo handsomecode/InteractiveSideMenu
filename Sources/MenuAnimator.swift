@@ -209,6 +209,7 @@ private extension MenuInteractiveTransition {
         view.layer.shadowColor = shadowOptions.color?.cgColor
         view.layer.shadowOpacity = Float(shadowOptions.opacity)
         view.layer.shadowOffset = shadowOptions.offset
+        view.layer.shadowRadius = shadowOptions.radius
     }
 
     func removeShadow(from view: UIView) {

@@ -16,14 +16,17 @@ public struct SideMenuItemShadow {
     public var color: UIColor? = UIColor.black
     public var opacity: CGFloat = 0.3
     public var offset: CGSize = CGSize(width: -5, height: 5)
+    public var radius: CGFloat = 3
 
     public init() { }
 
     public init(color: UIColor? = UIColor.black,
                 opacity: CGFloat = 0.3,
-                offset: CGSize = CGSize(width: -5, height: 5)) {
+                offset: CGSize = CGSize(width: -5, height: 5),
+                radius: CGFloat = 3) {
         self.color = color
         self.opacity = opacity
         self.offset = offset
+        self.radius = radius
     }
 }
