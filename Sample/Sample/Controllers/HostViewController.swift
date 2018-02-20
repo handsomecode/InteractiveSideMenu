@@ -45,6 +45,8 @@ class HostViewController: MenuContainerViewController {
 
         // Select initial content controller. It's needed even if the first view controller should be selected.
         self.selectContentViewController(contentViewControllers.first!)
+
+        self.currentItemOptions.cornerRadius = 10.0
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

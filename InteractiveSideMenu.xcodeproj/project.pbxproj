@@ -14,7 +14,7 @@
 		881EF0981E3101B80035DEB4 /* MenuContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0941E3101B80035DEB4 /* MenuContainerViewController.swift */; };
 		881EF0991E3101B80035DEB4 /* SideMenuItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0951E3101B80035DEB4 /* SideMenuItemContent.swift */; };
 		881EF09A1E3101B80035DEB4 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881EF0961E3101B80035DEB4 /* MenuViewController.swift */; };
-		D48B8AEC202CDE1A0010D9A4 /* SideMenuItemShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B8AEB202CDE1A0010D9A4 /* SideMenuItemShadow.swift */; };
+		D48B8AEC202CDE1A0010D9A4 /* SideMenuItemOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48B8AEB202CDE1A0010D9A4 /* SideMenuItemOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		881EF0941E3101B80035DEB4 /* MenuContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuContainerViewController.swift; sourceTree = "<group>"; };
 		881EF0951E3101B80035DEB4 /* SideMenuItemContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuItemContent.swift; sourceTree = "<group>"; };
 		881EF0961E3101B80035DEB4 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		D48B8AEB202CDE1A0010D9A4 /* SideMenuItemShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuItemShadow.swift; sourceTree = "<group>"; };
+		D48B8AEB202CDE1A0010D9A4 /* SideMenuItemOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuItemOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 				881EF0931E3101B80035DEB4 /* MenuAnimator.swift */,
 				881EF0941E3101B80035DEB4 /* MenuContainerViewController.swift */,
 				881EF0951E3101B80035DEB4 /* SideMenuItemContent.swift */,
-				D48B8AEB202CDE1A0010D9A4 /* SideMenuItemShadow.swift */,
+				D48B8AEB202CDE1A0010D9A4 /* SideMenuItemOptions.swift */,
 				881EF0961E3101B80035DEB4 /* MenuViewController.swift */,
 				881EF08F1E3101130035DEB4 /* Info.plist */,
 				881EF0901E3101130035DEB4 /* InteractiveSideMenu.h */,
@@ -157,7 +157,7 @@
 				84E2E6771F15406600E5FF37 /* MenuTransitioningDelegate.swift in Sources */,
 				881EF0981E3101B80035DEB4 /* MenuContainerViewController.swift in Sources */,
 				881EF0991E3101B80035DEB4 /* SideMenuItemContent.swift in Sources */,
-				D48B8AEC202CDE1A0010D9A4 /* SideMenuItemShadow.swift in Sources */,
+				D48B8AEC202CDE1A0010D9A4 /* SideMenuItemOptions.swift in Sources */,
 				84E2E6751F15401000E5FF37 /* Options.swift in Sources */,
 				881EF09A1E3101B80035DEB4 /* MenuViewController.swift in Sources */,
 			);

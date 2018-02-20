@@ -35,9 +35,9 @@ open class MenuContainerViewController: UIViewController {
      */
     fileprivate var isShown = false
 
-    public var shadowOptions = SideMenuItemShadow() {
+    public var currentItemOptions = SideMenuItemOptions() {
         didSet {
-            navigationMenuTransitionDelegate?.shadowOptions = shadowOptions
+            navigationMenuTransitionDelegate?.currentItemOptions = currentItemOptions
         }
     }
 
@@ -80,7 +80,7 @@ open class MenuContainerViewController: UIViewController {
         super.viewDidLoad()
 
         let interactiveTransition = MenuInteractiveTransition(
-            shadowOptions: shadowOptions,
+            currentItemOptions: currentItemOptions,
             presentAction: { [unowned self] in
                 self.presentNavigationMenu()
             },
