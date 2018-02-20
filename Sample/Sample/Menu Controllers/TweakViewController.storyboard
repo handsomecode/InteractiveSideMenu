@@ -61,7 +61,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="nuF-oz-bcT" firstAttribute="top" secondItem="MYI-N6-xji" secondAttribute="bottom" constant="4" id="0mz-3G-vMu"/>
                                     <constraint firstItem="MYI-N6-xji" firstAttribute="leading" secondItem="xZP-x5-Bib" secondAttribute="leading" constant="20" id="0zE-3h-1yb"/>
@@ -100,7 +99,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="SjD-jD-nvG" firstAttribute="leading" secondItem="14M-Ay-GAi" secondAttribute="leading" constant="20" id="7Wd-jH-3nZ"/>
                                     <constraint firstItem="SjD-jD-nvG" firstAttribute="top" secondItem="dc6-ru-tjk" secondAttribute="bottom" constant="6" id="FGC-aD-pSR"/>
@@ -139,7 +137,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="gOZ-qG-agZ" secondAttribute="trailing" id="3S5-zP-4s7"/>
                                     <constraint firstItem="LmW-e8-ol0" firstAttribute="centerX" secondItem="f8c-TI-8tN" secondAttribute="centerX" id="5ZE-bl-Fw6"/>
