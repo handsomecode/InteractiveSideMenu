@@ -201,8 +201,14 @@ private extension MenuInteractiveTransition {
             addShadow(to: placeholderView)
             return placeholderView
         }
-        addShadow(to: snapshotView)
-        return snapshotView
+
+        snapshotView.layer.cornerRadius = options.cornerRadius
+        snapshotView.layer.masksToBounds = true
+
+        let baseView = UIView(frame: from.bounds)
+        baseView.addSubview(snapshotView)
+        addShadow(to: baseView)
+        return baseView
     }
 
     func addShadow(to view: UIView) {
@@ -210,6 +216,9 @@ private extension MenuInteractiveTransition {
         view.layer.shadowOpacity = Float(shadowOptions.opacity)
         view.layer.shadowOffset = shadowOptions.offset
         view.layer.shadowRadius = shadowOptions.radius
+        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: options.cornerRadius).cgPath
+        view.layer.shouldRasterize = true
+        view.layer.rasterizationScale = UIScreen.main.scale
     }
 
     func removeShadow(from view: UIView) {

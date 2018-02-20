@@ -36,6 +36,7 @@ class HostViewController: MenuContainerViewController {
 
         let screenSize: CGRect = UIScreen.main.bounds
         self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+        transitionOptions.cornerRadius = 10.0
 
         // Instantiate menu view controller by identifier
         self.menuViewController = SampleMenuViewController.storyboardViewController()
