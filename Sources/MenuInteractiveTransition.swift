@@ -1,5 +1,5 @@
 //
-// MenuAnimator.swift
+// MenuInteractiveTransition.swift
 //
 // Copyright 2017 Handsome LLC
 //
@@ -30,8 +30,8 @@ final class MenuInteractiveTransition: NSObject {
     var currentItemOptions: SideMenuItemOptions
 
     var options = TransitionOptions()
-    fileprivate let presentAction: Action
-    fileprivate let dismissAction: Action
+    var presentAction: Action?
+    var dismissAction: Action?
 
     fileprivate var transitionShouldStarted = false
     fileprivate var transitionStarted = false
@@ -41,10 +41,8 @@ final class MenuInteractiveTransition: NSObject {
     fileprivate var tapRecognizer: UITapGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
 
-    required init(currentItemOptions: SideMenuItemOptions, presentAction: @escaping Action, dismissAction: @escaping Action) {
+    required init(currentItemOptions: SideMenuItemOptions) {
         self.currentItemOptions = currentItemOptions
-        self.presentAction = presentAction
-        self.dismissAction = dismissAction
         super.init()
     }
 
@@ -80,7 +78,7 @@ extension MenuInteractiveTransition: UIViewControllerAnimatedTransitioning {
     }
 }
 
-//MARK: - Private methods
+//MARK: - Private
 private extension MenuInteractiveTransition {
     func startTransition(transitionContext: UIViewControllerContextTransitioning) {
         transitionStarted = true
@@ -100,14 +98,10 @@ private extension MenuInteractiveTransition {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
 
             if tapRecognizer == nil {
-
-                guard toViewController is MenuViewController else {
-                    fatalError("Invalid toViewController type. It must be MenuViewController")
-                }
-                tapRecognizer = UITapGestureRecognizer(target: toViewController,
-                                                       action: #selector(MenuViewController.handleTap(recognizer:)))
+                tapRecognizer = UITapGestureRecognizer(target: self,
+                                                       action: #selector(handleDismissTap(_:)))
                 panRecognizer = UIPanGestureRecognizer(target: self,
-                                                       action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
+                                                       action: #selector(handlePanDismission(recognizer:)))
             }
 
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
@@ -276,6 +270,10 @@ private extension MenuInteractiveTransition {
         }
     }
 
+    @objc func handleDismissTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        InteractiveSideMenu.shared.closeSideMenu()
+    }
+
     func handlePan(recognizer: UIPanGestureRecognizer) {
         guard let recognizerView = recognizer.view else {
             fatalError("Invalid recognizer view value")
@@ -296,9 +294,9 @@ private extension MenuInteractiveTransition {
             if velocity >= 0 {
                 transitionShouldStarted = true
                 if present {
-                    presentAction()
+                    presentAction?()
                 } else {
-                    dismissAction()
+                    dismissAction?()
                 }
             }
 

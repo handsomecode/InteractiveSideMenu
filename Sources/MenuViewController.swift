@@ -18,12 +18,23 @@
 
 import UIKit
 
+protocol MenuViewControllerDelegate: class {
+    func menuController(_ menuController: MenuViewController, showContentController contentController: UIViewController)
+}
+
 open class MenuViewController: UIViewController {
 
-    public weak var menuContainerViewController: MenuContainerViewController?
-    var navigationMenuTransitionDelegate: MenuTransitioningDelegate?
+    public var contentControllerTypes = [SideMenuItemContent]()
 
-    @objc func handleTap(recognizer: UIGestureRecognizer){
-        menuContainerViewController?.hideSideMenu()
+    weak var delegate: MenuViewControllerDelegate?
+}
+
+extension MenuViewController {
+    /**
+     Be default, closes the side drawer menu.  Override to perform any additional logic.
+     Be sure to call super at the end of your override to ensure the menu closes properly.
+    */
+    open func selectSideItemContent(_ contentController: UIViewController) {
+        delegate?.menuController(self, showContentController: contentController)
     }
 }

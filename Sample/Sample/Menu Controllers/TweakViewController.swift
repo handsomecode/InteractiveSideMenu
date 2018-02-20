@@ -9,7 +9,7 @@
 import UIKit
 import InteractiveSideMenu
 
-class TweakViewController: UIViewController, SideMenuItemContent, Storyboardable {
+class TweakViewController: UIViewController, Storyboardable {
 
     @IBOutlet private weak var animationDurationValueLabel: UILabel!
     @IBOutlet private weak var contentScaleValueLabel: UILabel!
@@ -24,38 +24,26 @@ class TweakViewController: UIViewController, SideMenuItemContent, Storyboardable
         super.viewDidLoad()
 
         visibilitySlider.maximumValue = Float(UIScreen.main.bounds.width)
-        if let navController = parent as? UINavigationController,
-            let menuContainerController = navController.parent as? MenuContainerViewController {
-            visibilitySlider.value = Float(menuContainerController.transitionOptions.visibleContentWidth)
-            visibilityValueLabel.text = "\(menuContainerController.transitionOptions.visibleContentWidth)"
-        }
+        visibilitySlider.value = Float(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth)
+        visibilityValueLabel.text = "\(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth)"
     }
 
     @IBAction func openMenu(_ sender: UIBarButtonItem) {
-        showSideMenu()
+        InteractiveSideMenu.shared.showSideMenu()
     }
 
     @IBAction func animationDurationDidChange(_ slider: UISlider) {
         animationDurationValueLabel.text = "\(TimeInterval(slider.value))"
-        if let navController = parent as? UINavigationController,
-            let menuContainerController = navController.parent as? MenuContainerViewController {
-            menuContainerController.transitionOptions.duration = TimeInterval(slider.value)
-        }
+        InteractiveSideMenu.shared.transitionOptions.duration = TimeInterval(slider.value)
     }
 
     @IBAction func contentScaleDidChange(_ slider: UISlider) {
         contentScaleValueLabel.text = "\(CGFloat(slider.value))"
-        if let navController = parent as? UINavigationController,
-            let menuContainerController = navController.parent as? MenuContainerViewController {
-            menuContainerController.transitionOptions.contentScale = CGFloat(slider.value)
-        }
+        InteractiveSideMenu.shared.transitionOptions.contentScale = CGFloat(slider.value)
     }
 
     @IBAction func visibilityDidChange(_ slider: UISlider) {
         visibilityValueLabel.text = "\(CGFloat(slider.value))"
-        if let navController = parent as? UINavigationController,
-            let menuContainerController = navController.parent as? MenuContainerViewController {
-            menuContainerController.transitionOptions.visibleContentWidth = CGFloat(slider.value)
-        }
+        InteractiveSideMenu.shared.transitionOptions.visibleContentWidth = CGFloat(slider.value)
     }
 }

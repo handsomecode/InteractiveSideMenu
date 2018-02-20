@@ -19,19 +19,15 @@
 import UIKit
 import InteractiveSideMenu
 
-/**
- TabBarViewController is a controller relevant one of the side menu items. To indicate this it adopts `SideMenuItemContent` protocol.
- */
-class TabBarViewController: UITabBarController, SideMenuItemContent, Storyboardable {
+class TabBarViewController: UITabBarController, Storyboardable {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
     @IBAction func openMenu(_ sender: UIBarButtonItem) {
-        showSideMenu()
+        InteractiveSideMenu.shared.showSideMenu()
     }
-
 }
 
 /**

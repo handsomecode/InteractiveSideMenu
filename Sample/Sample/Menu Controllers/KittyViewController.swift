@@ -19,10 +19,7 @@
 import UIKit
 import InteractiveSideMenu
 
-/**
- KittyViewController is a controller relevant one of the side menu items. To indicate this it adopts `SideMenuItemContent` protocol.
- */
-class KittyViewController: UIViewController, SideMenuItemContent, Storyboardable {
+class KittyViewController: UIViewController, Storyboardable {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -30,6 +27,6 @@ class KittyViewController: UIViewController, SideMenuItemContent, Storyboardable
 
     // Show side menu on menu button click
     @IBAction func openMenu(_ sender: UIButton) {
-        showSideMenu()
+        InteractiveSideMenu.shared.showSideMenu()
     }
 }

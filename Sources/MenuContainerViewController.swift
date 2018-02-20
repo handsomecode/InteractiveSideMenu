@@ -28,116 +28,35 @@ open class MenuContainerViewController: UIViewController {
     }
 
     fileprivate weak var currentContentViewController: UIViewController?
-    fileprivate var navigationMenuTransitionDelegate: MenuTransitioningDelegate!
-
-    /**
-     Flag indicating if the side menu is being shown.
-     */
-    fileprivate var isShown = false
-
-    public var currentItemOptions = SideMenuItemOptions() {
-        didSet {
-            navigationMenuTransitionDelegate?.currentItemOptions = currentItemOptions
-        }
-    }
-
-    /**
-     The view controller for side menu.
-     */
-    public var menuViewController: MenuViewController! {
-        didSet {
-            if menuViewController == nil {
-                fatalError("Invalid `menuViewController` value. It should not be nil")
-            }
-            menuViewController.menuContainerViewController = self
-            menuViewController.transitioningDelegate = navigationMenuTransitionDelegate
-            menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
-        }
-    }
-
-    /**
-     The options defining side menu transitioning.
-     Could be set at any time of controller lifecycle.
-     */
-    public var transitionOptions: TransitionOptions {
-        get {
-            return navigationMenuTransitionDelegate?.interactiveTransition.options ?? TransitionOptions()
-        }
-        set {
-            navigationMenuTransitionDelegate?.interactiveTransition.options = newValue
-        }
-    }
 
     /**
      The list of all content view controllers corresponding to side menu items.
      */
     public var contentViewControllers = [UIViewController]()
 
-
     // MARK: - Controller lifecycle
-    //
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-
-        let interactiveTransition = MenuInteractiveTransition(
-            currentItemOptions: currentItemOptions,
-            presentAction: { [unowned self] in
-                self.presentNavigationMenu()
-            },
-            dismissAction: { [unowned self] in
-                self.dismissNavigationMenu()
-            }
-        )
-
-        navigationMenuTransitionDelegate = MenuTransitioningDelegate(interactiveTransition: interactiveTransition)
-
-        let screenEdgePanRecognizer = UIScreenEdgePanGestureRecognizer(
-            target: navigationMenuTransitionDelegate.interactiveTransition,
-            action: #selector(MenuInteractiveTransition.handlePanPresentation(recognizer:))
-        )
-
-        screenEdgePanRecognizer.edges = .left
-        view.addGestureRecognizer(screenEdgePanRecognizer)
-    }
-
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        let viewBounds = CGRect(x:0, y:0, width:size.width, height:size.height)
-        let viewCenter = CGPoint(x:size.width/2, y:size.height/2)
-        coordinator.animate(alongsideTransition: { _ in
-            if self.menuViewController == nil {
-                fatalError("Invalid `menuViewController` value. It should not be nil")
-            }
-            self.menuViewController.view.bounds = viewBounds
-            self.menuViewController.view.center = viewCenter
-            self.view.bounds = viewBounds
-            self.view.center = viewCenter
-            if self.isShown {
-                self.hideSideMenu()
-            }
-        }, completion: nil)
+        let sideMenu = InteractiveSideMenu.shared
+        if let menuViewController = sideMenu.menuViewController {
+            let viewBounds = CGRect(x: 0.0, y: 0.0, width:size.width, height:size.height)
+            let viewCenter = CGPoint(x: (size.width / 2), y: (size.height / 2))
+            coordinator.animate(alongsideTransition: { _ in
+                menuViewController.view.bounds = viewBounds
+                menuViewController.view.center = viewCenter
+                self.view.bounds = viewBounds
+                self.view.center = viewCenter
+                if sideMenu.menuState == .open {
+                    InteractiveSideMenu.shared.closeSideMenu()
+                }
+            }, completion: nil)
+        }
     }
 }
 
 // MARK: - Public
 extension MenuContainerViewController {
-
-    /**
-     Shows left side menu.
-     */
-    public func showSideMenu() {
-        presentNavigationMenu()
-    }
-
-    /**
-     Hides left side menu.
-     Controller from the right side will be visible.
-     */
-    public func hideSideMenu() {
-        dismissNavigationMenu()
-    }
-
     /**
      Embeds menu item content view controller.
 
@@ -157,8 +76,15 @@ extension MenuContainerViewController {
     }
 }
 
+extension MenuContainerViewController: MenuViewControllerDelegate {
+    func menuController(_ menuController: MenuViewController, showContentController contentController: UIViewController) {
+        selectContentViewController(contentController)
+        InteractiveSideMenu.shared.closeSideMenu()
+    }
+}
+
 // MARK: - Private
-fileprivate extension MenuContainerViewController {
+private extension MenuContainerViewController {
     /**
      Adds proper content view controller as a child.
 
@@ -168,25 +94,6 @@ fileprivate extension MenuContainerViewController {
         addChildViewController(selectedContentVC)
         view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
         currentContentViewController = selectedContentVC
-    }
-
-    /**
-     Presents left side menu.
-     */
-    func presentNavigationMenu() {
-        if menuViewController == nil {
-            fatalError("Invalid `menuViewController` value. It should not be nil")
-        }
-        present(menuViewController, animated: true, completion: nil)
-        isShown = true
-    }
-
-    /**
-     Dismisses left side menu.
-     */
-    func dismissNavigationMenu() {
-        self.dismiss(animated: true, completion: nil)
-        isShown = false
     }
 }
 

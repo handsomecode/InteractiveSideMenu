@@ -28,6 +28,7 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     @IBOutlet fileprivate weak var avatarImageView: UIImageView!
     @IBOutlet fileprivate weak var avatarImageViewCenterXConstraint: NSLayoutConstraint!
     private var gradientLayer = CAGradientLayer()
+    private var selectedIndexPath: IndexPath?
 
     private var gradientApplied: Bool = false
 
@@ -42,8 +43,12 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        contentControllerTypes = createSideMenuContent()
+
         // Select the initial row
-        tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.none)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+        selectedIndexPath = indexPath
 
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2
     }
@@ -51,7 +56,7 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        avatarImageViewCenterXConstraint.constant = -(menuContainerViewController?.transitionOptions.visibleContentWidth ?? 0.0)/2
+        avatarImageViewCenterXConstraint.constant = -(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth/2)
 
         if gradientLayer.superlayer != nil {
             gradientLayer.removeFromSuperlayer()
@@ -64,10 +69,6 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
-    deinit{
-        print()
-    }
 }
 
 extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
@@ -77,7 +78,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuContainerViewController?.contentViewControllers.count ?? 0
+        return contentControllerTypes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,18 +86,24 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
             preconditionFailure("Unregistered table view cell")
         }
         
-        cell.titleLabel.text = menuContainerViewController?.contentViewControllers[indexPath.row].title ?? "A Controller"
+        cell.titleLabel.text = contentControllerTypes[indexPath.row].menuTitle
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let menuContainerViewController = self.menuContainerViewController else {
+        if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath {
+            InteractiveSideMenu.shared.closeSideMenu()
             return
         }
 
-        menuContainerViewController.selectContentViewController(menuContainerViewController.contentViewControllers[indexPath.row])
-        menuContainerViewController.hideSideMenu()
+        let controllerType = contentControllerTypes[indexPath.row].classType
+        let storyboard = UIStoryboard(name: String(describing: controllerType.self), bundle: nil)
+        guard let controller = storyboard.instantiateInitialViewController() else {
+            preconditionFailure("Invalid initial view controller")
+        }
+        selectSideItemContent(controller)
+        selectedIndexPath = indexPath
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -107,5 +114,15 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.5
+    }
+}
+
+private extension SampleMenuViewController {
+    func createSideMenuContent() -> [SideMenuItemContent] {
+        let kittyContent = SideMenuItemContent(menuTitle: "Kitty", classType: KittyViewController.self)
+        let tabBarContent = SideMenuItemContent(menuTitle: "Tab Bar", classType: TabBarViewController.self)
+        let tweakContent = SideMenuItemContent(menuTitle: "Tweak Settings", classType: TweakViewController.self)
+
+        return [kittyContent, tabBarContent, tweakContent]
     }
 }

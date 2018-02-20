@@ -19,27 +19,17 @@
 import UIKit
 
 /**
- The protocol to indicate item of side menu. Every menu item should adopt this protocol.
+ A struct representing a side menu item.
+ The `classType`'s object gets instantiated when the user selects the content from the MenuViewController.
  */
-public protocol SideMenuItemContent {
+public struct SideMenuItemContent {
+    public let menuTitle: String
+    public let classType: UIViewController.Type
+    public let menuImage: UIImage?
 
-    /**
-     Shows left side menu.
-     */
-    func showSideMenu()
-}
-
-/**
- The extension of SideMenuItemContent protocol implementing `showSideMenu()` method for UIViewController class.
- */
-extension SideMenuItemContent where Self: UIViewController {
-
-    public func showSideMenu() {
-        if let menuContainerViewController = parent as? MenuContainerViewController {
-            menuContainerViewController.showSideMenu()
-        } else if let navController = parent as? UINavigationController,
-            let menuContainerViewController = navController.parent as? MenuContainerViewController {
-            menuContainerViewController.showSideMenu()
-        }
+    public init(menuTitle: String, menuImage: UIImage? = nil, classType: UIViewController.Type) {
+        self.menuTitle = menuTitle
+        self.menuImage = menuImage
+        self.classType = classType
     }
 }

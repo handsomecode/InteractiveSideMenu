@@ -35,39 +35,34 @@ class HostViewController: MenuContainerViewController {
         super.viewDidLoad()
 
         let screenSize: CGRect = UIScreen.main.bounds
-        self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+        let transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
 
-        // Instantiate menu view controller by identifier
-        self.menuViewController = SampleMenuViewController.storyboardViewController()
+        /// Instantiate menu view controller by identifier
+//        self.menuViewController = SampleMenuViewController.storyboardViewController()
 
-        // Gather content items controllers
-        self.contentViewControllers = contentControllers()
+        /// Gather content items controllers
+//        self.contentViewControllers = contentControllers()
 
-        // Select initial content controller. It's needed even if the first view controller should be selected.
-        self.selectContentViewController(contentViewControllers.first!)
+        /// Select initial content controller. It's needed even if the first view controller should be selected.
+//        self.selectContentViewController(KittyViewController.storyboardViewController())
 
-        self.currentItemOptions.cornerRadius = 10.0
+        InteractiveSideMenu.shared.setMenuContainerController(self, menuViewController: SampleMenuViewController.storyboardViewController())
+        InteractiveSideMenu.shared.transitionOptions = transitionOptions
+        InteractiveSideMenu.shared.currentItemOptions.cornerRadius = 10.0
+        self.selectContentViewController(KittyViewController.storyboardViewController())
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        // Options to customize menu transition animation.
+        /// Options to customize menu transition animation.
         var options = TransitionOptions()
 
-        // Animation duration
+        /// Animation duration
         options.duration = size.width < size.height ? 0.4 : 0.6
 
-        // Part of item content remaining visible on right when menu is shown
+        /// Part of item content remaining visible on right when menu is shown
         options.visibleContentWidth = size.width / 6
-        self.transitionOptions = options
-    }
-
-    private func contentControllers() -> [UIViewController] {
-        let kittyController = KittyViewController.storyboardViewController()
-        let tabController = TabBarViewController.storyboardNavigationController()
-        let tweakController = TweakViewController.storyboardNavigationController()
-
-        return [kittyController, tabController, tweakController]
+        InteractiveSideMenu.shared.transitionOptions = options
     }
 }
