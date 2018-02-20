@@ -77,14 +77,6 @@ public struct TransitionOptions {
         }
     }
 
-    public var cornerRadius: CGFloat = 0.0 {
-        willSet {
-            if newValue < 0 {
-                fatalError("Invalid `cornerRadius` value: \(newValue). Must be non-negative")
-            }
-        }
-    }
-
     /// The width of visible part of content menu item when the menu is shown. Default value is 56 points.
     public var visibleContentWidth: CGFloat
 

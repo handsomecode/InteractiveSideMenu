@@ -27,7 +27,7 @@ final class MenuInteractiveTransition: NSObject {
 
     var present = false
     var interactionInProgress = false
-    var shadowOptions: SideMenuItemShadow
+    var currentItemOptions: SideMenuItemOptions
 
     var options = TransitionOptions()
     fileprivate let presentAction: Action
@@ -41,8 +41,8 @@ final class MenuInteractiveTransition: NSObject {
     fileprivate var tapRecognizer: UITapGestureRecognizer?
     fileprivate var panRecognizer: UIPanGestureRecognizer?
 
-    required init(shadowOptions: SideMenuItemShadow, presentAction: @escaping Action, dismissAction: @escaping Action) {
-        self.shadowOptions = shadowOptions
+    required init(currentItemOptions: SideMenuItemOptions, presentAction: @escaping Action, dismissAction: @escaping Action) {
+        self.currentItemOptions = currentItemOptions
         self.presentAction = presentAction
         self.dismissAction = dismissAction
         super.init()
@@ -202,7 +202,7 @@ private extension MenuInteractiveTransition {
             return placeholderView
         }
 
-        snapshotView.layer.cornerRadius = options.cornerRadius
+        snapshotView.layer.cornerRadius = currentItemOptions.cornerRadius
         snapshotView.layer.masksToBounds = true
 
         let baseView = UIView(frame: from.bounds)
@@ -212,11 +212,11 @@ private extension MenuInteractiveTransition {
     }
 
     func addShadow(to view: UIView) {
-        view.layer.shadowColor = shadowOptions.color?.cgColor
-        view.layer.shadowOpacity = Float(shadowOptions.opacity)
-        view.layer.shadowOffset = shadowOptions.offset
-        view.layer.shadowRadius = shadowOptions.radius
-        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: options.cornerRadius).cgPath
+        view.layer.shadowColor = currentItemOptions.shadow.color?.cgColor
+        view.layer.shadowOpacity = Float(currentItemOptions.shadow.opacity)
+        view.layer.shadowOffset = currentItemOptions.shadow.offset
+        view.layer.shadowRadius = currentItemOptions.shadow.radius
+        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: currentItemOptions.cornerRadius).cgPath
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale
     }
