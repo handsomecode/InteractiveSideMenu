@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/badge/swift-3.0-orange.svg?style=flat.svg" alt="Swift version: 3.0">
     </a>
     <a href="https://cocoapods.org/pods/InteractiveSideMenu">
-        <img src="https://img.shields.io/badge/CocoaPods-2.2.1-green.svg" alt="CocoaPods: 2.1">
+        <img src="https://img.shields.io/badge/CocoaPods-2.3-green.svg" alt="CocoaPods: 2.1">
     </a>
     <a href="https://github.com/Carthage/Carthage">
         <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible">
