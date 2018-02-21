@@ -50,31 +50,9 @@ open class MenuContainerViewController: UIViewController {
     }
 }
 
-// MARK: - Public
-extension MenuContainerViewController {
-    /**
-     Embeds menu item content view controller.
-
-     - parameter selectedContentVC: The view controller to be embedded.
-     */
-    public func selectContentViewController(_ selectedContentVC: UIViewController) {
-        if let currentContentVC = currentContentViewController {
-            if currentContentVC != selectedContentVC {
-                currentContentVC.view.removeFromSuperview()
-                currentContentVC.removeFromParentViewController()
-
-                setCurrentView(selectedContentVC)
-            }
-        } else {
-            setCurrentView(selectedContentVC)
-        }
-    }
-}
-
 extension MenuContainerViewController: MenuViewControllerDelegate {
     func menuController(_ menuController: MenuViewController, showContentController contentController: UIViewController) {
         selectContentViewController(contentController)
-        InteractiveSideMenu.shared.closeSideMenu()
     }
 }
 
@@ -89,6 +67,24 @@ private extension MenuContainerViewController {
         addChildViewController(selectedContentVC)
         view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
         currentContentViewController = selectedContentVC
+    }
+
+    /**
+     Embeds menu item content view controller.
+
+     - parameter selectedContentVC: The view controller to be embedded.
+     */
+    func selectContentViewController(_ selectedContentVC: UIViewController) {
+        if let currentContentVC = currentContentViewController {
+            if currentContentVC != selectedContentVC {
+                currentContentVC.view.removeFromSuperview()
+                currentContentVC.removeFromParentViewController()
+
+                setCurrentView(selectedContentVC)
+            }
+        } else {
+            setCurrentView(selectedContentVC)
+        }
     }
 }
 

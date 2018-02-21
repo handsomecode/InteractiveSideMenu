@@ -44,7 +44,7 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
         super.viewDidLoad()
 
         /// Create the side menu items to be used by the table view.
-        contentControllerTypes = createSideMenuContent()
+        itemContentControllers = createSideMenuContent()
 
         /// Select the initial row
         let indexPath = IndexPath(row: 0, section: 0)
@@ -79,7 +79,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contentControllerTypes.count
+        return itemContentControllers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,7 +87,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
             preconditionFailure("Unregistered table view cell")
         }
         
-        cell.titleLabel.text = contentControllerTypes[indexPath.row].menuTitle
+        cell.titleLabel.text = itemContentControllers[indexPath.row].menuTitle
 
         return cell
     }
@@ -98,7 +98,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
 
-        let controllerType = contentControllerTypes[indexPath.row].classType
+        let controllerType = itemContentControllers[indexPath.row].classType
         let storyboard = UIStoryboard(name: String(describing: controllerType.self), bundle: nil)
         guard let controller = storyboard.instantiateInitialViewController() else {
             preconditionFailure("Invalid initial view controller")

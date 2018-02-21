@@ -24,17 +24,25 @@ protocol MenuViewControllerDelegate: class {
 
 open class MenuViewController: UIViewController {
 
-    public var contentControllerTypes = [SideMenuItemContent]()
+    public var itemContentControllers = [SideMenuItemContent]()
 
     weak var delegate: MenuViewControllerDelegate?
 }
 
-extension MenuViewController {
+public extension MenuViewController {
     /**
-     Be default, closes the side drawer menu.  Override to perform any additional logic.
-     Be sure to call super at the end of your override to ensure the menu closes properly.
-    */
-    open func selectSideItemContent(_ contentController: UIViewController) {
+     Notifies the system to select the initial content controller to display.
+     */
+    func selectInitialContentController(_ contentController: UIViewController) {
         delegate?.menuController(self, showContentController: contentController)
+    }
+
+    /**
+     Notifies the system that a new controller has been select and the layout should update accordingly.
+     If overriding, remember to call super at the end of your implementation.
+    */
+    func selectSideItemContent(_ contentController: UIViewController) {
+        delegate?.menuController(self, showContentController: contentController)
+        InteractiveSideMenu.shared.closeSideMenu()
     }
 }

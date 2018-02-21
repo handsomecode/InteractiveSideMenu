@@ -47,7 +47,7 @@ class HostViewController: MenuContainerViewController {
         InteractiveSideMenu.shared.currentItemOptions.cornerRadius = 10.0
 
         /// Select the initial content controller.
-        self.selectContentViewController(KittyViewController.storyboardViewController())
+        menuViewController.selectInitialContentController(KittyViewController.storyboardViewController())
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
