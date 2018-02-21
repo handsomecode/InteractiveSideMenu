@@ -21,7 +21,7 @@
 # Interactive Side Menu
 A customizable, interactive, auto expanding and collapsing side menu for iOS written in Swift.
 
-Here are some of the ways Interactive Side Menu can be customized:
+Here are some of the ways `InteractiveSideMenu` can be customized:
 - Animation duration
 - Visible content width
 - Content scale
@@ -54,22 +54,20 @@ To install using [Carthage](https://github.com/Carthage/Carthage), add the follo
 github "handsomecode/InteractiveSideMenu"
 ```
 
-## Usage
+# Usage
+*For updating help when migrating from v2.x to v3.0, see our [migration guide](./Docs/Migration_v3.md).*
 
-### Migration Guide
-For updating from v2.x to v3.0, use our [migration guide](./Docs/Migration_v3.md).
+### Setting up the Side Menu handler
+To implement your side menu you should subclass the `MenuContainerViewController` and `MenuViewController` view controllers.
+- `MenuContainerViewController` is the main container that hosts the side menu and a content controller
+- `MenuViewController` is the controller for the side menu
 
-To implement your side menu you should subclasses the following view controllers: `MenuContainerViewController` and `MenuViewController`
-- `MenuContainerViewController` is the main container that hosts the side menu and content controller
-- `MenuViewController` is the container controller for the side menu
-
-To add a new menu item, your view controller needs to conform to the `SideMenuItemContent` protocol.
-
-Setting up the side menu can be done in three steps:
+Once your subclasses are set up:
 ##### For this, Host = `MenuContainerViewController` subclass and Menu = `MenuViewController` subclass
-1. Assign Menu to the `menuViewController` property of Host
-2. Set the Host's `contentViewControllers` array with an array of `SideMenuItemContent` controllers
-3. Call `selectContentViewController(_ selectedContentVC: MenuItemContentViewController)` from Host
+1. Set your Host and Menu subclasses in the `InteractiveSideMenu` handler.
+2. (Optional) Setup and customize any transition options.
+3. (Optional) Setup and customize any content controller presentation options.
+4. Tell the Menu to select the initial content controller.
 
 ```swift
 import InteractiveSideMenu
@@ -78,92 +76,110 @@ class HostViewController: MenuContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "NavigationMenu") as! MenuViewController
-	contentViewControllers = contentControllers()
-        selectContentViewController(contentViewControllers.first!)
-    }
 
-    private func contentControllers() -> [MenuItemContentViewController] {
-    	var contentList = [MenuItemContentViewController]()
-    	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "First") as! MenuItemContentViewController)
-    	contentList.append(self.storyboard?.instantiateViewController(withIdentifier: "Second") as! MenuItemContentViewController)
-    	return contentList
+        /// 1) Instantiate menu view controller by identifier.
+        let menuViewController = SampleMenuViewController.storyboardViewController()
+        InteractiveSideMenu.shared.setMenuContainerController(self, menuViewController: menuViewController)
+
+        /// 2) Set up any custom transition options.
+        let screenSize: CGRect = UIScreen.main.bounds
+        let transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+        InteractiveSideMenu.shared.transitionOptions = transitionOptions
+
+        /// 3) Change any content item presentation options.
+        InteractiveSideMenu.shared.currentItemOptions.cornerRadius = 10.0
+
+        /// 4) Select the initial content controller.
+        menuViewController.selectInitialContentController(KittyViewController.storyboardViewController())
     }
 }
 ```
 
-## Items content
-To show menu, call `showSideMenu()` from any `SideMenuItemContent` controller.
+### Setting up the menu
+The `MenuViewController` class uses an array of `SideItemMenuContent` objects to display the menu list and provide the data necessary to create content controllers on-demand.
 ```swift
 import InteractiveSideMenu
 
-class KittyViewController: UIViewController, SideMenuItemContent {
+class SampleMenuViewController: MenuViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        /// Create the side menu items to be used by the table view.
+        itemContentControllers = createSideMenuContent()
+    }
+
+    func createSideMenuContent() -> [SideMenuItemContent] {
+        let kittyContent = SideMenuItemContent(menuTitle: "Kitty", classType: KittyViewController.self)
+        let tabBarContent = SideMenuItemContent(menuTitle: "Tab Bar", classType: TabBarViewController.self)
+        let tweakContent = SideMenuItemContent(menuTitle: "Tweak Settings", classType: TweakViewController.self)
+
+        return [kittyContent, tabBarContent, tweakContent]
+    }
+}
+```
+
+### Showing and hiding the Side Menu
+To show the menu, call the `showSideMenu()` function on the `InteractiveSideMenu` handler.
+To hide the menu, call the `closeSideMenu()` function on the `InteractiveSideMenu` handler.
+```swift
+import InteractiveSideMenu
+
+class KittyViewController: UIViewController {
     
+    /// Show side menu on menu button click
     @IBAction func openMenu(_ sender: UIButton) {
-        showSideMenu()
+        InteractiveSideMenu.shared.showSideMenu()
+    }
+
+    /// Hide side menu on menu button click
+    @IBAction func closeMenu(_ sender: UIButton) {
+        InteractiveSideMenu.shared.closeSideMenu()
     }
 }
 ``` 
-
-To change the currently visible controller, pass the desired controller to your `MenuContainerViewController`:
+### Showing a new content controller
+To show a different content controller from the side menu, pass the new controller to the Menu's `selectSideItemContent(_ :)` function.  This also automatically closes the side menu.
 ```swift
-    let index = 2 // Second menu item
-    guard let menuContainerViewController = self.menuContainerViewController else { return }
-    let contentController = menuContainerViewController.contentViewControllers[index]
-    menuContainerViewController.selectContentViewController(contentController)
-    menuContainerViewController.hideSideMenu()
- ```
- 
-### TabBar and Navigation controllers
+class SampleMenuViewController: MenuViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-To use menu with **TabBar** or **NavigationController**, ensure that you indicate UITabBarController or UINavigationController as item content directly, not any corresponding ViewControllers.
-```swift
-class NavigationViewController: UINavigationController, SideMenuItemContent {
-}
-
-class InnerViewController: UIViewController {
-
-    @IBAction func openMenu(_ sender: Any) {
-        if let navigationViewController = self.navigationController as? SideMenuItemContent {
-            navigationViewController.showSideMenu()
+        /// Using the `itemContentControllers` array, instantiate the controller only when needed.
+        /// Your instantiation mileage may vary.
+        let controllerType = itemContentControllers[indexPath.row].classType
+        let storyboard = UIStoryboard(name: String(describing: controllerType.self), bundle: nil)
+        guard let controller = storyboard.instantiateInitialViewController() else {
+            preconditionFailure("Invalid initial view controller")
         }
+
+        /// Tells the system to change the visible content controller
+        selectSideItemContent(controller)
     }
 }
-```
-Please, find UITabBarController implementation details in [Sample](./Sample).
+ ```
  
-## Animation Customization
-To customize the open and close animations, update the `transitionOptions` property on your `MenuContainerViewColtroller` subclass. The sample project does this in `viewDidLoad()`
- ```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
-    let screenSize: CGRect = UIScreen.main.bounds
-    self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
-    ...
-}
-```
-
+### Animation customization for different orientations
 To customize transition options for different orientations, override `viewWillTransition(to:with:)` and update the `transitionOptions`.  This can also be done with trait collections using `traitCollectionDidChange(_:)`
 ```swift
 override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    super.viewWillTransition(to: size, with: coordinator)
-    var options = TransitionOptions()
-    options.duration = size.width < size.height ? 0.4 : 0.6
-    options.visibleContentWidth = size.width / 6
-    self.transitionOptions = options
-}
+        super.viewWillTransition(to: size, with: coordinator)
+
+        var options = TransitionOptions()
+        options.duration = size.width < size.height ? 0.4 : 0.6
+        options.visibleContentWidth = size.width / 6
+        InteractiveSideMenu.shared.transitionOptions = options
+    }
 ```
 
  Check out the [Sample](./Sample) project for more details and usage examples.
  
 # Known Issues
-There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with the content controller's view not properly having the `safeAreaInsets` set.  This causes the view's layout to shift when the side menu is closed.  The issue appears to be tied to the transition options `contentScale` setting.  Choosing a value in the range 0.87 - 0.91 causes the `safeAreaInsets.top` to be set to `0.0`.  The default value of the library is no longer within this range but be mindful if changing that value for your own application.
+There is [an issue](https://github.com/handsomecode/InteractiveSideMenu/issues/53) associated with the content controller's view not properly having the `safeAreaInsets` set.  This causes the view's layout to shift when the side menu is closed.  The issue appears to be tied to the `transitionOptions`'s `contentScale` setting.  Choosing a value in the range 0.87 - 0.91 causes the `safeAreaInsets.top` to be set to `0.0`.  The default value of the library is no longer within this range but be mindful if changing that value for your own application.
 
 
 # Requirements
-- iOS 8.0+
-- Xcode 8.1+
-- Swift 3.0+
+- iOS 9.0+
+- Xcode 9.x
+- Swift 4.0
 
 
 # License
