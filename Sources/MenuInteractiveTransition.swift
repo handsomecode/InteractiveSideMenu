@@ -196,7 +196,9 @@ private extension MenuInteractiveTransition {
             return placeholderView
         }
 
-        snapshotView.layer.cornerRadius = currentItemOptions.cornerRadius
+        let cornerMask = CAShapeLayer()
+        cornerMask.path = UIBezierPath(roundedRect: snapshotView.bounds, cornerRadius: currentItemOptions.cornerRadius).cgPath
+        snapshotView.layer.mask = cornerMask
         snapshotView.layer.masksToBounds = true
 
         let baseView = UIView(frame: from.bounds)
