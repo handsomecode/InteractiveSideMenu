@@ -28,6 +28,10 @@ class TweakViewController: UIViewController, Storyboardable {
         visibilityValueLabel.text = "\(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth)"
     }
 
+    deinit {
+        print(String(format: "%@ did deinit", String(describing: self)))
+    }
+
     @IBAction func openMenu(_ sender: UIBarButtonItem) {
         InteractiveSideMenu.shared.showSideMenu()
     }

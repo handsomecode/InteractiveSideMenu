@@ -30,7 +30,11 @@ class KittyViewController: UIViewController, Storyboardable {
         InteractiveSideMenu.shared.delegate = self
     }
 
-    // Show side menu on menu button click
+    deinit {
+        print(String(format: "%@ did deinit", String(describing: self)))
+    }
+
+    /// Show side menu on menu button click
     @IBAction func openMenu(_ sender: UIButton) {
         InteractiveSideMenu.shared.showSideMenu()
     }

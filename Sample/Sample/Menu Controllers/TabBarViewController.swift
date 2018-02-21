@@ -25,6 +25,10 @@ class TabBarViewController: UITabBarController, Storyboardable {
         return .lightContent
     }
 
+    deinit {
+        print(String(format: "%@ did deinit", String(describing: self)))
+    }
+
     @IBAction func openMenu(_ sender: UIBarButtonItem) {
         InteractiveSideMenu.shared.showSideMenu()
     }
