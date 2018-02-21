@@ -22,6 +22,9 @@ protocol MenuViewControllerDelegate: class {
     func menuController(_ menuController: MenuViewController, showContentController contentController: UIViewController)
 }
 
+/**
+ The base class for the Side Menu.
+*/
 open class MenuViewController: UIViewController {
 
     public var itemContentControllers = [SideMenuItemContent]()

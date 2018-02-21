@@ -8,14 +8,17 @@
 
 import Foundation
 
-public enum MenuState: Int {
-    case opening, open, closing, closed
-}
-
 public protocol InteractiveSideMenuDelegate: class {
     func interactiveSideMenu(_ sideMenu: InteractiveSideMenu, didChangeMenuState menuState: MenuState)
 }
 
+public enum MenuState: Int {
+    case opening, open, closing, closed
+}
+
+/**
+ The main interface class of the library.
+*/
 public class InteractiveSideMenu {
 
     public static let shared = InteractiveSideMenu()
@@ -29,6 +32,10 @@ public class InteractiveSideMenu {
             navigationMenuTransitionDelegate.interactiveTransition.options = transitionOptions
         }
     }
+
+    /**
+     Customization options for the appearance of the content item while the menu is open
+    */
     public var currentItemOptions = SideMenuItemOptions() {
         didSet {
             navigationMenuTransitionDelegate.currentItemOptions = currentItemOptions
@@ -64,6 +71,9 @@ public class InteractiveSideMenu {
 }
 
 public extension InteractiveSideMenu {
+    /**
+     Sets up the host container and side menu controllers for usage inside of the library system.
+    */
     func setMenuContainerController(_ containerController: MenuContainerViewController,
                                     menuViewController: MenuViewController) {
         self.containerController = containerController
@@ -74,6 +84,10 @@ public extension InteractiveSideMenu {
         self.menuViewController = menuViewController
     }
 
+    /**
+     Notifies the system to show the side menu.
+     The animation is implicitly dispatched to the main queue.
+    */
     @objc func showSideMenu() {
         guard menuState != .opening || menuState != .open else { return }
 
@@ -94,6 +108,10 @@ public extension InteractiveSideMenu {
         }
     }
 
+    /**
+     Notifies the system to close the side menu.
+     The animation is implicitly dispatched to the main queue.
+    */
     @objc func closeSideMenu() {
         guard menuState != .closing || menuState != .closed else { return }
         guard let containerController = self.containerController else {

@@ -9,10 +9,14 @@
 import Foundation
 
 /**
- Defines the parameters for the shadow that is shown under to content controller when the side menu is open.
+ A struct used to define customization properties for the visible content controller.
+ These properties are only applied to the current content controller when the side menu is open.
 */
 public struct SideMenuItemOptions {
 
+    /**
+     Struct defining the drop shadow properties for the content controller
+    */
     public struct Shadow {
         public var color: UIColor? = UIColor.black
         public var opacity: CGFloat = 0.3
@@ -34,6 +38,10 @@ public struct SideMenuItemOptions {
 
     public var shadow = Shadow()
 
+    /**
+     Defines the corner radius for the content controller.
+     Defaults to 0.0
+    */
     public var cornerRadius: CGFloat = 0.0 {
         willSet {
             if newValue < 0 {
