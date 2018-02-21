@@ -34,21 +34,19 @@ class HostViewController: MenuContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        /// Instantiate menu view controller by identifier.
+        let menuViewController = SampleMenuViewController.storyboardViewController()
+        InteractiveSideMenu.shared.setMenuContainerController(self, menuViewController: menuViewController)
+
+        /// Set up any custom transition options.
         let screenSize: CGRect = UIScreen.main.bounds
         let transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
-
-        /// Instantiate menu view controller by identifier
-//        self.menuViewController = SampleMenuViewController.storyboardViewController()
-
-        /// Gather content items controllers
-//        self.contentViewControllers = contentControllers()
-
-        /// Select initial content controller. It's needed even if the first view controller should be selected.
-//        self.selectContentViewController(KittyViewController.storyboardViewController())
-
-        InteractiveSideMenu.shared.setMenuContainerController(self, menuViewController: SampleMenuViewController.storyboardViewController())
         InteractiveSideMenu.shared.transitionOptions = transitionOptions
+
+        /// Change any content item presentation options.
         InteractiveSideMenu.shared.currentItemOptions.cornerRadius = 10.0
+
+        /// Select the initial content controller.
         self.selectContentViewController(KittyViewController.storyboardViewController())
     }
 

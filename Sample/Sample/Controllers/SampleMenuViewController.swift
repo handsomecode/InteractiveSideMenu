@@ -43,9 +43,10 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        /// Create the side menu items to be used by the table view.
         contentControllerTypes = createSideMenuContent()
 
-        // Select the initial row
+        /// Select the initial row
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
         selectedIndexPath = indexPath

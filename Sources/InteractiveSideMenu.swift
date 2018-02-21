@@ -8,13 +8,18 @@
 
 import Foundation
 
-enum MenuState {
+public enum MenuState: Int {
     case opening, open, closing, closed
+}
+
+public protocol InteractiveSideMenuDelegate: class {
+    func interactiveSideMenu(_ sideMenu: InteractiveSideMenu, didChangeMenuState menuState: MenuState)
 }
 
 public class InteractiveSideMenu {
 
     public static let shared = InteractiveSideMenu()
+    public weak var delegate: InteractiveSideMenuDelegate?
 
     /**
      The options defining side menu transitioning.
@@ -32,7 +37,11 @@ public class InteractiveSideMenu {
 
     var containerController: MenuContainerViewController?
     var menuViewController: MenuViewController?
-    var menuState: MenuState = .closed
+    var menuState: MenuState = .closed {
+        didSet {
+            delegate?.interactiveSideMenu(self, didChangeMenuState: menuState)
+        }
+    }
     
     private var navigationMenuTransitionDelegate: MenuTransitioningDelegate
 

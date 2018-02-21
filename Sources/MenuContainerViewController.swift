@@ -29,11 +29,6 @@ open class MenuContainerViewController: UIViewController {
 
     fileprivate weak var currentContentViewController: UIViewController?
 
-    /**
-     The list of all content view controllers corresponding to side menu items.
-     */
-    public var contentViewControllers = [UIViewController]()
-
     // MARK: - Controller lifecycle
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)

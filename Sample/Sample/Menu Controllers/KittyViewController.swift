@@ -25,8 +25,19 @@ class KittyViewController: UIViewController, Storyboardable {
         return .lightContent
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        InteractiveSideMenu.shared.delegate = self
+    }
+
     // Show side menu on menu button click
     @IBAction func openMenu(_ sender: UIButton) {
         InteractiveSideMenu.shared.showSideMenu()
+    }
+}
+
+extension KittyViewController: InteractiveSideMenuDelegate {
+    func interactiveSideMenu(_ sideMenu: InteractiveSideMenu, didChangeMenuState menuState: MenuState) {
+        print("Menu State did change: \(menuState.rawValue)")
     }
 }
