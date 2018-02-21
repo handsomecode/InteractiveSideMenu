@@ -156,6 +156,14 @@ class SampleMenuViewController: MenuViewController {
     }
 }
  ```
+
+### Menu open and close feedback
+To get callbacks when the side menu is open, closed, or in transition, you can conform to `InteractiveSideMenuDelegate` to be notified when the side menu state changes.
+```swift
+public protocol InteractiveSideMenuDelegate: class {
+    func interactiveSideMenu(_ sideMenu: InteractiveSideMenu, didChangeMenuState menuState: MenuState)
+}
+```
  
 ### Animation customization for different orientations
 To customize transition options for different orientations, override `viewWillTransition(to:with:)` and update the `transitionOptions`.  This can also be done with trait collections using `traitCollectionDidChange(_:)`
