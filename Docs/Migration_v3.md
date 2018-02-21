@@ -71,7 +71,7 @@ public struct SideMenuItemContent {
 }
 ```
 
-This allows the content controllers on demand rather than preloading everything when the Host Container is instantiated.  Here is how the Sample app creates the content controllers
+This allows the content controllers to be created on demand rather than preloading everything when the Host Container is instantiated.  Here is how the Sample app creates the content controllers
 ```swift
 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controllerType = itemContentControllers[indexPath.row].classType
