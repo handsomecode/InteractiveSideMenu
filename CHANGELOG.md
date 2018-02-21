@@ -1,6 +1,21 @@
 # Change Log
 All notable changes of the library will be documented in this file.
 
+## 3.0
+Please review the v2 -> v3 migration guide _before_ updating to this version to make sure you understand the changes that will be needed.  Portions of the public interface needed to be changed to make the internals of the library more robust and scalable.
+
+### Added
+- `InteractiveSideMenu` is a global helper class for managing the current open/close state of the side menu.
+- `InteractiveSideMenuDelegate` to provide callbacks for open/close state changes of the side menu.
+
+### Changed
+- Content controllers are no longer pre-loaded when `MenuContainerViewController` is created and are now init'd/deinit'd only when needed.
+
+### Breaking
+- InteractiveSideMenu is now built using Swift 4.
+- Most of the presentation logic in `MenuContainerViewController` is now handled by `InteractiveSideMenu`.
+- Changed how `SideMenuItemContent` works.
+
 ## 2.3
 ### Changed
 - Renamed `SideMenuItemShadow` to `SideMenuItemOptions` to allow for additional visual properties to be changed. (Sorry for the volitility. The new name gives better flexibility going forward.)

@@ -55,6 +55,10 @@ github "handsomecode/InteractiveSideMenu"
 ```
 
 ## Usage
+
+### Migration Guide
+For updating from v2.x to v3.0, use our [migration guide](./CONTRIBUTING.md).
+
 To implement your side menu you should subclasses the following view controllers: `MenuContainerViewController` and `MenuViewController`
 - `MenuContainerViewController` is the main container that hosts the side menu and content controller
 - `MenuViewController` is the container controller for the side menu
