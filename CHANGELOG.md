@@ -8,6 +8,7 @@ Please review the v2 -> v3 migration guide _before_ updating to this version to 
 - `InteractiveSideMenu` is a global helper class for managing the current open/close state of the side menu.
 - `InteractiveSideMenuDelegate` to provide callbacks for open/close state changes of the side menu.
 - `sectionItemContentControllers` for handling a side menu with sections
+- `TransitionOptions` has a new flag called `rightToLeft` that allows the side menu to be opened either Left-to-Right or Right-to-Left.
 
 ### Changed
 - Content controllers are no longer pre-loaded when `MenuContainerViewController` is created and are now init'd/deinit'd only when needed.
