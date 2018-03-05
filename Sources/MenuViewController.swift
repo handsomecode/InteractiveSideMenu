@@ -27,7 +27,8 @@ protocol MenuViewControllerDelegate: class {
 */
 open class MenuViewController: UIViewController {
 
-    public var itemContentControllers = [SideMenuItemContent]()
+    public var itemContentControllers: [SideMenuItemContent]?
+    public var sectionItemContentControllers: [[SideMenuItemContent]]?
 
     weak var delegate: MenuViewControllerDelegate?
 }

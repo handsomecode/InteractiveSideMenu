@@ -79,7 +79,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemContentControllers.count
+        return itemContentControllers?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,7 +87,7 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
             preconditionFailure("Unregistered table view cell")
         }
         
-        cell.titleLabel.text = itemContentControllers[indexPath.row].menuTitle
+        cell.titleLabel.text = itemContentControllers?[indexPath.row].menuTitle
 
         return cell
     }
@@ -98,13 +98,15 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
 
-        let controllerType = itemContentControllers[indexPath.row].classType
-        let storyboard = UIStoryboard(name: String(describing: controllerType.self), bundle: nil)
-        guard let controller = storyboard.instantiateInitialViewController() else {
-            preconditionFailure("Invalid initial view controller")
+        if let itemControllers = itemContentControllers {
+            let controllerType = itemControllers[indexPath.row].classType
+            let storyboard = UIStoryboard(name: String(describing: controllerType.self), bundle: nil)
+            guard let controller = storyboard.instantiateInitialViewController() else {
+                preconditionFailure("Invalid initial view controller")
+            }
+            selectSideItemContent(controller)
+            selectedIndexPath = indexPath
         }
-        selectSideItemContent(controller)
-        selectedIndexPath = indexPath
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
