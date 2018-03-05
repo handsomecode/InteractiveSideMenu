@@ -54,10 +54,20 @@ class SampleMenuViewController: MenuViewController, Storyboardable {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+        tableView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        avatarImageViewCenterXConstraint.constant = -(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth/2)
+        var centerXConstant = (InteractiveSideMenu.shared.transitionOptions.visibleContentWidth / 2)
+        if !InteractiveSideMenu.shared.transitionOptions.rightToLeft {
+            centerXConstant *= -1
+        }
+        avatarImageViewCenterXConstraint.constant = centerXConstant
 
         if gradientLayer.superlayer != nil {
             gradientLayer.removeFromSuperlayer()
@@ -83,11 +93,22 @@ extension SampleMenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SampleTableCell.self), for: indexPath) as? SampleTableCell else {
-            preconditionFailure("Unregistered table view cell")
+        let cell: SampleTableCell
+        if InteractiveSideMenu.shared.transitionOptions.rightToLeft {
+            guard let rightCell = tableView.dequeueReusableCell(withIdentifier: String(describing: SampleRightTableCell.self), for: indexPath) as? SampleRightTableCell else {
+                preconditionFailure("Unregistered table view cell")
+            }
+
+            rightCell.titleLabel.text = itemContentControllers?[indexPath.row].menuTitle
+            cell = rightCell
+        } else {
+            guard let leftCell = tableView.dequeueReusableCell(withIdentifier: String(describing: SampleLeftTableCell.self), for: indexPath) as? SampleLeftTableCell else {
+                preconditionFailure("Unregistered table view cell")
+            }
+
+            leftCell.titleLabel.text = itemContentControllers?[indexPath.row].menuTitle
+            cell = leftCell
         }
-        
-        cell.titleLabel.text = itemContentControllers?[indexPath.row].menuTitle
 
         return cell
     }

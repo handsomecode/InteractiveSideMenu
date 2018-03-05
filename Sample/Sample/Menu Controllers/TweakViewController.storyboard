@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZP-x5-Bib" userLabel="Animation Container">
-                                <rect key="frame" x="64" y="156" width="246" height="76"/>
+                                <rect key="frame" x="64" y="176" width="246" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Animation Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljh-zq-MVc">
                                         <rect key="frame" x="0.0" y="0.0" width="246" height="21"/>
@@ -74,7 +75,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14M-Ay-GAi" userLabel="Scale Container">
-                                <rect key="frame" x="64" y="252" width="246" height="76"/>
+                                <rect key="frame" x="64" y="272" width="246" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contect Scale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc6-ru-tjk">
                                         <rect key="frame" x="0.0" y="0.0" width="246" height="21"/>
@@ -112,7 +113,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8c-TI-8tN" userLabel="Visibility Container">
-                                <rect key="frame" x="64" y="348" width="246" height="76"/>
+                                <rect key="frame" x="64" y="368" width="246" height="76"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content Visibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOZ-qG-agZ">
                                         <rect key="frame" x="0.0" y="0.0" width="246" height="21"/>
@@ -149,14 +150,52 @@
                                     <constraint firstItem="ATm-x8-bXd" firstAttribute="leading" secondItem="f8c-TI-8tN" secondAttribute="leading" constant="20" id="u43-LH-P4w"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dR-lt-cgz" userLabel="RightToLeft Container">
+                                <rect key="frame" x="60" y="464" width="254" height="88.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content Visibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZl-x3-YOM">
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umb-Tf-4g0">
+                                        <rect key="frame" x="102.5" y="27" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="rightToLeftDidChange:" destination="O1j-iI-1tU" eventType="valueChanged" id="H0Y-Yp-GcA"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toggling this will cause the side menu to reload and jump to the new layout." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qD8-aD-ULi">
+                                        <rect key="frame" x="8" y="62" width="238" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="CZl-x3-YOM" firstAttribute="top" secondItem="8dR-lt-cgz" secondAttribute="top" id="2bB-ny-HRg"/>
+                                    <constraint firstItem="umb-Tf-4g0" firstAttribute="top" secondItem="CZl-x3-YOM" secondAttribute="bottom" constant="6" id="5W9-dg-pot"/>
+                                    <constraint firstAttribute="trailing" secondItem="CZl-x3-YOM" secondAttribute="trailing" id="J60-GL-OmR"/>
+                                    <constraint firstItem="qD8-aD-ULi" firstAttribute="bottom" secondItem="8dR-lt-cgz" secondAttribute="bottom" id="UjT-r3-iI6"/>
+                                    <constraint firstItem="CZl-x3-YOM" firstAttribute="leading" secondItem="8dR-lt-cgz" secondAttribute="leading" id="eso-hI-5og"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="qD8-aD-ULi" secondAttribute="trailing" id="lnq-cm-Bcd"/>
+                                    <constraint firstItem="qD8-aD-ULi" firstAttribute="top" secondItem="umb-Tf-4g0" secondAttribute="bottom" constant="4" id="qHi-KT-fkf"/>
+                                    <constraint firstItem="qD8-aD-ULi" firstAttribute="leading" secondItem="8dR-lt-cgz" secondAttribute="leadingMargin" id="tzc-Gp-hhA"/>
+                                    <constraint firstItem="umb-Tf-4g0" firstAttribute="centerX" secondItem="0Xb-AY-Ynp" secondAttribute="centerX" id="v9k-Rc-vZe"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="0Xb-AY-Ynp"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="14M-Ay-GAi" firstAttribute="centerX" secondItem="m7R-d4-dsZ" secondAttribute="centerX" id="7aR-j3-cj4"/>
                             <constraint firstItem="14M-Ay-GAi" firstAttribute="top" secondItem="xZP-x5-Bib" secondAttribute="bottom" constant="20" id="Eb4-Rx-PwJ"/>
-                            <constraint firstItem="xZP-x5-Bib" firstAttribute="top" secondItem="m7R-d4-dsZ" secondAttribute="top" constant="40" id="Hd1-gu-Inf"/>
+                            <constraint firstItem="xZP-x5-Bib" firstAttribute="top" secondItem="m7R-d4-dsZ" secondAttribute="top" constant="60" id="Hd1-gu-Inf"/>
                             <constraint firstItem="f8c-TI-8tN" firstAttribute="centerX" secondItem="m7R-d4-dsZ" secondAttribute="centerX" id="Ktc-7k-bJv"/>
+                            <constraint firstItem="8dR-lt-cgz" firstAttribute="leading" secondItem="m7R-d4-dsZ" secondAttribute="leading" constant="60" id="LSn-7e-gRz"/>
+                            <constraint firstItem="8dR-lt-cgz" firstAttribute="centerX" secondItem="m7R-d4-dsZ" secondAttribute="centerX" id="UGl-Bw-6Wz"/>
                             <constraint firstItem="xZP-x5-Bib" firstAttribute="centerX" secondItem="m7R-d4-dsZ" secondAttribute="centerX" id="gLQ-I2-2yZ"/>
+                            <constraint firstItem="8dR-lt-cgz" firstAttribute="top" secondItem="f8c-TI-8tN" secondAttribute="bottom" constant="20" id="iCT-4x-LEY"/>
                             <constraint firstItem="f8c-TI-8tN" firstAttribute="top" secondItem="14M-Ay-GAi" secondAttribute="bottom" constant="20" id="qur-6z-BmC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m7R-d4-dsZ"/>
@@ -172,6 +211,7 @@
                     <connections>
                         <outlet property="animationDurationValueLabel" destination="nuF-oz-bcT" id="wdq-zk-h9U"/>
                         <outlet property="contentScaleValueLabel" destination="Ch6-JC-zRH" id="pLO-dO-xtr"/>
+                        <outlet property="rightToLeftSwitch" destination="umb-Tf-4g0" id="IKc-1e-fYz"/>
                         <outlet property="visibilitySlider" destination="ATm-x8-bXd" id="aXx-tu-GfQ"/>
                         <outlet property="visibilityValueLabel" destination="LmW-e8-ol0" id="50X-kl-l5C"/>
                     </connections>

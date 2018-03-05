@@ -15,6 +15,7 @@ class TweakViewController: UIViewController, Storyboardable {
     @IBOutlet private weak var contentScaleValueLabel: UILabel!
     @IBOutlet private weak var visibilityValueLabel: UILabel!
     @IBOutlet private weak var visibilitySlider: UISlider!
+    @IBOutlet private weak var rightToLeftSwitch: UISwitch!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
@@ -26,6 +27,7 @@ class TweakViewController: UIViewController, Storyboardable {
         visibilitySlider.maximumValue = Float(UIScreen.main.bounds.width)
         visibilitySlider.value = Float(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth)
         visibilityValueLabel.text = "\(InteractiveSideMenu.shared.transitionOptions.visibleContentWidth)"
+        rightToLeftSwitch.isOn = InteractiveSideMenu.shared.transitionOptions.rightToLeft
     }
 
     deinit {
@@ -49,5 +51,9 @@ class TweakViewController: UIViewController, Storyboardable {
     @IBAction func visibilityDidChange(_ slider: UISlider) {
         visibilityValueLabel.text = "\(CGFloat(slider.value))"
         InteractiveSideMenu.shared.transitionOptions.visibleContentWidth = CGFloat(slider.value)
+    }
+
+    @IBAction func rightToLeftDidChange(_ control: UISwitch) {
+        InteractiveSideMenu.shared.transitionOptions.rightToLeft = control.isOn
     }
 }

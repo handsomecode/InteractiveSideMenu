@@ -92,7 +92,6 @@ private extension MenuInteractiveTransition {
             fatalError("Invalid toViewController key. Can't start transition")
         }
         let containerView = transitionContext.containerView
-        let screenWidth = containerView.frame.size.width
 
         if present {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
@@ -114,12 +113,16 @@ private extension MenuInteractiveTransition {
 
             fromViewController.view.isHidden = true
         } else {
+            guard let contentSnapshotView = self.contentSnapshotView else {
+                fatalError("Invalid `transition.contentSnapshotView` value. This property should not be nil")
+            }
+
             containerView.addSubview(toViewController.view)
 
             toViewController.view.transform = CGAffineTransform(scaleX: options.contentScale, y: options.contentScale)
             addShadow(to: toViewController.view)
 
-            let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
+            let newOrigin = CGPoint(x: contentSnapshotView.frame.origin.x, y: toViewController.view.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
 
             toViewController.view.frame = rect
@@ -352,18 +355,24 @@ private extension MenuInteractiveTransition {
         }
         let containerView = transitionContext.containerView
         let screenWidth = containerView.frame.size.width
+        let scale: CGFloat = 1 - (1 - options.contentScale) * percentComplete
 
-        let totalWidth = screenWidth - options.visibleContentWidth
+        let totalWidth: CGFloat
+        if options.rightToLeft {
+            totalWidth = options.visibleContentWidth - (screenWidth * scale)
+        } else {
+            totalWidth = screenWidth - options.visibleContentWidth
+        }
+
 
         guard let contentSnapshotView = self.contentSnapshotView else {
             fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
         }
 
         if present {
-            let newScale = 1 - (1 - options.contentScale) * percentComplete
             let newX = totalWidth * percentComplete
 
-            contentSnapshotView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+            contentSnapshotView.transform = CGAffineTransform(scaleX: scale, y: scale)
 
             let newOrigin = CGPoint(x: newX, y: contentSnapshotView.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: contentSnapshotView.frame.size)

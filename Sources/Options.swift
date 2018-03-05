@@ -86,6 +86,9 @@ public struct TransitionOptions {
     /// Defines if spring animation will be used on menu transition cancelling (when user let draggable view to go back to the begining position). Default value is true.
     public var useCancellingSpringSettings = true
 
+    /// flag indicating if the side menu should open Left-to-Right or Right-to-Left.  Defaults to false (opens left-to-right).
+    public var rightToLeft = false
+
     /// Spring animation settings if `useFinishingSpringSettings` is set to true.
     public var finishingSpringSettings = SpringSettings(presentSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.3),
                                                         dismissSpringParams: SpringParams(dampingRatio: 0.8, velocity: 0.3))

@@ -25,3 +25,6 @@ class SampleTableCell: UITableViewCell {
         titleLabel.textColor = selected ? UIColor.yellow : UIColor.white
     }
 }
+
+class SampleLeftTableCell: SampleTableCell { }
+class SampleRightTableCell: SampleTableCell { }
