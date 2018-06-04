@@ -109,7 +109,7 @@ private extension MenuInteractiveTransition {
                 panRecognizer = UIPanGestureRecognizer(target: self,
                                                        action: #selector(MenuInteractiveTransition.handlePanDismission(recognizer:)))
             }
-
+            fromViewController.view.frame = CGRect(x: fromViewController.view.frame.origin.x, y: fromViewController.view.frame.origin.y, width: fromViewController.view.frame.size.width, height: fromViewController.view.frame.size.height+55)
             contentSnapshotView = createSnapshotView(from: fromViewController.view)
 
             guard let contentSnapshotView = self.contentSnapshotView else {
