@@ -169,7 +169,7 @@ fileprivate extension MenuContainerViewController {
         view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
         currentContentViewController = selectedContentVC
     }
-
+    
     /**
      Presents left side menu.
      */
@@ -177,15 +177,20 @@ fileprivate extension MenuContainerViewController {
         if menuViewController == nil {
             fatalError("Invalid `menuViewController` value. It should not be nil")
         }
-        present(menuViewController, animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            guard let menuViewController = self?.menuViewController else { return }
+            self?.present(menuViewController, animated: true, completion: nil)
+        }
         isShown = true
     }
-
+    
     /**
      Dismisses left side menu.
      */
     func dismissNavigationMenu() {
-        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         isShown = false
     }
 }
