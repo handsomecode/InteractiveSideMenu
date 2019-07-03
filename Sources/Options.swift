@@ -95,7 +95,7 @@ public struct TransitionOptions {
                                                          dismissSpringParams: SpringParams(dampingRatio: 0.7, velocity: 0.0))
 
     /// Regular view animation options. Default value is `curveEaseInOut`.
-    public var animationOptions: UIViewAnimationOptions = .curveEaseInOut
+    public var animationOptions: UIView.AnimationOptions = .curveEaseInOut
 
     public init(duration: TimeInterval = 0.5, contentScale: CGFloat = 0.86, visibleContentWidth: CGFloat = 56.0) {
         self.duration = duration
