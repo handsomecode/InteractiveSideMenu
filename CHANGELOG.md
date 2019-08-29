@@ -1,6 +1,14 @@
 # Change Log
 All notable changes of the library will be documented in this file.
 
+
+## 2.4
+### Changed
+- Changed syntax  `UIViewAnimationOptions` to `UIView.AnimationOptions` `animationOptions` variable in Options.swift .
+- Changed syntax `removeFromParentViewController()` to `removeFromParent()` in  `selectContentViewController` function in MenuContainerViewController.
+- Changed syntax `addChildViewController()` to `addChild()`  in  `setCurrentView` function in MenuContainerViewController.
+
+
 ## 2.3
 ### Changed
 - Renamed `SideMenuItemShadow` to `SideMenuItemOptions` to allow for additional visual properties to be changed. (Sorry for the volitility. The new name gives better flexibility going forward.)
