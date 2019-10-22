@@ -49,6 +49,7 @@ open class MenuContainerViewController: UIViewController {
             if menuViewController == nil {
                 fatalError("Invalid `menuViewController` value. It should not be nil")
             }
+            menuViewController.modalPresentationStyle = .fullScreen
             menuViewController.menuContainerViewController = self
             menuViewController.transitioningDelegate = navigationMenuTransitionDelegate
             menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
