@@ -49,6 +49,7 @@ open class MenuContainerViewController: UIViewController {
             if menuViewController == nil {
                 fatalError("Invalid `menuViewController` value. It should not be nil")
             }
+            menuViewController.modalPresentationStyle = .fullScreen
             menuViewController.menuContainerViewController = self
             menuViewController.transitioningDelegate = navigationMenuTransitionDelegate
             menuViewController.navigationMenuTransitionDelegate = navigationMenuTransitionDelegate
@@ -147,7 +148,7 @@ extension MenuContainerViewController {
         if let currentContentVC = currentContentViewController {
             if currentContentVC != selectedContentVC {
                 currentContentVC.view.removeFromSuperview()
-                currentContentVC.removeFromParentViewController()
+                currentContentVC.removeFromParent()
 
                 setCurrentView(selectedContentVC)
             }
@@ -165,7 +166,7 @@ fileprivate extension MenuContainerViewController {
      - parameter selectedContentVC: The view controller to be added.
      */
     func setCurrentView(_ selectedContentVC: UIViewController) {
-        addChildViewController(selectedContentVC)
+        addChild(selectedContentVC)
         view.addSubviewWithFullSizeConstraints(view: selectedContentVC.view)
         currentContentViewController = selectedContentVC
     }
