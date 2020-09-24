@@ -124,8 +124,10 @@ private extension MenuInteractiveTransition {
 
             toViewController.view.transform = CGAffineTransform(scaleX: options.contentScale, y: options.contentScale)
             addShadow(to: toViewController.view)
-
-            let newOrigin = CGPoint(x: screenWidth - options.visibleContentWidth, y: toViewController.view.frame.origin.y)
+            
+            let isLeft = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
+            
+            let newOrigin = CGPoint(x: CGFloat(isLeft) * screenWidth + options.visibleContentWidth, y: toViewController.view.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
 
             toViewController.view.frame = rect
@@ -284,8 +286,14 @@ private extension MenuInteractiveTransition {
         let dx = translation.x / recognizerView.bounds.width
         let progress: CGFloat = abs(dx)
         var velocity = recognizer.velocity(in: recognizerView).x
-
+        
         if !present {
+            velocity = -velocity
+        }
+        
+        let isLeft = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? true : false
+        
+        if (!isLeft) {
             velocity = -velocity
         }
 
@@ -303,12 +311,22 @@ private extension MenuInteractiveTransition {
             }
 
         case .changed:
-            if transitionStarted && (present && dx > 0 || !present && dx < 0) {
-                guard let transitionContext = transitionContext else {
-                    fatalError("Invalid `transitionContext` value. This property should not be nil")
+            if (!isLeft) {
+                if transitionStarted && (present && dx < 0 || !present && dx > 0) {
+                    guard let transitionContext = transitionContext else {
+                        fatalError("Invalid `transitionContext` value. This property should not be nil")
+                    }
+                    updateTransition(percentComplete: progress)
+                    transitionContext.updateInteractiveTransition(progress)
                 }
-                updateTransition(percentComplete: progress)
-                transitionContext.updateInteractiveTransition(progress)
+            } else {
+                if transitionStarted && (present && dx > 0 || !present && dx < 0) {
+                    guard let transitionContext = transitionContext else {
+                        fatalError("Invalid `transitionContext` value. This property should not be nil")
+                    }
+                    updateTransition(percentComplete: progress)
+                    transitionContext.updateInteractiveTransition(progress)
+                }
             }
 
         case .cancelled, .ended:
@@ -316,12 +334,23 @@ private extension MenuInteractiveTransition {
                 guard let transitionContext = transitionContext else {
                     fatalError("Invalid `transitionContext` value. This property should not be nil")
                 }
-                if progress > 0.2 && velocity >= 0 {
-                    finishTransition(currentPercentComplete: progress)
-                    transitionContext.finishInteractiveTransition()
+                
+                if (!isLeft) {
+                    if progress < 0.2 && velocity <= 0 {
+                        cancelTransition(currentPercentComplete: progress)
+                        transitionContext.cancelInteractiveTransition()
+                    } else {
+                        finishTransition(currentPercentComplete: progress)
+                        transitionContext.finishInteractiveTransition()
+                    }
                 } else {
-                    cancelTransition(currentPercentComplete: progress)
-                    transitionContext.cancelInteractiveTransition()
+                    if progress > 0.2 && velocity >= 0 {
+                        finishTransition(currentPercentComplete: progress)
+                        transitionContext.finishInteractiveTransition()
+                    } else {
+                        cancelTransition(currentPercentComplete: progress)
+                        transitionContext.cancelInteractiveTransition()
+                    }
                 }
 
             } else if transitionShouldStarted, !transitionStarted {
@@ -358,6 +387,8 @@ private extension MenuInteractiveTransition {
         guard let contentSnapshotView = self.contentSnapshotView else {
             fatalError("Invalid `contentSnapshotView` value. This property should not be nil")
         }
+        
+        let isLeft = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? 1 : -1
 
         if present {
             let newScale = 1 - (1 - options.contentScale) * percentComplete
@@ -365,7 +396,7 @@ private extension MenuInteractiveTransition {
 
             contentSnapshotView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
 
-            let newOrigin = CGPoint(x: newX, y: contentSnapshotView.frame.origin.y)
+            let newOrigin = CGPoint(x: CGFloat(isLeft) * newX, y: contentSnapshotView.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: contentSnapshotView.frame.size)
 
             contentSnapshotView.frame = rect
@@ -380,7 +411,7 @@ private extension MenuInteractiveTransition {
             let newScale = options.contentScale + (1 - options.contentScale) * percentComplete
             toViewController.view.transform = CGAffineTransform(scaleX: newScale, y: newScale)
 
-            let newOrigin = CGPoint(x: newX, y: toViewController.view.frame.origin.y)
+            let newOrigin = CGPoint(x: CGFloat(isLeft) * newX, y: toViewController.view.frame.origin.y)
             let rect = CGRect(origin: newOrigin, size: toViewController.view.frame.size)
 
             toViewController.view.frame = rect
