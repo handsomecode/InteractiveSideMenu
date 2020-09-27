@@ -216,7 +216,12 @@ private extension MenuInteractiveTransition {
     func addShadow(to view: UIView) {
         view.layer.shadowColor = currentItemOptions.shadow.color?.cgColor
         view.layer.shadowOpacity = Float(currentItemOptions.shadow.opacity)
-        view.layer.shadowOffset = currentItemOptions.shadow.offset
+        let isLeft = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight ? true : false
+        if (isLeft) {
+            view.layer.shadowOffset = currentItemOptions.shadow.offset
+        } else {
+            view.layer.shadowOffset = currentItemOptions.shadow.offset_reverse
+        }
         view.layer.shadowRadius = currentItemOptions.shadow.radius
         view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: currentItemOptions.cornerRadius).cgPath
         view.layer.shouldRasterize = true
